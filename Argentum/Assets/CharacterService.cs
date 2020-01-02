@@ -13,11 +13,9 @@ public class CharacterService
         this.mongodao = new GenericMongoDAO<Character>(typeof(Character).ToString());
     }
 
-    //Method out of service
     public void CreateCharacter(string name, Attributes attributes, Skills skills)
     {
         Character newCharacter = new Character(name, attributes, skills);
-
         mongodao.Save(newCharacter);
     }
 
@@ -32,7 +30,7 @@ public class CharacterService
         mongodao.Delete(this.query(name));
     }
 
-    public Character findCharacter(string name)
+    public Character fetchCharacter(string name)
     {
         return mongodao.get(this.query(name));
     }
