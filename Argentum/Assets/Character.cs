@@ -26,7 +26,7 @@ public class Character
     public Item shield;
     public Item weapon;
     public Item helmet;
-    public List<Item> inventory;
+    public Inventory inv;
     public HashSet<Spell> spells;
     /*** Character Equipment ***/
 
@@ -44,7 +44,7 @@ public class Character
         this.shield = null;
         this.weapon = null;
         this.helmet = null;
-        this.inventory = new List<Item>();
+        this.inv = new Inventory();
         this.spells = new HashSet<Spell>();
     }
 
@@ -76,14 +76,14 @@ public class Character
     {
         switch (i)
         {
-            case Consumable it when  it.name == "Gold":
+            case Consumable it when it.name == "Gold":
                 this.gold += it.gold;
                 break;
-            case Item it when this.inventory.Exists(ite => ite.name == it.name):
-                this.inventory.Find(ite => ite.name == i.name).quantity += it.quantity;
+            case Item it when this.inv.existsItem(it.name):
+                this.inv.AddQuantity(name, it.quantity);
                 break;
             default:
-                this.inventory.Add(i);
+                this.inv.AddItem(i);
                 break;
         }  
     }
@@ -126,7 +126,7 @@ public class Character
 
     public void SellItem(int value, Item i)
     {
-        this.inventory.Remove(i);
+        this.inv.RemoveItem(i);
         this.gold += value;
     }
 
@@ -137,11 +137,11 @@ public class Character
 
     public void UseItem(string itemName)
     {
-        var item = this.inventory.Find(i => i.name == itemName);
+        var item = this.inv.fetchItem(itemName);
         item.Use(this);
         if(item.isEmpty())
         {
-            this.inventory.Remove(item);
+            this.inv.RemoveItem(item);
         }
     }
 
