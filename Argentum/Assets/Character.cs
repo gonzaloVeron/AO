@@ -76,7 +76,7 @@ public class Character
     {
         switch (i)
         {
-            case Consumible it when  it.name == "Gold":
+            case Consumable it when  it.name == "Gold":
                 this.gold += it.gold;
                 break;
             case Item it when this.inventory.Exists(ite => ite.name == it.name):
