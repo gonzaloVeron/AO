@@ -37,7 +37,7 @@ public class Character
         this.xp = 0;
         this.xpMax = 10;
         this.lvl = 1;
-        this.state = new State(100, 0, 100, 100); //hambre y sed siempre empieza en 100 y no se modifica nunca, la vida y la mana deberian calcularse con los atributos
+        this.state = new State(100, 0, 0, 100, 100); //hambre y sed siempre empieza en 100 y no se modifica nunca, la vida y la mana deberian calcularse con los atributos
         this.attributes = attributes;
         this.skills = skills;
         this.armor = null;
@@ -74,8 +74,20 @@ public class Character
 
     public void TakeItem(Item i)
     {
-        this.inventory.Add(i);
+        switch (i)
+        {
+            case Consumible it when  it.name == "Gold":
+                this.gold += it.gold;
+                break;
+            case Item it when this.inventory.Exists(ite => ite.name == it.name):
+                this.inventory.Find(ite => ite.name == i.name).quantity += it.quantity;
+                break;
+            default:
+                this.inventory.Add(i);
+                break;
+        }  
     }
+    
 
     public void LearnSpell(Spell s)
     {
@@ -123,5 +135,14 @@ public class Character
         this.faction = faction;
     }
 
+    public void UseItem(string itemName)
+    {
+        var item = this.inventory.Find(i => i.name == itemName);
+        item.Use(this);
+        if(item.isEmpty())
+        {
+            this.inventory.Remove(item);
+        }
+    }
 
 }
