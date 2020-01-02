@@ -14,10 +14,11 @@ public class CharacterService
     }
 
     //Method out of service
-    public void CreateCharacter(string name)
+    public void CreateCharacter(string name, Attributes attributes, Skills skills)
     {
-        //Character newCharacter = new Character(name);
-        //mongodao.Save(newCharacter);
+        Character newCharacter = new Character(name, attributes, skills);
+
+        mongodao.Save(newCharacter);
     }
 
     //Deberia recibir el objeto ya modificado
