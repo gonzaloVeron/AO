@@ -22,4 +22,5 @@ public class Attributes
         this.lucky = lucky;
         this.wisdom = wisdom;
     }
+
 }
