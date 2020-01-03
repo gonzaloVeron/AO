@@ -22,7 +22,14 @@ public class Equipable : Item
 
     public override void Use(Character other)
     {
-        throw new System.NotImplementedException();
+        other.armor.item1 = this.armor.item1;
+        other.armor.item2 = this.armor.item2;
+        other.helmet.item1 = this.helmet.item1;
+        other.helmet.item2 = this.helmet.item2;
+        other.shield.item1 = this.shield.item1;
+        other.shield.item2 = this.shield.item2;
+        other.weapon.item1 = this.weapon.item1;
+        other.weapon.item2 = this.weapon.item2;
     }
 
     public override Item toDrop(int quantity, bool needRemove, Inventory inv)

@@ -22,10 +22,10 @@ public class Character
     public Skills skills;
     /*** Character State ***/
     /*** Character Equipment ***/
-    public Item armor;
-    public Item shield;
-    public Item weapon;
-    public Item helmet;
+    public Tuple<int, int> armor;
+    public Tuple<int, int> shield;
+    public Tuple<int, int> weapon;
+    public Tuple<int, int> helmet;
     public Inventory inv;
     public HashSet<Spell> spells;
     /*** Character Equipment ***/
@@ -40,10 +40,10 @@ public class Character
         this.state = new State(100, 0, 0, 100, 100); //hambre y sed siempre empieza en 100 y no se modifica nunca, la vida y la mana deberian calcularse con los atributos
         this.attributes = attributes;
         this.skills = skills;
-        this.armor = null;
-        this.shield = null;
-        this.weapon = null;
-        this.helmet = null;
+        this.armor = new Tuple<int, int>(0, 0);
+        this.shield = new Tuple<int, int>(0, 0);
+        this.weapon = new Tuple<int, int>(0, 0);
+        this.helmet = new Tuple<int, int>(0, 0);
         this.inv = new Inventory();
         this.spells = new HashSet<Spell>();
     }
@@ -85,9 +85,9 @@ public class Character
             default:
                 this.inv.AddItem(i);
                 break;
-        }  
+        }
     }
-    
+
     public Consumable dropGold(int value)
     {
         this.gold -= value;
@@ -131,7 +131,7 @@ public class Character
 
     public void SellItem(int value, Item i)
     {
-        this.inv.RemoveItem(i);
+        this.inv.RemoveItemByQuantity(i.name, i.quantity);
         this.gold += value;
     }
 
@@ -144,7 +144,7 @@ public class Character
     {
         var item = this.inv.fetchItem(itemName);
         item.Use(this);
-        if(item.isEmpty())
+        if (item.isEmpty())
         {
             this.inv.RemoveItem(item);
         }
@@ -152,6 +152,6 @@ public class Character
 
     public Item dropItem(string name, int quantity)
     {
-        return this.inv.RemoveItemByQuantity(name, quantity);
+        return this.inv.itemToDrop(name, quantity);
     }
 }

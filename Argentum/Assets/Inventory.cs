@@ -21,10 +21,22 @@ public class Inventory
         return inv.Find(i => i.name == name);
     }
 
-    public Item RemoveItemByQuantity(string name, int quantity)
+    public Item itemToDrop(string name, int quantity)
     {
         Item item = this.inv.Find(i => i.name == name);
         return item.toDrop(quantity, item.quantity - quantity <= 0,  this);
+    }
+    public void RemoveItemByQuantity(string name, int quantity)
+    {
+        Item item = this.fetchItem(name);
+        if(item.quantity - quantity <= 0)
+        {
+            this.RemoveItem(item);
+        }
+        else
+        {
+            item.quantity -= quantity;
+        }
     }
 
     public void RemoveItem(Item i)
@@ -45,6 +57,11 @@ public class Inventory
     public bool isEmpty()
     {
         return inv.Count == 0;
+    }
+
+    public int itemsAmount()
+    {
+        return this.inv.Count;
     }
 
     //Funcion creada por culpa de fidel
