@@ -80,7 +80,7 @@ public class Character
                 this.gold += it.gold;
                 break;
             case Item it when this.inv.existsItem(it.name):
-                this.inv.AddQuantity(name, it.quantity);
+                this.inv.AddQuantity(it.name, it.quantity);
                 break;
             default:
                 this.inv.AddItem(i);
@@ -88,6 +88,11 @@ public class Character
         }  
     }
     
+    public Consumable dropGold(int value)
+    {
+        this.gold -= value;
+        return new Consumable("Gold", 0, 0, 0, 0, 0, value, 1);
+    }
 
     public void LearnSpell(Spell s)
     {
@@ -145,4 +150,8 @@ public class Character
         }
     }
 
+    public Item dropItem(string name, int quantity)
+    {
+        return this.inv.RemoveItemByQuantity(name, quantity);
+    }
 }

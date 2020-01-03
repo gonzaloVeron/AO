@@ -25,6 +25,20 @@ public class Equipable : Item
         throw new System.NotImplementedException();
     }
 
+    public override Item toDrop(int quantity, bool needRemove, Inventory inv)
+    {
+        if (needRemove)
+        {
+            inv.RemoveItem(this);
+            return new Equipable(this.name, this.armor.item1, this.armor.item2, this.helmet.item1, this.helmet.item2, this.shield.item1, this.shield.item2, this.weapon.item1, this.weapon.item2, this.quantity);
+        }
+        else
+        {
+            this.quantity -= quantity;
+            return new Equipable(this.name, this.armor.item1, this.armor.item2, this.helmet.item1, this.helmet.item2, this.shield.item1, this.shield.item2, this.weapon.item1, this.weapon.item2, quantity);
+        }
+    }
+
 }
 
 

@@ -21,6 +21,11 @@ public class Inventory
         return inv.Find(i => i.name == name);
     }
 
+    public Item RemoveItemByQuantity(string name, int quantity)
+    {
+        Item item = this.inv.Find(i => i.name == name);
+        return item.toDrop(quantity, item.quantity - quantity <= 0,  this);
+    }
 
     public void RemoveItem(Item i)
     {

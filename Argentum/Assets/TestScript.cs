@@ -24,6 +24,11 @@ public class TestScript : MonoBehaviour
         spore.TakeItem(item4);
         spore.TakeItem(item5);
 
+        Item i = spore.dropItem("Pocion Roja", 5);
+
+        Debug.Log(spore.inv.fetchItem("Pocion Roja").quantity);
+        Debug.Log(spore.inv.inv.Count);
+        Debug.Log("Item tirado: " + i.name + "," + "cantidad: " + i.quantity);
 
     }
 }

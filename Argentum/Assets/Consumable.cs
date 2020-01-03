@@ -33,4 +33,18 @@ public class Consumable : Item
         this.quantity -= 1;
     }
 
+    public override Item toDrop(int quantity, bool needRemove, Inventory inv)
+    {
+        if(needRemove)
+        {
+            inv.RemoveItem(this);
+            return new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, this.gold, this.quantity);
+        }
+        else
+        {
+            this.quantity -= quantity;
+            return new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, this.gold, quantity);
+        }
+    }
+
 }
