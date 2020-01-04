@@ -6,6 +6,7 @@ public abstract class Classification
 {
     public abstract int calculateLifePoints(int constitution);
     public abstract int calculateManaPerLevel(int intelligence);
+    public abstract int initialMana();
     public abstract int hitPointsPerLevel(int characterLvl);
     public abstract float meleeDamageMod();
     public abstract float meleeAimMod();

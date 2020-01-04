@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bandit : Classification
+public class Wizard : Classification
 {
     public override int calculateLifePoints(int constitution)
     {
         switch (constitution)
         {
             case 18:
-                return Random.Range(6, 11);
+                return Random.Range(4, 9);
             case 19:
-                return Random.Range(7, 11);
+                return Random.Range(5, 9);
             case 20:
-                return Random.Range(7, 12);
+                return Random.Range(5, 10);
             case 21:
-                return Random.Range(8, 12);
+                return Random.Range(6, 10);
             default:
                 throw new System.Exception("Calculo de vida con una constitucion incorrecta");
         }
@@ -23,51 +23,54 @@ public class Bandit : Classification
 
     public override int calculateManaPerLevel(int intelligence)
     {
-        throw new System.NotImplementedException();
+        return Mathf.RoundToInt(intelligence * 3.74f - 20);
     }
-
+    public override int initialMana()
+    {
+        return 70;
+    }
     public override float defenseEvasionMod()
     {
-        throw new System.NotImplementedException();
+        return 0.4f;
     }
 
     public override float defenseShieldMod()
     {
-        throw new System.NotImplementedException();
+        return 0f;
     }
 
     public override int hitPointsPerLevel(int characterLvl)
     {
-        throw new System.NotImplementedException();
+        return 1;
     }
 
     public override float meleeAimMod()
     {
-        throw new System.NotImplementedException();
+        return 0.5f;
     }
 
     public override float meleeDamageMod()
     {
-        throw new System.NotImplementedException();
+        return 0.7f;
     }
 
     public override float projectileWeaponAimMod()
     {
-        throw new System.NotImplementedException();
+        return 0.5f;
     }
 
     public override float projectileWeaponDamageMod()
     {
-        throw new System.NotImplementedException();
+        return 0.5f;
     }
 
     public override float withoutWeaponAimMod()
     {
-        throw new System.NotImplementedException();
+        return 0.3f;
     }
 
     public override float withoutWeaponDamageMod()
     {
-        throw new System.NotImplementedException();
+        return 0.4f;
     }
 }

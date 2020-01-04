@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Assassin : Classification
+public class WorkingMan : Classification
 {
-
     public override int calculateLifePoints(int constitution)
     {
         switch (constitution)
         {
             case 18:
-                return Random.Range(5, 10); //min inclusive, max exclusive se requeria 5/9
+                return Random.Range(6, 11);
             case 19:
-                return Random.Range(6, 10); //min inclusive, max exclusive se requeria 6/9
+                return Random.Range(7, 11);
             case 20:
-                return Random.Range(6, 11); //min inclusive, max exclusive se requeria 6/10
+                return Random.Range(7, 12);
             case 21:
-                return Random.Range(7, 11); //min inclusive, max exclusive se requeria 7/10
+                return Random.Range(8, 12);
             default:
                 throw new System.Exception("Calculo de vida con una constitucion incorrecta");
         }
@@ -24,22 +23,27 @@ public class Assassin : Classification
 
     public override int calculateManaPerLevel(int intelligence)
     {
-        return intelligence;
+        return 0;
+    }
+
+    public override int initialMana()
+    {
+        return 0;
     }
 
     public override float defenseEvasionMod()
     {
-        return 1.1f;
+        return 0.8f;
     }
 
     public override float defenseShieldMod()
     {
-        return 0.8f;
+        return 0.85f;
     }
 
     public override int hitPointsPerLevel(int characterLvl)
     {
-        return characterLvl < 36 ? 3 : 1; 
+        return 2;
     }
 
     public override float meleeAimMod()
@@ -49,12 +53,12 @@ public class Assassin : Classification
 
     public override float meleeDamageMod()
     {
-        return 0.9f;
+        return 0.8f;
     }
 
     public override float projectileWeaponAimMod()
     {
-        return 0.75f;
+        return 0.9f;
     }
 
     public override float projectileWeaponDamageMod()
@@ -69,6 +73,6 @@ public class Assassin : Classification
 
     public override float withoutWeaponDamageMod()
     {
-        return 0.9f;
+        return 0.8f;
     }
 }
