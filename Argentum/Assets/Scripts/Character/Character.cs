@@ -29,6 +29,7 @@ public class Character
     public Inventory inv;
     public HashSet<Spell> spells;
     /*** Character Equipment ***/
+    public Tuple<int, int> hitPoints;
 
     public Character(string name, Attributes attributes, Skills skills)
     {
@@ -46,6 +47,7 @@ public class Character
         this.helmet = new Tuple<int, int>(0, 0);
         this.inv = new Inventory();
         this.spells = new HashSet<Spell>();
+        this.hitPoints = new Tuple<int, int>(1, 2);
     }
 
     public void Attack(Character other)
@@ -69,7 +71,12 @@ public class Character
 
     public int damage()
     {
-        return this.attributes.strength; //Falta agregar el daño del arma y otros
+        return Random.Range(this.physicalDamage(this.weapon.item1, this.hitPoints.item1), this.physicalDamage(this.weapon.item2, this.hitPoints.item2));
+    }
+
+    private int physicalDamage(int damage, int hitPoints)
+    {
+        return Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.item2 / 5) * (this.attributes.strength - 15)) + hitPoints) * this.clasf.meleeDamageMod());
     }
 
     public void TakeItem(Item i)

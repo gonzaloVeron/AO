@@ -53,7 +53,7 @@ public class Warrior : Classification
 
     public override float meleeDamageMod()
     {
-        return 1f;
+        return 1.1f;
     }
 
     public override float projectileWeaponAimMod()

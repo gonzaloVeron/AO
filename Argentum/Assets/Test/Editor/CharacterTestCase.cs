@@ -33,8 +33,17 @@ public class CharacterTestCase
     public void AttackTest()
     {
         var experienceExpected = 2;
-        var lifeExpected = 88;
+        var lifeExpected = 90;
+
+        spore.clasf = new Warrior();
+        spore.weapon.item1 = 1;
+        spore.weapon.item2 = 1;
+        spore.attributes.strength = 40;
+        spore.hitPoints.item2 = 1;
+        spore.hitPoints.item1 = 1;
+
         spore.Attack(other);
+
         Assert.AreEqual(lifeExpected, other.state.lifePoints);
         Assert.AreEqual(experienceExpected, spore.xp);
     }
@@ -50,8 +59,16 @@ public class CharacterTestCase
     [Test]
     public void DamageTest()
     {
-        var damageExpected = 12;
-        Assert.AreEqual(damageExpected, spore.damage());
+        var damagesExpected = new Range(253, 296).calculateRange();
+
+        spore.clasf = new Warrior();
+        spore.hitPoints.item1 = 109;
+        spore.hitPoints.item2 = 109;
+        spore.attributes.strength = 40;
+        spore.weapon.item1 = 7;
+        spore.weapon.item2 = 20;
+
+        Assert.IsTrue(damagesExpected.Contains(spore.damage()));
     }
 
     [Test]
