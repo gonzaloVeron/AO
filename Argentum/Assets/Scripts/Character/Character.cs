@@ -60,18 +60,36 @@ public class Character
     //Lanzar hechizo
     public void castSpell(Character other, Spell s)
     {
-        other.BeingAttacked(5); //Reemplazar 5 por s.magicDamage()    
+        other.BeAttackedWithMagic(this.magicDamage(s.minDamage, s.maxDamage, this.extraMagicDamage())); 
     }
 
     public void BeingAttacked(int value)
     {
-        this.state.lifePoints -= value;
-        //Falta calcular la defensa total y restarla al daño "value"
+        this.state.lifePoints -= Mathf.Max(0, value - Random.Range(this.armor.item1 + this.shield.item1 + this.helmet.item1, this.armor.item2 + this.shield.item2 + this.helmet.item2 + 1));
+    }
+
+    public void BeAttackedWithMagic(int value)
+    {
+        this.state.lifePoints -= value; //restar defensa magica a value y no restar daño magico menor a 0
     }
 
     public int damage()
     {
         return Random.Range(this.physicalDamage(this.weapon.item1, this.hitPoints.item1), this.physicalDamage(this.weapon.item2, this.hitPoints.item2));
+    }
+
+    public int magicDamage(int minSpellDamage, int maxSpellDamage, int extraMagicDamage)
+    {
+        return Mathf.RoundToInt((70 + extraMagicDamage) * ((float)this.spellDamage(minSpellDamage, maxSpellDamage) / 100));
+    }
+    public int extraMagicDamage()
+    {
+        return 0;
+    }
+
+    public int spellDamage(int minDamage, int maxDamage)
+    {
+        return Random.Range(Mathf.RoundToInt(minDamage + ((float)(minDamage * 3 * this.lvl) / 100)), Mathf.RoundToInt(maxDamage + ((float)(maxDamage * 3 * this.lvl) / 100)) + 1);
     }
 
     private int physicalDamage(int damage, int hitPoints)

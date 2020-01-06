@@ -51,9 +51,16 @@ public class CharacterTestCase
     [Test]
     public void BeingAttacked()
     {
-        var lifeExpected = 95;
-        spore.BeingAttacked(5);
-        Assert.AreEqual(lifeExpected, spore.state.lifePoints);
+        spore.armor = new Tuple<int, int>(15, 25);
+        spore.helmet = new Tuple<int, int>(5, 10);
+        spore.shield = new Tuple<int, int>(1, 2);
+
+        var range = new Range(76, 92).calculateRange();
+
+        spore.BeingAttacked(45);
+        var lifeExpected = spore.state.lifePoints;
+        
+        Assert.IsTrue(range.Contains(lifeExpected));
     }
     
     [Test]
@@ -121,8 +128,8 @@ public class CharacterTestCase
     public void LearnSpellTest()
     {
         var spellsAmountExpected = 2;
-        var spell1 = new Spell();
-        var spell2 = new Spell();
+        var spell1 = new Spell("Dardo magico", 1, 5);
+        var spell2 = new Spell("Bomba magica", 6, 9);
         spore.LearnSpell(spell1);
         spore.LearnSpell(spell2);
         Assert.AreEqual(spellsAmountExpected, spore.spells.Count);
