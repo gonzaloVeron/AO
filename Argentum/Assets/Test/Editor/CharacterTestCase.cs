@@ -128,11 +128,35 @@ public class CharacterTestCase
     public void LearnSpellTest()
     {
         var spellsAmountExpected = 2;
-        var spell1 = new Spell("Dardo magico", 1, 5);
-        var spell2 = new Spell("Bomba magica", 6, 9);
+        var spell1 = new Spell("Dardo magico", 1, 5, 10);
+        var spell2 = new Spell("Bomba magica", 6, 9, 40);
         spore.LearnSpell(spell1);
         spore.LearnSpell(spell2);
         Assert.AreEqual(spellsAmountExpected, spore.spells.Count);
+    }
+
+    [Test]
+    public void castSpellTest()
+    {
+        var spell1 = new DirectDamage("Dardo magico", 1, 5, 10);
+        var spell2 = new DirectDamage("Apocalipsis", 85, 100, 1000);
+
+        spore.LearnSpell(spell1);
+        spore.LearnSpell(spell2);
+
+        spore.lvl = 40;
+        spore.attributes.intelligence = 22;
+        spore.state.manaPoints = 2500;
+
+        other.state.lifePoints = 300;
+
+        spore.castSpell(spell2, other);
+
+        var lifesExpected = new Range(146, 169).calculateRange();
+        var manaExpected = 1500;
+
+        //Assert.IsTrue(lifesExpected.Contains(other.state.lifePoints));
+        Assert.AreEqual(manaExpected, spore.state.manaPoints);
     }
 
     [Test]

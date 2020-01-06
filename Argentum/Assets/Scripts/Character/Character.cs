@@ -58,9 +58,29 @@ public class Character
     }
 
     //Lanzar hechizo
-    public void castSpell(Character other, Spell s)
+    public void castSpell(Spell s, Character other)
     {
-        other.BeAttackedWithMagic(this.magicDamage(s.minDamage, s.maxDamage, this.extraMagicDamage())); 
+        if (this.state.manaPoints < s.manaPointsNeeded) {
+            throw new System.Exception("Mana insuficiente");
+        }
+        this.state.manaPoints -= Mathf.Max(0, s.manaPointsNeeded);
+        switch (s)
+        {
+            case DirectDamage spell:
+                other.BeAttackedWithMagic(this.magicDamage(s.minDamage, s.maxDamage, this.extraMagicDamage())); 
+                break;
+            case Healing spell:
+                other.state.lifePoints += this.magicDamage(s.minDamage, s.maxDamage, this.extraMagicDamage());
+                break;
+            case Invocation spell:
+                //deberia devolver un objeto npc de tipo ayudante o mascota
+                break;
+            case ModState spell:
+                //deberia cambiar el estado del afectado
+                break;
+            default:
+                break;
+        }
     }
 
     public void BeingAttacked(int value)
