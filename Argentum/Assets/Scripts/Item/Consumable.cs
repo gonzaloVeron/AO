@@ -25,7 +25,7 @@ public class Consumable : Item
     public override void Use(Character other)
     {
         other.state.lifePoints += this.lifeRegen;
-        other.state.manaPoints += Mathf.RoundToInt(other.state.manaPointsMax * manaRegen);
+        other.state.manaPoints += Mathf.RoundToInt(other.state.maxManaPoints * manaRegen);
         other.state.energyPoints += this.energyRegen;
         other.state.hungryPoints += this.hungryRegen;
         other.state.thirstPoints += this.thirstRegen;

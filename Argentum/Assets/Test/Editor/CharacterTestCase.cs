@@ -51,9 +51,16 @@ public class CharacterTestCase
     [Test]
     public void BeingAttacked()
     {
-        var lifeExpected = 95;
-        spore.BeingAttacked(5);
-        Assert.AreEqual(lifeExpected, spore.state.lifePoints);
+        spore.armor = new Tuple<int, int>(15, 25);
+        spore.helmet = new Tuple<int, int>(5, 10);
+        spore.shield = new Tuple<int, int>(1, 2);
+
+        var range = new Range(76, 92).calculateRange();
+
+        spore.BeingAttacked(45);
+        var lifeExpected = spore.state.lifePoints;
+        
+        Assert.IsTrue(range.Contains(lifeExpected));
     }
     
     [Test]
@@ -121,11 +128,59 @@ public class CharacterTestCase
     public void LearnSpellTest()
     {
         var spellsAmountExpected = 2;
-        var spell1 = new Spell();
-        var spell2 = new Spell();
+        var spell1 = new DirectDamage("Dardo magico", 1, 5, 10);
+        var spell2 = new DirectDamage("Bomba magica", 6, 9, 40);
         spore.LearnSpell(spell1);
         spore.LearnSpell(spell2);
         Assert.AreEqual(spellsAmountExpected, spore.spells.Count);
+    }
+
+    [Test]
+    public void CastSpellTest_DirectDamage()
+    {
+        var spell1 = new DirectDamage("Dardo magico", 1, 5, 10);
+        var spell2 = new DirectDamage("Apocalipsis", 85, 100, 1000);
+
+        spore.LearnSpell(spell1);
+        spore.LearnSpell(spell2);
+
+        spore.lvl = 40;
+        spore.attributes.intelligence = 22;
+        spore.state.manaPoints = 2500;
+
+        other.state.lifePoints = 300;
+
+        spore.castSpell(spell2, other);
+        spore.castSpell(spell1, other);
+
+        var lifesExpected = new Range(138, 168).calculateRange();
+        var manaExpected = 1490;
+
+        Assert.IsTrue(lifesExpected.Contains(other.state.lifePoints));
+        Assert.AreEqual(manaExpected, spore.state.manaPoints);
+    }
+
+    [Test]
+    public void CastSpell_Healing()
+    {
+        var spell1 = new Healing("heal minor injuries", 6, 12, 10);
+        var spell2 = new Healing("heal serious wounds", 30, 35, 25);
+
+        spore.LearnSpell(spell1);
+        spore.LearnSpell(spell2);
+
+        spore.lvl = 40;
+        spore.attributes.intelligence = 22;
+        spore.state.manaPoints = 2500;
+        spore.state.lifePoints = 277;
+        spore.state.maxLifePoints = 300;
+
+        spore.castSpell(spell1, spore);
+        spore.castSpell(spell2, spore);
+
+        var lifeExpected = 300;
+
+        Assert.AreEqual(lifeExpected, spore.state.lifePoints);
     }
 
     [Test]
