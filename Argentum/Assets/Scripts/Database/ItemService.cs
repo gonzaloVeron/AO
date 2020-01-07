@@ -13,9 +13,9 @@ public class ItemService
         this.mongodao = new GenericMongoDAO<Item>(typeof(Item).ToString());
     }
     
-    public void CreateItemConsumable(string name, int life, int mana, int ener, int hun, int thir, int gold)
+    public void CreateItemConsumable(string name, int life, int mana, int ener, int hun, int thir)
     {
-        Item item = new Consumable(name, life, mana, ener, hun, thir, gold, 0, 0);
+        Item item = new Consumable(name, life, mana, ener, hun, thir, 0, 0);
         mongodao.Save(item);
     }
 

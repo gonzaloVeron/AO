@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Falta nigromante, pirata, gladiador, cazador
 public abstract class Classification
 {
     public abstract int calculateLifePoints(int constitution);
