@@ -10,7 +10,7 @@ public class Consumable : Item
     public int hungryRegen;
     public int thirstRegen;
     public int gold;
-    public Consumable(string name, int lifeRegen, float manaRegen, int energyRegen, int hungryRegen, int thirstRegen, int gold, int quantity)
+    public Consumable(string name, int lifeRegen, float manaRegen, int energyRegen, int hungryRegen, int thirstRegen, int gold, int quantity, float weight)
     {
         this.name = name;
         this.lifeRegen = lifeRegen;
@@ -20,6 +20,7 @@ public class Consumable : Item
         this.thirstRegen = thirstRegen;
         this.gold = gold;
         this.quantity = quantity;
+        this.weight = weight;
     }
 
     public override void Use(Character other)
@@ -38,12 +39,12 @@ public class Consumable : Item
         if(needRemove)
         {
             inv.RemoveItem(this);
-            return new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, this.gold, this.quantity);
+            return new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, this.gold, this.quantity, this.weight);
         }
         else
         {
             this.quantity -= quantity;
-            return new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, this.gold, quantity);
+            return new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, this.gold, quantity, this.weight);
         }
     }
 

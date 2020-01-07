@@ -20,17 +20,21 @@ public class Character
     public State state;
     public Attributes attributes;
     public Skills skills;
+    public float weight;
+    public Tuple<int, int> hitPoints;
     /*** Character State ***/
     /*** Character Equipment ***/
-    public Tuple<int, int> armor;
-    public Tuple<int, int> shield;
-    public Tuple<int, int> weapon;
-    public Tuple<int, int> helmet;
+    public Armor armor;
+    public Shield shield;
+    public Weapon weapon;
+    public Helmet helmet;
     public Inventory inv;
     public HashSet<Spell> spells;
+    public Equipable ring1;
+    public Equipable ring2;
+    public Equipable pendant;
     /*** Character Equipment ***/
-    public Tuple<int, int> hitPoints;
-
+    
     public Character(string name, Attributes attributes, Skills skills)
     {
         this.name = name;
@@ -38,16 +42,20 @@ public class Character
         this.xp = 0;
         this.xpMax = 10;
         this.lvl = 1;
-        this.state = new State(100, 0, 0, 100, 100); //hambre y sed siempre empieza en 100 y no se modifica nunca, la vida y la mana deberian calcularse con los atributos
         this.attributes = attributes;
+        this.state = new State(100, 0, 0, 100, 100); //hambre y sed siempre empieza en 100 y no se modifica nunca, la vida y la mana deberian calcularse con los atributos
         this.skills = skills;
-        this.armor = new Tuple<int, int>(0, 0);
-        this.shield = new Tuple<int, int>(0, 0);
-        this.weapon = new Tuple<int, int>(0, 0);
-        this.helmet = new Tuple<int, int>(0, 0);
+        this.armor = null;
+        this.shield = null;
+        this.weapon = null;
+        this.helmet = null;
+        this.ring1 = null;
+        this.ring2 = null;
+        this.pendant = null;
         this.inv = new Inventory();
         this.spells = new HashSet<Spell>();
         this.hitPoints = new Tuple<int, int>(1, 2);
+        this.weight = 0f;
     }
 
     public void Attack(Character other)
@@ -57,7 +65,6 @@ public class Character
         this.GainExperience(2);
     }
 
-    //Lanzar hechizo
     public void castSpell(Spell s, Character other)
     {
         this.ControlMana(s.manaPointsNeeded);
@@ -75,7 +82,7 @@ public class Character
 
     public void BeingAttacked(int value)
     {
-        this.state.lifePoints -= Mathf.Max(0, value - Random.Range(this.armor.item1 + this.shield.item1 + this.helmet.item1, this.armor.item2 + this.shield.item2 + this.helmet.item2 + 1));
+        this.state.lifePoints -= Mathf.Max(0, value - Random.Range(this.armor.minArmor() + this.shield.minShield() + this.helmet.minHelmet(), this.armor.maxArmor() + this.shield.maxShield() + this.helmet.maxHelmet() + 1));
     }
 
     public void BeAttackedWithMagic(int value)
@@ -89,33 +96,18 @@ public class Character
         this.state.lifePoints = Mathf.Min(this.state.maxLifePoints, this.state.lifePoints + value);
     }
 
-    public int damage()
-    {
-        return Random.Range(this.physicalDamage(this.weapon.item1, this.hitPoints.item1), this.physicalDamage(this.weapon.item2, this.hitPoints.item2));
-    }
+    public int damage() => Random.Range(this.physicalDamage(this.weapon.minWeapon(), this.hitPoints.item1), this.physicalDamage(this.weapon.maxWeapon(), this.hitPoints.item2));
+    
 
-    public int magicDamage(int minSpellDamage, int maxSpellDamage, int extraMagicDamage)
-    {
-        return Mathf.RoundToInt((70 + extraMagicDamage) * ((float)this.spellDamage(minSpellDamage, maxSpellDamage) / 100));
-    }
-    public int extraMagicDamage()
-    {
-        return 0;
-    }
+    public int magicDamage(int minSpellDamage, int maxSpellDamage, int extraMagicDamage) => Mathf.RoundToInt((70 + extraMagicDamage) * ((float)this.spellDamage(minSpellDamage, maxSpellDamage) / 100));
 
-    public int spellDamage(int minDamage, int maxDamage)
-    {
-        return Random.Range(Mathf.RoundToInt(minDamage + ((float)(minDamage * 3 * this.lvl) / 100)), Mathf.RoundToInt(maxDamage + ((float)(maxDamage * 3 * this.lvl) / 100)) + 1);
-    }
+    public int extraMagicDamage() => 0;
 
-    private int physicalDamage(int damage, int hitPoints)
-    {
-        return Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.item2 / 5) * (this.attributes.strength - 15)) + hitPoints) * this.clasf.meleeDamageMod());
-    }
-    public void ModifyState()
-    {
+    public int spellDamage(int minDamage, int maxDamage) => Random.Range(Mathf.RoundToInt(minDamage + ((float)(minDamage * 3 * this.lvl) / 100)), Mathf.RoundToInt(maxDamage + ((float)(maxDamage * 3 * this.lvl) / 100)) + 1);
+    
 
-    }
+    private int physicalDamage(int damage, int hitPoints) => Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.maxWeapon() / 5) * (this.attributes.strength - 15)) + hitPoints) * this.clasf.meleeDamageMod());
+    public void ModifyState() { }
     public void TakeItem(Item i)
     {
         switch (i)
@@ -135,7 +127,7 @@ public class Character
     public Consumable dropGold(int value)
     {
         this.gold -= value;
-        return new Consumable("Gold", 0, 0, 0, 0, 0, value, 1);
+        return new Consumable("Gold", 0, 0, 0, 0, 0, value, 1, 0);
     }
 
     public void LearnSpell(Spell s)
@@ -194,8 +186,5 @@ public class Character
         }
     }
 
-    public Item dropItem(string name, int quantity)
-    {
-        return this.inv.itemToDrop(name, quantity);
-    }
+    public Item dropItem(string name, int quantity) => this.inv.itemToDrop(name, quantity);
 }
