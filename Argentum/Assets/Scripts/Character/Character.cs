@@ -60,26 +60,16 @@ public class Character
     //Lanzar hechizo
     public void castSpell(Spell s, Character other)
     {
-        if (this.state.manaPoints < s.manaPointsNeeded) {
-            throw new System.Exception("Mana insuficiente");
-        }
+        this.ControlMana(s.manaPointsNeeded);
         this.state.manaPoints -= Mathf.Max(0, s.manaPointsNeeded);
-        switch (s)
+        s.Effect(this, other);
+    }
+
+    private void ControlMana(int manaPointsNeeded)
+    {
+        if (this.state.manaPoints < manaPointsNeeded)
         {
-            case DirectDamage spell:
-                other.BeAttackedWithMagic(this.magicDamage(s.minDamage, s.maxDamage, this.extraMagicDamage())); 
-                break;
-            case Healing spell:
-                other.state.lifePoints += this.magicDamage(s.minDamage, s.maxDamage, this.extraMagicDamage());
-                break;
-            case Invocation spell:
-                //deberia devolver un objeto npc de tipo ayudante o mascota
-                break;
-            case ModState spell:
-                //deberia cambiar el estado del afectado
-                break;
-            default:
-                break;
+            throw new System.Exception("Mana insuficiente para lanzar el hechizo");
         }
     }
 
@@ -91,6 +81,12 @@ public class Character
     public void BeAttackedWithMagic(int value)
     {
         this.state.lifePoints -= value; //restar defensa magica a value y no restar daño magico menor a 0
+        //Modificar Test
+    }
+
+    public void Heal(int value)
+    {
+        this.state.lifePoints = Mathf.Min(this.state.maxLifePoints, this.state.lifePoints + value);
     }
 
     public int damage()
@@ -116,7 +112,10 @@ public class Character
     {
         return Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.item2 / 5) * (this.attributes.strength - 15)) + hitPoints) * this.clasf.meleeDamageMod());
     }
+    public void ModifyState()
+    {
 
+    }
     public void TakeItem(Item i)
     {
         switch (i)
