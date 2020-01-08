@@ -13,8 +13,6 @@ public abstract class Item
 
     public float weight;
 
-    public int magicalDefense;
-
     public abstract void Use(Character other);
     public abstract Item toDrop(int quantity, bool needRemove, Inventory inv);
     public bool isEmpty()

@@ -30,9 +30,7 @@ public class Character
     public Helmet helmet;
     public Inventory inv;
     public HashSet<Spell> spells;
-    public Equipable ring1;
-    public Equipable ring2;
-    public Equipable pendant;
+    public LimitedList<Magical> magicalItemsEquiped; 
     /*** Character Equipment ***/
     
     public Character(string name, Attributes attributes, Skills skills, Classification clasf)
@@ -50,9 +48,7 @@ public class Character
         this.shield = null;
         this.weapon = null;
         this.helmet = null;
-        this.ring1 = null;
-        this.ring2 = null;
-        this.pendant = null;
+        this.magicalItemsEquiped = new LimitedList<Magical>(3);
         this.inv = new Inventory();
         this.spells = new HashSet<Spell>();
         this.hitPoints = new Tuple<int, int>(1, 2);
@@ -79,7 +75,7 @@ public class Character
     }
     public void BeingAttacked(int value)
     {
-        this.state.lifePoints = Mathf.Max(0, this.state.lifePoints - (value - Random.Range(this.armor.minArmor() + this.shield.minShield() + this.helmet.minHelmet(), this.armor.maxArmor() + this.shield.maxShield() + this.helmet.maxHelmet() + 1)));
+        this.state.lifePoints = Mathf.Max(0, this.state.lifePoints - Mathf.Max(0, (value - Random.Range(this.armor.minArmor() + this.shield.minShield() + this.helmet.minHelmet(), this.armor.maxArmor() + this.shield.maxShield() + this.helmet.maxHelmet() + 1))));
     }
     public void BeAttackedWithMagic(int value)
     {
@@ -165,12 +161,17 @@ public class Character
     }
     public void UseItem(string itemName)
     {
-        var item = this.inv.fetchItem(itemName);
-        item.Use(this);
-        if (item.isEmpty())
-        {
-            this.inv.RemoveItem(item);
-        }
+        this.inv.fetchItem(itemName).Use(this);;
+    }
+    public void EquipMagicalItem(Magical obj)
+    {
+        this.magicalItemsEquiped.Add(obj);
+        this.weight += obj.weight;
+    }
+    public void UnequipMagicalItem(Magical obj)
+    {
+        this.magicalItemsEquiped.Remove(obj);
+        this.weight -= obj.weight;
     }
     public Item dropItem(string name, int quantity) => this.inv.itemToDrop(name, quantity);
     private int initialLife() => 15 + (Mathf.RoundToInt(this.attributes.constitution / 3));

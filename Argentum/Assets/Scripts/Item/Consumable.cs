@@ -29,6 +29,10 @@ public class Consumable : Item
         other.state.hungryPoints += this.hungryRegen;
         other.state.thirstPoints += this.thirstRegen;
         this.quantity -= 1;
+        if (this.isEmpty())
+        {
+            other.inv.RemoveItem(this);
+        }
     }
 
     public override Item toDrop(int quantity, bool needRemove, Inventory inv)

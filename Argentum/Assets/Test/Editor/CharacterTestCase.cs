@@ -62,7 +62,6 @@ public class CharacterTestCase
         spore.BeingAttacked(35);
         var lifeExpected = spore.state.lifePoints;
 
-        Debug.Log(lifeExpected);
 
         Assert.IsTrue(range.Contains(lifeExpected));
     }
@@ -121,7 +120,6 @@ public class CharacterTestCase
         var expectedAmount = 5;
         var gold = new Consumable("Gold", 0, 0, 0, 0, 0, 66, 0f);
         spore.TakeItem(gold);
-        Debug.Log(spore.gold);
         var goldDropped = spore.dropGold(5);
         Assert.AreEqual(nameExpected, goldDropped.name);
         Assert.AreEqual(expectedAmount, goldDropped.quantity);

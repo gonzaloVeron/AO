@@ -35,7 +35,6 @@ public class Equipable : Item
             return new Equipable(this.name, quantity, this.weight);
         }
     }
-
 }
 
 
