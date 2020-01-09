@@ -11,6 +11,8 @@ public abstract class Item
 
     public int quantity;
 
+    public float weight;
+
     public abstract void Use(Character other);
     public abstract Item toDrop(int quantity, bool needRemove, Inventory inv);
     public bool isEmpty()

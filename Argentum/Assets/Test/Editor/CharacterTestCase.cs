@@ -25,19 +25,21 @@ public class CharacterTestCase
         skillsSpore = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         skillsOther = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-        spore = new Character("Spore", attributesSpore, skillsSpore);
-        other = new Character("Jorge", attributesOther, skillsOther);
+        spore = new Character("Spore", attributesSpore, skillsSpore, new Warrior());
+        other = new Character("Other", attributesOther, skillsOther, new Warrior());
+        other.armor = new Armor("Vestimenta Simple", 0, 0, 1, 0f);
+        other.helmet = new Helmet("Capucha", 0, 0, 1, 0f);
+        other.shield = new Shield("Escudo de madera roto", 0, 0, 1, 0f);
+        other.weapon = new Weapon("Daga rota", 0, 0, 1, 0f);
     }
 
     [Test]
     public void AttackTest()
     {
         var experienceExpected = 2;
-        var lifeExpected = 90;
+        var lifeExpected = 5;
 
-        spore.clasf = new Warrior();
-        spore.weapon.item1 = 1;
-        spore.weapon.item2 = 1;
+        spore.weapon = new Weapon("Espada Larga", 1, 1, 1, 0.5f);
         spore.attributes.strength = 40;
         spore.hitPoints.item2 = 1;
         spore.hitPoints.item1 = 1;
@@ -51,15 +53,16 @@ public class CharacterTestCase
     [Test]
     public void BeingAttacked()
     {
-        spore.armor = new Tuple<int, int>(15, 25);
-        spore.helmet = new Tuple<int, int>(5, 10);
-        spore.shield = new Tuple<int, int>(1, 2);
+        spore.armor = new Armor("Placas completas", 15, 25, 1, 2.6f);
+        spore.helmet = new Helmet("Almete de hierro", 5, 10, 1, 0.2f);
+        spore.shield = new Shield("Placas completas", 1, 2, 1, 2.6f);
 
-        var range = new Range(76, 92).calculateRange();
+        var range = new Range(0, 15).calculateRange();
 
-        spore.BeingAttacked(45);
+        spore.BeingAttacked(35);
         var lifeExpected = spore.state.lifePoints;
-        
+
+
         Assert.IsTrue(range.Contains(lifeExpected));
     }
     
@@ -72,9 +75,7 @@ public class CharacterTestCase
         spore.hitPoints.item1 = 109;
         spore.hitPoints.item2 = 109;
         spore.attributes.strength = 40;
-        spore.weapon.item1 = 7;
-        spore.weapon.item2 = 20;
-
+        spore.weapon = new Weapon("Hacha de dos filos", 7, 20, 1, 2.1f);
         Assert.IsTrue(damagesExpected.Contains(spore.damage()));
     }
 
@@ -82,7 +83,7 @@ public class CharacterTestCase
     public void TakeItemGold()
     {
         var goldExpected = 55;
-        var gold = new Consumable("Gold", 0, 0, 0, 0, 0, goldExpected, 1);
+        var gold = new Consumable("Gold", 0, 0, 0, 0, 0, goldExpected, 0f);
         spore.TakeItem(gold);
         Assert.AreEqual(goldExpected, spore.gold);
     }
@@ -92,8 +93,8 @@ public class CharacterTestCase
     {
         var inventoryQuantityExpected = 1;
         var redPotionQuantityExpected = 7;
-        var item1 = new Consumable("Pocion Roja", 30, 0, 0, 0, 0, 0, 3);
-        var item2 = new Consumable("Pocion Roja", 30, 0, 0, 0, 0, 0, 4);
+        var item1 = new Consumable("Pocion Roja", 30, 0, 0, 0, 0, 3, 0f);
+        var item2 = new Consumable("Pocion Roja", 30, 0, 0, 0, 0, 4, 0f);
         spore.TakeItem(item1);
         spore.TakeItem(item2);
         Assert.AreEqual(inventoryQuantityExpected, spore.inv.itemsAmount());
@@ -105,8 +106,8 @@ public class CharacterTestCase
     public void TakeItemNewItem()
     {
         var inventoryQuantityExpected = 2;
-        var item1 = new Consumable("Pocion Azul", 0, 0.4f, 0, 0, 0, 0, 4);
-        var item2 = new Equipable("Espada Larga", 0, 0, 0, 0, 0, 0, 4, 8, 1);
+        var item1 = new Consumable("Pocion Azul", 0, 0.4f, 0, 0, 0, 4, 0f);
+        var item2 = new Equipable("Espada Larga", 1, 0f);
         spore.TakeItem(item1);
         spore.TakeItem(item2);
         Assert.AreEqual(inventoryQuantityExpected, spore.inv.itemsAmount());
@@ -117,11 +118,11 @@ public class CharacterTestCase
     {
         var nameExpected = "Gold";
         var expectedAmount = 5;
-        var gold = new Consumable("Gold", 0, 0, 0, 0, 0, 66, 1);
+        var gold = new Consumable("Gold", 0, 0, 0, 0, 0, 66, 0f);
         spore.TakeItem(gold);
         var goldDropped = spore.dropGold(5);
         Assert.AreEqual(nameExpected, goldDropped.name);
-        Assert.AreEqual(expectedAmount, goldDropped.gold);
+        Assert.AreEqual(expectedAmount, goldDropped.quantity);
     }
 
     [Test]
@@ -239,7 +240,7 @@ public class CharacterTestCase
         var goldExpected = 600;
         var itemsAmmount = 1;
         spore.gold = 55600;
-        var itemToBuy = new Equipable("Espada de plata", 0, 0, 0, 0, 0, 0, 25, 29, 1);
+        var itemToBuy = new Equipable("Espada de plata", 1, 0.4f);
         spore.BuyItem(55000, itemToBuy);
         Assert.AreEqual(goldExpected, spore.gold);
         Assert.AreEqual(itemsAmmount, spore.inv.itemsAmount());
@@ -250,8 +251,8 @@ public class CharacterTestCase
     {
         var swordAmountExpected = 3;
         var goldExpected = 678000;
-        var item = new Equipable("Espada MataDragones", 0, 0, 0, 0, 0, 0, 30, 35, 4);
-        var item2 = new Equipable("Espada MataDragones", 0, 0, 0, 0, 0, 0, 30, 35, 1);
+        var item = new Equipable("Espada MataDragones", 4, 3f);
+        var item2 = new Equipable("Espada MataDragones", 1, 3f);
         spore.TakeItem(item);
         spore.SellItem(678000, item2);
         Assert.AreEqual(swordAmountExpected, spore.inv.inv.Find(i => i.name == item.name).quantity);
@@ -269,21 +270,47 @@ public class CharacterTestCase
     [Test]
     public void UseItemTest()
     {
-        var lifePointsExpected = 130;
-        var redPotionAmount = 3;
-        var maxHelmetExpected = 5;
-        var minHelmetExpected = 3;
-        var potion = new Consumable("Red Potion", 30, 0, 0, 0, 0, 0, 4);
-        var sword = new Equipable("Champ Helmet", 0, 0, 3, 5, 0, 0, 0, 0, 2);
+        var weightExpected = 7.9f;
+        var lifePointsExpected = 45;
+        var redPotionAmountExpected = 3;
+        var helmetDefenseExpected = new Tuple<int, int>(5, 10); 
+        var armorDefenseExpected = new Tuple<int, int>(45, 50); 
+        var shieldDefenseExpected = new Tuple<int, int>(1, 5); 
+        var weaponDamageExpected = new Tuple<int, int>(23, 25);
+        var maxMagicalDef = 60;
+        var minMagicalDef = 60;
+
+        var magicalRing = new Magical("The unique ring", 1, 0f, 60, 60, 0, 0);
+        var potion = new Consumable("Red Potion", 30, 0, 0, 0, 0, 4, 0f);
+        var weap = new Weapon("Dragon killer", 23, 25, 1, 3.4f);
+        var helm = new Helmet("Champ Helmet", 5, 10, 1, 0.3f);
+        var armo = new Armor("Black dragon armor", 45, 50, 1, 4.1f);
+        var shie = new Shield("Tortuge shield", 1, 5, 1, 0.1f);
+
         spore.TakeItem(potion);
-        spore.TakeItem(sword);
+        spore.TakeItem(weap);
+        spore.TakeItem(helm);
+        spore.TakeItem(armo);
+        spore.TakeItem(shie);
+        spore.TakeItem(magicalRing);
+
         spore.UseItem("Red Potion");
         spore.UseItem("Champ Helmet");
+        spore.UseItem("The unique ring");
+        spore.UseItem("Dragon killer");
+        spore.UseItem("Tortuge shield");
+        spore.UseItem("Black dragon armor");
+        
 
         Assert.AreEqual(lifePointsExpected, spore.state.lifePoints);
-        Assert.AreEqual(redPotionAmount, spore.inv.inv.Find(i => i.name == "Red Potion").quantity);
-        Assert.AreEqual(maxHelmetExpected, spore.helmet.item2);
-        Assert.AreEqual(minHelmetExpected, spore.helmet.item1);
+        Assert.AreEqual(redPotionAmountExpected, spore.inv.inv.Find(i => i.name == "Red Potion").quantity);
+        Assert.AreEqual(weightExpected, spore.weight, 1f);
+        Assert.AreEqual(weaponDamageExpected, spore.weapon.weapon);
+        Assert.AreEqual(helmetDefenseExpected, spore.helmet.helmet);
+        Assert.AreEqual(armorDefenseExpected, spore.armor.armor);
+        Assert.AreEqual(shieldDefenseExpected, spore.shield.shield);
+        Assert.AreEqual(maxMagicalDef, spore.magicalItemsEquiped.sum(i => i.magicalDefense.item2));
+        Assert.AreEqual(minMagicalDef, spore.magicalItemsEquiped.sum(i => i.magicalDefense.item1));
     }
 
     [Test]
@@ -297,9 +324,9 @@ public class CharacterTestCase
         var itemDropped3AmountExpected = 55;
         var sporeItemsAmount = 1;
 
-        var item1 = new Consumable("Blue Potion", 0, 0.4f, 0, 0, 0, 0, 10);
-        var item2 = new Consumable("Chicken", 0, 0, 5, 60, 0, 0, 55);
-        var item3 = new Equipable("Armor", 30, 34, 0, 0, 0, 0, 0, 0, 1);
+        var item1 = new Consumable("Blue Potion", 0, 0.4f, 0, 0, 0, 10, 0f);
+        var item2 = new Consumable("Chicken", 0, 0, 5, 60, 0, 55, 0f);
+        var item3 = new Equipable("Armor", 1, 2.3f);
 
         spore.TakeItem(item1);
         spore.TakeItem(item2);

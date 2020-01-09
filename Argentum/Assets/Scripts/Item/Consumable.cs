@@ -9,8 +9,7 @@ public class Consumable : Item
     public int energyRegen;
     public int hungryRegen;
     public int thirstRegen;
-    public int gold;
-    public Consumable(string name, int lifeRegen, float manaRegen, int energyRegen, int hungryRegen, int thirstRegen, int gold, int quantity)
+    public Consumable(string name, int lifeRegen, float manaRegen, int energyRegen, int hungryRegen, int thirstRegen, int quantity, float weight)
     {
         this.name = name;
         this.lifeRegen = lifeRegen;
@@ -18,8 +17,8 @@ public class Consumable : Item
         this.energyRegen = energyRegen;
         this.hungryRegen = hungryRegen;
         this.thirstRegen = thirstRegen;
-        this.gold = gold;
         this.quantity = quantity;
+        this.weight = weight;
     }
 
     public override void Use(Character other)
@@ -29,8 +28,11 @@ public class Consumable : Item
         other.state.energyPoints += this.energyRegen;
         other.state.hungryPoints += this.hungryRegen;
         other.state.thirstPoints += this.thirstRegen;
-        other.gold += this.gold;
         this.quantity -= 1;
+        if (this.isEmpty())
+        {
+            other.inv.RemoveItem(this);
+        }
     }
 
     public override Item toDrop(int quantity, bool needRemove, Inventory inv)
@@ -38,12 +40,12 @@ public class Consumable : Item
         if(needRemove)
         {
             inv.RemoveItem(this);
-            return new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, this.gold, this.quantity);
+            return new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, this.quantity, this.weight);
         }
         else
         {
             this.quantity -= quantity;
-            return new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, this.gold, quantity);
+            return new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, quantity, this.weight);
         }
     }
 

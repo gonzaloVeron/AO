@@ -13,9 +13,9 @@ public class CharacterService
         this.mongodao = new GenericMongoDAO<Character>(typeof(Character).ToString());
     }
 
-    public void CreateCharacter(string name, Attributes attributes, Skills skills)
+    public void CreateCharacter(string name, Attributes attributes, Skills skills, Classification clasf)
     {
-        Character newCharacter = new Character(name, attributes, skills);
+        Character newCharacter = new Character(name, attributes, skills, clasf);
         mongodao.Save(newCharacter);
     }
 
