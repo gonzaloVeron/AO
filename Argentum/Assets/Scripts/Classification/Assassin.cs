@@ -28,14 +28,10 @@ public class Assassin : Classification
     public override float defenseShieldMod() => 0.8f;
     public override int hitPointsPerLevel(int characterLvl) => characterLvl <= 36 ? 3 : 1; 
     public override float meleeAimMod() => 0.9f;
-
     public override float meleeDamageMod() => 0.9f;
-
     public override float projectileWeaponAimMod() => 0.75f;
-
     public override float projectileWeaponDamageMod() => 0.8f;
-
     public override float withoutWeaponAimMod() => 0.9f;
-
     public override float withoutWeaponDamageMod() => 0.9f;
+    public override int stabDamage(int dmg) => dmg + Mathf.RoundToInt(dmg * 1.4f);
 }

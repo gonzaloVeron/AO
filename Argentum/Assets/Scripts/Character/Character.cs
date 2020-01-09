@@ -56,9 +56,20 @@ public class Character
     }
     public void Attack(Character other)
     {
+        switch (this.weapon)
+        {
+            case Dagger dag:
+                other.BeingAttacked(this.clasf.stabDamage(this.damage())); //Falta testear !
+                this.GainExperience(2);
+                break;
+            case Weapon weap:
+                other.BeingAttacked(this.damage());
+                this.GainExperience(2);
+                break;
+            default:
+                throw new System.Exception("Algo salio mal en la funcion 'Attack'");
+        }
         //Falta agregar la chance de acertar el golpe
-        other.BeingAttacked(this.damage());
-        this.GainExperience(2);
     }
     public void castSpell(Spell s, Character other)
     {

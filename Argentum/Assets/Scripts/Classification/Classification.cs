@@ -18,5 +18,5 @@ public abstract class Classification
     public abstract float defenseShieldMod();
     public abstract float defenseEvasionMod();
     public int energyPerLevel() => 15;
-
+    public virtual int stabDamage(int dmg) => dmg + Mathf.RoundToInt(dmg * 1.5f);
 }
