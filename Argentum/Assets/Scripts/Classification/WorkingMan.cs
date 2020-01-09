@@ -21,58 +21,15 @@ public class WorkingMan : Classification
         }
     }
 
-    public override int calculateManaPerLevel(int intelligence)
-    {
-        return 0;
-    }
-
-    public override int initialMana()
-    {
-        return 0;
-    }
-
-    public override float defenseEvasionMod()
-    {
-        return 0.8f;
-    }
-
-    public override float defenseShieldMod()
-    {
-        return 0.85f;
-    }
-
-    public override int hitPointsPerLevel(int characterLvl)
-    {
-        return 2;
-    }
-
-    public override float meleeAimMod()
-    {
-        return 0.9f;
-    }
-
-    public override float meleeDamageMod()
-    {
-        return 0.8f;
-    }
-
-    public override float projectileWeaponAimMod()
-    {
-        return 0.9f;
-    }
-
-    public override float projectileWeaponDamageMod()
-    {
-        return 0.8f;
-    }
-
-    public override float withoutWeaponAimMod()
-    {
-        return 0.9f;
-    }
-
-    public override float withoutWeaponDamageMod()
-    {
-        return 0.8f;
-    }
+    public override int calculateManaPerLevel(int intelligence) => 0;
+    public override int initialMana() => 0;
+    public override float defenseEvasionMod() => 0.8f;
+    public override float defenseShieldMod() => 0.85f;
+    public override int hitPointsPerLevel(int characterLvl) => 2;
+    public override float meleeAimMod() => 0.9f;
+    public override float meleeDamageMod() => 0.8f;
+    public override float projectileWeaponAimMod() => 0.9f;
+    public override float projectileWeaponDamageMod() => 0.8f;
+    public override float withoutWeaponAimMod() => 0.9f;
+    public override float withoutWeaponDamageMod() => 0.8f;
 }

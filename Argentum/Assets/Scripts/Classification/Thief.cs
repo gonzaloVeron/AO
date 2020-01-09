@@ -21,58 +21,15 @@ public class Thief : Classification
         }
     }
 
-    public override int calculateManaPerLevel(int intelligence)
-    {
-        return 0;
-    }
-
-    public override int initialMana()
-    {
-        return 0;
-    }
-
-    public override float defenseEvasionMod()
-    {
-        return 1f;
-    }
-
-    public override float defenseShieldMod()
-    {
-        return 1.1f;
-    }
-
-    public override int hitPointsPerLevel(int characterLvl)
-    {
-        return 3;
-    }
-
-    public override float meleeAimMod()
-    {
-        return 0.9f;
-    }
-
-    public override float meleeDamageMod()
-    {
-        return 0.8f;
-    }
-
-    public override float projectileWeaponAimMod()
-    {
-        return 1f;
-    }
-
-    public override float projectileWeaponDamageMod()
-    {
-        return 0.95f;
-    }
-
-    public override float withoutWeaponAimMod()
-    {
-        return 1f;
-    }
-
-    public override float withoutWeaponDamageMod()
-    {
-        return 1.075f;
-    }
+    public override int calculateManaPerLevel(int intelligence) => 0;
+    public override int initialMana() => 0;
+    public override float defenseEvasionMod() => 1f;
+    public override float defenseShieldMod() => 1.1f;
+    public override int hitPointsPerLevel(int characterLvl) => 3;
+    public override float meleeAimMod() => 0.9f;
+    public override float meleeDamageMod() => 0.8f;
+    public override float projectileWeaponAimMod() => 1f;
+    public override float projectileWeaponDamageMod() => 0.95f;
+    public override float withoutWeaponAimMod() => 1f;
+    public override float withoutWeaponDamageMod() => 1.075f;
 }

@@ -22,56 +22,20 @@ public class Assassin : Classification
         }
     }
 
-    public override int calculateManaPerLevel(int intelligence)
-    {
-        return intelligence;
-    }
-    public override int initialMana()
-    {
-        return 50;
-    }
-    public override float defenseEvasionMod()
-    {
-        return 1.1f;
-    }
+    public override int calculateManaPerLevel(int intelligence) => intelligence;
+    public override int initialMana() => 50;
+    public override float defenseEvasionMod() => 1.1f;
+    public override float defenseShieldMod() => 0.8f;
+    public override int hitPointsPerLevel(int characterLvl) => characterLvl <= 36 ? 3 : 1; 
+    public override float meleeAimMod() => 0.9f;
 
-    public override float defenseShieldMod()
-    {
-        return 0.8f;
-    }
+    public override float meleeDamageMod() => 0.9f;
 
-    public override int hitPointsPerLevel(int characterLvl)
-    {
-        return characterLvl <= 36 ? 3 : 1; 
-    }
+    public override float projectileWeaponAimMod() => 0.75f;
 
-    public override float meleeAimMod()
-    {
-        return 0.9f;
-    }
+    public override float projectileWeaponDamageMod() => 0.8f;
 
-    public override float meleeDamageMod()
-    {
-        return 0.9f;
-    }
+    public override float withoutWeaponAimMod() => 0.9f;
 
-    public override float projectileWeaponAimMod()
-    {
-        return 0.75f;
-    }
-
-    public override float projectileWeaponDamageMod()
-    {
-        return 0.8f;
-    }
-
-    public override float withoutWeaponAimMod()
-    {
-        return 0.9f;
-    }
-
-    public override float withoutWeaponDamageMod()
-    {
-        return 0.9f;
-    }
+    public override float withoutWeaponDamageMod() => 0.9f;
 }

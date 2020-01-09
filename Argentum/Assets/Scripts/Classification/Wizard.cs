@@ -21,56 +21,15 @@ public class Wizard : Classification
         }
     }
 
-    public override int calculateManaPerLevel(int intelligence)
-    {
-        return Mathf.RoundToInt(intelligence * 3.74f - 20);
-    }
-    public override int initialMana()
-    {
-        return 70;
-    }
-    public override float defenseEvasionMod()
-    {
-        return 0.4f;
-    }
-
-    public override float defenseShieldMod()
-    {
-        return 0f;
-    }
-
-    public override int hitPointsPerLevel(int characterLvl)
-    {
-        return 1;
-    }
-
-    public override float meleeAimMod()
-    {
-        return 0.5f;
-    }
-
-    public override float meleeDamageMod()
-    {
-        return 0.7f;
-    }
-
-    public override float projectileWeaponAimMod()
-    {
-        return 0.5f;
-    }
-
-    public override float projectileWeaponDamageMod()
-    {
-        return 0.5f;
-    }
-
-    public override float withoutWeaponAimMod()
-    {
-        return 0.3f;
-    }
-
-    public override float withoutWeaponDamageMod()
-    {
-        return 0.4f;
-    }
+    public override int calculateManaPerLevel(int intelligence) => Mathf.RoundToInt(intelligence * 3.74f - 20);
+    public override int initialMana() => 70;
+    public override float defenseEvasionMod() => 0.4f;
+    public override float defenseShieldMod() => 0f;
+    public override int hitPointsPerLevel(int characterLvl) => 1;
+    public override float meleeAimMod() => 0.5f;
+    public override float meleeDamageMod() => 0.7f;
+    public override float projectileWeaponAimMod() => 0.5f;
+    public override float projectileWeaponDamageMod() => 0.5f;
+    public override float withoutWeaponAimMod() => 0.3f;
+    public override float withoutWeaponDamageMod() => 0.4f;
 }

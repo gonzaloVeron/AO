@@ -21,58 +21,15 @@ public class Warrior : Classification
         }
     }
 
-    public override int calculateManaPerLevel(int intelligence)
-    {
-        return 0;
-    }
-
-    public override int initialMana()
-    {
-        return 0;
-    }
-
-    public override float defenseEvasionMod()
-    {
-        return 1f;
-    }
-
-    public override float defenseShieldMod()
-    {
-        return 1f;
-    }
-
-    public override int hitPointsPerLevel(int characterLvl)
-    {
-        return characterLvl <= 36 ? 3 : 2;
-    }
-
-    public override float meleeAimMod()
-    {
-        return 1.025f;
-    }
-
-    public override float meleeDamageMod()
-    {
-        return 1.1f;
-    }
-
-    public override float projectileWeaponAimMod()
-    {
-        return 1f;
-    }
-
-    public override float projectileWeaponDamageMod()
-    {
-        return 1f;
-    }
-
-    public override float withoutWeaponAimMod()
-    {
-        return 1f;
-    }
-
-    public override float withoutWeaponDamageMod()
-    {
-        return 0.9f;
-    }
+    public override int calculateManaPerLevel(int intelligence) => 0;
+    public override int initialMana() => 0;
+    public override float defenseEvasionMod() => 1f;
+    public override float defenseShieldMod() => 1f;
+    public override int hitPointsPerLevel(int characterLvl) => characterLvl <= 36 ? 3 : 2;
+    public override float meleeAimMod() => 1.025f;
+    public override float meleeDamageMod() => 1.1f;
+    public override float projectileWeaponAimMod() => 1f;
+    public override float projectileWeaponDamageMod() => 1f;
+    public override float withoutWeaponAimMod() => 1f;
+    public override float withoutWeaponDamageMod() => 0.9f;
 }
