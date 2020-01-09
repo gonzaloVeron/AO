@@ -17,9 +17,6 @@ public abstract class Classification
     public abstract float withoutWeaponAimMod();
     public abstract float defenseShieldMod();
     public abstract float defenseEvasionMod();
-    public int energyPerLevel()
-    {
-        return 15;
-    }
+    public int energyPerLevel() => 15;
 
 }
