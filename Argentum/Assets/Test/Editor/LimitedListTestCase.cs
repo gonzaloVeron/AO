@@ -7,6 +7,8 @@ public class LimitedListTestCase
 {
     private LimitedList<Spell> list;
 
+    private LimitedList<Spell> emptyList;
+
     private Healing spell1;
 
     private Healing spell2;
@@ -15,11 +17,12 @@ public class LimitedListTestCase
 
     private Healing spell4;
 
-
     [SetUp]
     public void SetUp()
     {
         list = new LimitedList<Spell>(3);
+        emptyList = new LimitedList<Spell>(3);
+
         spell1 = new Healing("Curar heridas leves", 6, 12, 10);
         spell2 = new Healing("Curar heridas graves", 30, 35, 25);
         spell3 = new Healing("Fuente de vida", 70, 90, 350);
@@ -78,6 +81,42 @@ public class LimitedListTestCase
     }
 
     [Test]
+    public void FindEmptyListTest()
+    {
+        Assert.Catch<System.ArgumentNullException>(() => { emptyList.Find(s => s.name == "No me vas a encontrar"); });
+    }
+
+    [Test]
+    public void ContainsEmptyListTest()
+    {
+        Assert.IsFalse(emptyList.contains(spell1));
+    }
+
+    [Test]
+    public void SumEmptyListTest()
+    {
+        var sumExpected = 0;
+        Assert.AreEqual(sumExpected, emptyList.sum(s => s.maxDamage));
+    }
+    [Test]
+    public void isEmptyTrueTest()
+    {
+        Assert.IsTrue(list.isEmpty());
+    }
+    [Test]
+    public void isEmptyFalseTest()
+    {
+        list.Add(spell1);
+        Assert.IsFalse(list.isEmpty());
+    }
+
+    [Test]
+    public void ExistsEmptyListTest()
+    {
+        Assert.IsFalse(emptyList.exists(s => s.name == "Algo"));
+    }
+
+    [Test]
     public void FindTestThrowArgumentNullException()
     {
         var spellNameFinded = "Pregonar la palabra de dios";
@@ -87,5 +126,49 @@ public class LimitedListTestCase
         list.Add(spell3);
 
         Assert.Catch<System.ArgumentNullException>(() => { list.Find(s => s.name == spellNameFinded); });
+    }
+
+    [Test]
+    public void ContainsTest()
+    {
+        list.Add(spell1);
+        list.Add(spell4);
+        list.Add(spell2);
+        
+
+        Assert.IsTrue(list.contains(spell4));
+    }
+
+    [Test]
+    public void SumTest()
+    {
+        var maxSumDamageExpected = 207;
+        var minSumDamageExpected = 171;
+        list.Add(spell1);
+        list.Add(spell4);
+        list.Add(spell2);
+
+        Assert.AreEqual(maxSumDamageExpected, list.sum(s => s.maxDamage));
+        Assert.AreEqual(minSumDamageExpected, list.sum(s => s.minDamage));
+    }
+
+    [Test]
+    public void ExistsTestTrue()
+    {
+        list.Add(spell1);
+        list.Add(spell4);
+        list.Add(spell2);
+
+        Assert.IsTrue(list.exists(s => s.name == "Curar heridas graves"));
+    }
+
+    [Test]
+    public void ExistsTestFalse()
+    {
+        list.Add(spell1);
+        list.Add(spell4);
+        list.Add(spell2);
+        
+        Assert.IsFalse(list.exists(s => s.name == "Fuente de vida"));
     }
 }

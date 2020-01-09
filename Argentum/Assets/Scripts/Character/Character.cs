@@ -175,5 +175,66 @@ public class Character
     }
     public Item dropItem(string name, int quantity) => this.inv.itemToDrop(name, quantity);
     private int initialLife() => 15 + (Mathf.RoundToInt(this.attributes.constitution / 3));
+    public void EquipItem(Equipable obj)
+    {
+        switch (obj)
+        {
+            case Armor ar:
+                this.armor = ar;
+                break;
+            case Helmet hel:
+                this.helmet = hel;
+                break;
+            case Shield sh:
+                this.shield = sh;
+                break;
+            case Weapon we:
+                this.weapon = we;
+                break;
+            default:
+                throw new System.Exception("No se puede equipar este item");
+        }
+        this.weight += obj.weight;
+    }
+    public void UnequipItem(Equipable obj)
+    {
+        switch (obj)
+        {
+            case Armor ar:
+                this.armor = null;
+                break;
+            case Helmet hel:
+                this.helmet = null;
+                break;
+            case Shield sh:
+                this.shield = null;
+                break;
+            case Weapon we:
+                this.weapon = null;
+                break;
+            default:
+                throw new System.Exception("No se puede desequipar este item");
+        }
+        this.weight += obj.weight;
+    }
+    public bool isEquiped(Equipable obj)
+    {
+        switch (obj)
+        {
+            case Helmet hel:
+                return this.helmet != null && this.helmet.name == obj.name;
+            case Armor arm:
+                return this.armor != null && this.helmet.name == obj.name;
+            case Shield shi:
+                return this.shield != null && this.shield.name == obj.name;
+            case Weapon wea:
+                return this.weapon != null && this.weapon.name == obj.name;
+            case Magical mag:
+                return this.magicalItemsEquiped.exists(s => s.name == mag.name);
+            default:
+                throw new System.Exception("Pasaron cosas en la funcion 'isEquiped' ");
+        }
+    }
+
 }
 

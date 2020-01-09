@@ -41,7 +41,7 @@ public class LimitedList<T>
 
     public T Find(System.Predicate<T> match)
     {
-        for (int i = 0; i < array.Length; i++)
+        for (int i = 0; i < size; i++)
         {
             if (match.Invoke(this.array[i]))
             {
@@ -51,4 +51,38 @@ public class LimitedList<T>
         throw new System.ArgumentNullException();
     }
 
+    public bool contains(T obj)
+    {
+        var cont = false;
+        for(int i = 0; i < size; i++)
+        {
+            cont = cont || array[i].Equals(obj);
+        }
+        return cont;
+    }
+
+    public int sum(System.Func<T, int> f)
+    {
+        var sum = 0;
+        for (int i = 0; i < size; i++)
+        {
+            sum += f.Invoke(array[i]);
+        }
+        return sum;
+    }
+
+    public bool exists(System.Func<T, bool> match)
+    {
+        var exist = false;
+        for (int i = 0; i < size; i++)
+        {
+            exist = exist || match.Invoke(array[i]);
+        }
+        return exist;
+    }
+
+    public bool isEmpty()
+    {
+        return size == 0;
+    }
 }

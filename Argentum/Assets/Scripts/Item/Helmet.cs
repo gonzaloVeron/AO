@@ -8,11 +8,6 @@ public class Helmet : Equipable
     {
         this.helmet = new Tuple<int, int>(minHelmet, maxHelmet);
     }
-    public override void Use(Character other)
-    {
-        other.helmet = this;
-        other.weight += this.weight;
-    }
 
     public int minHelmet() => this.helmet.item1;
 

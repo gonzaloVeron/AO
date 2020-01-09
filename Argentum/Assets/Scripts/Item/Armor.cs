@@ -9,12 +9,6 @@ public class Armor : Equipable
         this.armor = new Tuple<int, int>(minArmor, maxArmor);
     }
 
-    public override void Use(Character other)
-    {
-        other.armor = this;
-        other.weight += this.weight;
-    }
-
     public int minArmor() => this.armor.item1;
 
     public int maxArmor() => this.armor.item2;

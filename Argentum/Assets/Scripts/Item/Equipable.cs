@@ -19,7 +19,14 @@ public class Equipable : Item
 
     public override void Use(Character other)
     {
-        throw new System.Exception("No es un item usable");
+        if (other.isEquiped(this))
+        {
+            other.UnequipItem(this);
+        }
+        else
+        {
+            other.EquipItem(this);
+        }
     }
 
     public override Item toDrop(int quantity, bool needRemove, Inventory inv)

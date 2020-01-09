@@ -9,12 +9,6 @@ public class Shield : Equipable
         this.shield = new Tuple<int, int>(minShield, maxShield);
     }
 
-    public override void Use(Character other)
-    {
-        other.shield = this;
-        other.weight += weight;
-    }
-
     public int minShield() => this.shield.item1;
 
     public int maxShield() => this.shield.item2;

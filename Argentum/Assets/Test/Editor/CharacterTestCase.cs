@@ -270,23 +270,47 @@ public class CharacterTestCase
     [Test]
     public void UseItemTest()
     {
-        var weightExpected = 0.3f;
+        var weightExpected = 7.9f;
         var lifePointsExpected = 45;
-        var redPotionAmount = 3;
-        var maxHelmetExpected = 10;
-        var minHelmetExpected = 5;
+        var redPotionAmountExpected = 3;
+        var helmetDefenseExpected = new Tuple<int, int>(5, 10); 
+        var armorDefenseExpected = new Tuple<int, int>(45, 50); 
+        var shieldDefenseExpected = new Tuple<int, int>(1, 5); 
+        var weaponDamageExpected = new Tuple<int, int>(23, 25);
+        var maxMagicalDef = 60;
+        var minMagicalDef = 60;
+
+        var magicalRing = new Magical("The unique ring", 1, 0f, 60, 60, 0, 0);
         var potion = new Consumable("Red Potion", 30, 0, 0, 0, 0, 4, 0f);
-        var sword = new Helmet("Champ Helmet", 5, 10, 1, 0.3f);
+        var weap = new Weapon("Dragon killer", 23, 25, 1, 3.4f);
+        var helm = new Helmet("Champ Helmet", 5, 10, 1, 0.3f);
+        var armo = new Armor("Black dragon armor", 45, 50, 1, 4.1f);
+        var shie = new Shield("Tortuge shield", 1, 5, 1, 0.1f);
+
         spore.TakeItem(potion);
-        spore.TakeItem(sword);
+        spore.TakeItem(weap);
+        spore.TakeItem(helm);
+        spore.TakeItem(armo);
+        spore.TakeItem(shie);
+        spore.TakeItem(magicalRing);
+
         spore.UseItem("Red Potion");
         spore.UseItem("Champ Helmet");
+        spore.UseItem("The unique ring");
+        spore.UseItem("Dragon killer");
+        spore.UseItem("Tortuge shield");
+        spore.UseItem("Black dragon armor");
+        
 
         Assert.AreEqual(lifePointsExpected, spore.state.lifePoints);
-        Assert.AreEqual(redPotionAmount, spore.inv.inv.Find(i => i.name == "Red Potion").quantity);
-        Assert.AreEqual(maxHelmetExpected, spore.helmet.maxHelmet());
-        Assert.AreEqual(minHelmetExpected, spore.helmet.minHelmet());
-        Assert.AreEqual(weightExpected, spore.weight);
+        Assert.AreEqual(redPotionAmountExpected, spore.inv.inv.Find(i => i.name == "Red Potion").quantity);
+        Assert.AreEqual(weightExpected, spore.weight, 1f);
+        Assert.AreEqual(weaponDamageExpected, spore.weapon.weapon);
+        Assert.AreEqual(helmetDefenseExpected, spore.helmet.helmet);
+        Assert.AreEqual(armorDefenseExpected, spore.armor.armor);
+        Assert.AreEqual(shieldDefenseExpected, spore.shield.shield);
+        Assert.AreEqual(maxMagicalDef, spore.magicalItemsEquiped.sum(i => i.magicalDefense.item2));
+        Assert.AreEqual(minMagicalDef, spore.magicalItemsEquiped.sum(i => i.magicalDefense.item1));
     }
 
     [Test]
