@@ -30,14 +30,6 @@ public class CharacterService
         mongodao.Delete(this.query(name));
     }
 
-    public Character fetchCharacter(string name)
-    {
-        return mongodao.get(this.query(name));
-    }
-
-    private IMongoQuery query(string st)
-    {
-        return Query<Character>.EQ(doc => doc.name, st);
-    }
-    
+    public Character fetchCharacter(string name) => mongodao.get(this.query(name));
+    private IMongoQuery query(string st) => Query<Character>.EQ(doc => doc.name, st);    
 }

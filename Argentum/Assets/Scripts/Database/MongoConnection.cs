@@ -26,8 +26,5 @@ public class MongoConnection
         this.db = this.client.GetServer().GetDatabase("AO");
     }
 
-    public MongoDatabase getDB()
-    {
-        return this.db;
-    }
+    public MongoDatabase getDB() => this.db;
 }

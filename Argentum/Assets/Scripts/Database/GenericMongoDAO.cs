@@ -19,11 +19,8 @@ public class GenericMongoDAO<T>
         this.mongoCollection.Drop();
     }
 
-    public T get(IMongoQuery query)
-    {
-        return mongoCollection.FindOne(query);
-    }
-
+    public T get(IMongoQuery query) => mongoCollection.FindOne(query);
+    
     public void Save(T obj)
     {
         this.mongoCollection.Insert(obj);
@@ -39,9 +36,5 @@ public class GenericMongoDAO<T>
         this.mongoCollection.Update(query, Update<T>.Replace(obj));
     }
 
-    public long size()
-    {
-        return this.mongoCollection.Count();
-    }
-
+    public long size() => this.mongoCollection.Count();
 }
