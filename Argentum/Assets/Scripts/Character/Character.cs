@@ -59,7 +59,7 @@ public class Character
         switch (this.weapon)
         {
             case Dagger dag:
-                other.BeingAttacked(this.clasf.stabDamage(this.damage())); //Falta testear !
+                other.BeingAttacked(this.clasf.stabDamage(this.damage())); //Falta testear ! y calcular la probabilidad de apuñalar
                 this.GainExperience(2);
                 break;
             case Weapon weap:
