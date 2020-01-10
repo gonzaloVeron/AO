@@ -34,7 +34,7 @@ public class CharacterTestCase
     }
 
     [Test]
-    public void AttackTest()
+    public void AttackWithWeaponTest()
     {
         var experienceExpected = 2;
         var lifeExpected = 5;
@@ -48,6 +48,51 @@ public class CharacterTestCase
 
         Assert.AreEqual(lifeExpected, other.state.lifePoints);
         Assert.AreEqual(experienceExpected, spore.xp);
+    }
+    [Test]
+    public void AttackWithAssasinDaggerTest()
+    {
+        var dagger = new Dagger("Daga +1", 3, 4, 1, 0.1f);
+        spore.clasf = new Assassin();
+        spore.skills.stabbing = 100;
+        spore.attributes.strength = 40;
+        spore.TakeItem(dagger);
+        spore.UseItem("Daga +1");
+        other.state.lifePoints = 300;
+
+        spore.hitPoints.item1 = 1;
+        spore.hitPoints.item2 = 1;
+
+        spore.Attack(other);
+
+        var lifeRangeStabExpected = new Range(228, 235).calculateRange();
+
+        var lifeRangeWithoutStabExpected = new Range(270, 278).calculateRange();
+
+        Assert.IsTrue(lifeRangeStabExpected.Contains(other.state.lifePoints) || lifeRangeWithoutStabExpected.Contains(other.state.lifePoints));
+    }
+
+    [Test]
+    public void AttackWithWarriorDaggerTest()
+    {
+        var dagger = new Dagger("Daga +1", 3, 4, 1, 0.1f);
+        spore.skills.stabbing = 100;
+        spore.attributes.strength = 40;
+        spore.TakeItem(dagger);
+        spore.UseItem("Daga +1");
+        other.state.lifePoints = 300;
+        spore.hitPoints.item1 = 1;
+        spore.hitPoints.item2 = 1;
+
+        spore.Attack(other);
+
+        Debug.Log(other.state.lifePoints);
+
+        var lifeRangeStabExpected = new Range(210, 217).calculateRange();
+
+        var lifeRangeWithoutStabExpected = new Range(264, 267).calculateRange();
+
+        Assert.IsTrue(lifeRangeStabExpected.Contains(other.state.lifePoints) || lifeRangeWithoutStabExpected.Contains(other.state.lifePoints));
     }
 
     [Test]
@@ -344,4 +389,6 @@ public class CharacterTestCase
         Assert.AreEqual(itemDropped3AmountExpected, itemDropped3.quantity);
         Assert.AreEqual(sporeItemsAmount, spore.inv.itemsAmount());
     }
+
+    
 }
