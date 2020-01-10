@@ -56,9 +56,28 @@ public class Character
     }
     public void Attack(Character other)
     {
+        switch (this.weapon)
+        {
+            case Dagger dag:
+                var prob = Random.Range(0f, 101f);
+                if (prob <= this.clasf.stabChance(this.skills.stabbing))
+                {
+                    other.BeingAttacked(this.clasf.stabDamage(this.damage())); //Falta testear ! y calcular la probabilidad de apuñalar
+                    this.GainExperience(2);
+                }
+                else
+                {
+                    other.BeingAttacked(this.damage());
+                }
+                break;
+            case Weapon weap:
+                other.BeingAttacked(this.damage());
+                this.GainExperience(2);
+                break;
+            default:
+                throw new System.Exception("Algo salio mal en la funcion 'Attack'");
+        }
         //Falta agregar la chance de acertar el golpe
-        other.BeingAttacked(this.damage());
-        this.GainExperience(2);
     }
     public void castSpell(Spell s, Character other)
     {

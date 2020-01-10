@@ -28,14 +28,38 @@ public class Assassin : Classification
     public override float defenseShieldMod() => 0.8f;
     public override int hitPointsPerLevel(int characterLvl) => characterLvl <= 36 ? 3 : 1; 
     public override float meleeAimMod() => 0.9f;
-
     public override float meleeDamageMod() => 0.9f;
-
     public override float projectileWeaponAimMod() => 0.75f;
-
     public override float projectileWeaponDamageMod() => 0.8f;
-
     public override float withoutWeaponAimMod() => 0.9f;
-
     public override float withoutWeaponDamageMod() => 0.9f;
+    public override int stabDamage(int dmg) => dmg + Mathf.RoundToInt(dmg * 1.4f);
+    public override float stabChance(int skill)
+    {
+        switch (skill)
+        {
+            case int n when n >= 0 && n <= 10:
+                return 2.4f;
+            case int n when n >= 11 && n <= 20:
+                return 4.8f;
+            case int n when n >= 21 && n <= 30:
+                return 7.2f;
+            case int n when n >= 31 && n <= 40:
+                return 9.6f;
+            case int n when n >= 41 && n <= 50:
+                return 12f;
+            case int n when n >= 51 && n <= 60:
+                return 14.4f;
+            case int n when n >= 61 && n <= 70:
+                return 16.8f;
+            case int n when n >= 71 && n <= 80:
+                return 19.2f;
+            case int n when n >= 81 && n <= 90:
+                return 21.6f;
+            case int n when n >= 91 && n <= 100:
+                return 24f;
+            default:
+                throw new System.Exception("Skill fuera de los limites");
+        }
+    }
 }
