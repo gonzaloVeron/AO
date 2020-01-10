@@ -86,8 +86,6 @@ public class CharacterTestCase
 
         spore.Attack(other);
 
-        Debug.Log(other.state.lifePoints);
-
         var lifeRangeStabExpected = new Range(210, 217).calculateRange();
 
         var lifeRangeWithoutStabExpected = new Range(264, 267).calculateRange();
