@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Assassin : Classification
 {
-
+    public new List<float> stabbingPercentage = new List<float>(){ 2.4f, 4.8f, 7.2f, 9.6f, 12f, 14.4f, 16.8f, 19.2f, 21.6f, 24f };
     public override int calculateLifePoints(int constitution)
     {
         switch (constitution)
@@ -21,7 +21,6 @@ public class Assassin : Classification
                 throw new System.Exception("Calculo de vida con una constitucion incorrecta");
         }
     }
-
     public override int calculateManaPerLevel(int intelligence) => intelligence;
     public override int initialMana() => 50;
     public override float defenseEvasionMod() => 1.1f;
@@ -36,28 +35,14 @@ public class Assassin : Classification
     public override int stabDamage(int dmg) => dmg + Mathf.RoundToInt(dmg * 1.4f);
     public override float stabChance(int skill)
     {
-        switch (skill)
+        switch (skill.ToString().Length)
         {
-            case int n when n >= 0 && n <= 10:
-                return 2.4f;
-            case int n when n >= 11 && n <= 20:
-                return 4.8f;
-            case int n when n >= 21 && n <= 30:
-                return 7.2f;
-            case int n when n >= 31 && n <= 40:
-                return 9.6f;
-            case int n when n >= 41 && n <= 50:
-                return 12f;
-            case int n when n >= 51 && n <= 60:
-                return 14.4f;
-            case int n when n >= 61 && n <= 70:
-                return 16.8f;
-            case int n when n >= 71 && n <= 80:
-                return 19.2f;
-            case int n when n >= 81 && n <= 90:
-                return 21.6f;
-            case int n when n >= 91 && n <= 100:
-                return 24f;
+            case 1:
+                return this.stabbingPercentage[0];
+            case 2:
+                return this.stabbingPercentage[skill.ToString()[0]];
+            case 3:
+                return this.stabbingPercentage[9];
             default:
                 throw new System.Exception("Skill fuera de los limites");
         }

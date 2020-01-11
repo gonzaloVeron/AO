@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bandit : Classification
 {
+    public new List<float> criticalPercentage = new List<float>() { 1.9f, 3.8f, 5.7f, 7.6f, 9.5f, 11.4f, 13.3f, 15.2f, 17.2f, 19f };
     public override int calculateLifePoints(int constitution)
     {
         switch (constitution)
@@ -20,7 +21,6 @@ public class Bandit : Classification
                 throw new System.Exception("Calculo de vida con una constitucion incorrecta");
         }
     }
-
     public override int calculateManaPerLevel(int intelligence) => Mathf.RoundToInt(intelligence / 3 * 2);
     public override int initialMana() => 50;
     public override float defenseEvasionMod() => 0.7f;
@@ -32,4 +32,18 @@ public class Bandit : Classification
     public override float projectileWeaponDamageMod() => 0.7f;
     public override float withoutWeaponAimMod() => 0.95f;
     public override float withoutWeaponDamageMod() => 1.05f;
+    public override int critDamage(int dmg) => dmg + Mathf.RoundToInt(dmg * 0.75f);
+    public override float critChance(int skill) => this.calculateChance(skill, this.criticalPercentage);
+    public override void HowToAttack(Character self, Character other)
+    {
+        var prob = Random.Range(0f, 101f);
+        if (prob <= this.critChance(self.skills.armedCombat))
+        {
+            other.BeingAttacked(this.critDamage(self.damage()));
+        }
+        else
+        {
+            other.BeingAttacked(self.damage());
+        }
+    }
 }
