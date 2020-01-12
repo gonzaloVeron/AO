@@ -94,6 +94,30 @@ public class CharacterTestCase
     }
 
     [Test]
+    public void AttackWithBanditWeaponTest()
+    {
+        var weapon = new Weapon("Espada larga", 4, 8, 1, 1.3f);
+        spore.clasf = new Bandit();
+        spore.attributes.strength = 40;
+        spore.skills.armedCombat = 100;
+        spore.TakeItem(weapon);
+        spore.UseItem("Espada larga");
+        other.state.lifePoints = 300;
+        spore.hitPoints.item1 = 1;
+        spore.hitPoints.item2 = 1;
+
+        spore.Attack(other);
+
+        Debug.Log(other.state.lifePoints);
+
+        var lifeRangeCritExpected = new Range(212, 246).calculateRange();
+
+        var lifeRangeWithoutCritExpected = new Range(250, 269).calculateRange();
+
+        Assert.IsTrue(lifeRangeCritExpected.Contains(other.state.lifePoints) || lifeRangeWithoutCritExpected.Contains(other.state.lifePoints));
+    }
+
+    [Test]
     public void BeingAttacked()
     {
         spore.armor = new Armor("Placas completas", 15, 25, 1, 2.6f);

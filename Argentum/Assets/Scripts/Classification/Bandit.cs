@@ -36,8 +36,7 @@ public class Bandit : Classification
     public override float critChance(int skill) => this.calculateChance(skill, this.criticalPercentage);
     public override void HowToAttack(Character self, Character other)
     {
-        var prob = Random.Range(0f, 101f);
-        if (prob <= this.critChance(self.skills.armedCombat))
+        if (Random.Range(0f, 101f) <= this.critChance(self.skills.armedCombat))
         {
             other.BeingAttacked(this.critDamage(self.damage()));
         }

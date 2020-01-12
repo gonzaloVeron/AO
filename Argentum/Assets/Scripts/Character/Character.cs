@@ -59,16 +59,8 @@ public class Character
         switch (this.weapon)
         {
             case Dagger dag:
-                var prob = Random.Range(0f, 101f);
-                if (prob <= this.clasf.stabChance(this.skills.stabbing))
-                {
-                    other.BeingAttacked(this.clasf.stabDamage(this.damage())); //Falta agregar el porcentaje de acierto y modificar este asco de codigo
-                    this.GainExperience(2);
-                }
-                else
-                {
-                    other.BeingAttacked(this.damage());
-                }
+                this.clasf.HowToAttack(this, other);
+                this.GainExperience(2);
                 break;
             case Weapon weap:
                 this.clasf.HowToAttack(this, other); //Falta testear !!
