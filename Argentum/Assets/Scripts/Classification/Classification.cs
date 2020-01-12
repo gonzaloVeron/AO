@@ -5,6 +5,8 @@ using UnityEngine;
 //Falta nigromante, pirata, gladiador, cazador
 public abstract class Classification
 {
+    public List<float> stabbingPercentage = new List<float>() { 0.8f, 1.6f, 2.4f, 3.2f, 4f, 4.8f, 5.6f, 6.4f, 7.2f, 8f };
+    public List<float> criticalPercentage = new List<float>();
     public abstract int calculateLifePoints(int constitution);
     public abstract int calculateManaPerLevel(int intelligence);
     public abstract int initialMana();
@@ -18,31 +20,24 @@ public abstract class Classification
     public abstract float defenseShieldMod();
     public abstract float defenseEvasionMod();
     public int energyPerLevel() => 15;
+    public virtual int critDamage(int dmg) => dmg;
     public virtual int stabDamage(int dmg) => dmg + Mathf.RoundToInt(dmg * 1.5f);
-    public virtual float stabChance(int skill)
+    public virtual float stabChance(int skill) => this.calculateChance(skill, this.stabbingPercentage);
+    public virtual float critChance(int skill) => 0f;
+    public virtual void HowToAttack(Character self, Character other)
     {
-        switch(skill)
+        other.BeingAttacked(self.damage());
+    }
+    protected float calculateChance(int skill, List<float> chances)
+    {
+        switch (skill.ToString().Length)
         {
-            case int n when n >= 0 && n <= 10:
-                return 0.8f;
-            case int n when n >= 11 && n <= 20:
-                return 1.6f;
-            case int n when n >= 21 && n <= 30:
-                return 2.4f;
-            case int n when n >= 31 && n <= 40:
-                return 3.2f;
-            case int n when n >= 41 && n <= 50:
-                return 4f;
-            case int n when n >= 51 && n <= 60:
-                return 4.8f;
-            case int n when n >= 61 && n <= 70:
-                return 5.6f;
-            case int n when n >= 71 && n <= 80:
-                return 6.4f;
-            case int n when n >= 81 && n <= 90:
-                return 7.2f;
-            case int n when n >= 91 && n <= 100:
-                return 8f;
+            case 1:
+                return chances[0];
+            case 2:
+                return chances[skill.ToString()[0]];
+            case 3:
+                return chances[9];
             default:
                 throw new System.Exception("Skill fuera de los limites");
         }

@@ -59,20 +59,12 @@ public class Character
         switch (this.weapon)
         {
             case Dagger dag:
-                var prob = Random.Range(0f, 101f);
-                if (prob <= this.clasf.stabChance(this.skills.stabbing))
-                {
-                    other.BeingAttacked(this.clasf.stabDamage(this.damage())); //Falta testear ! y calcular la probabilidad de apuñalar
-                    this.GainExperience(2);
-                }
-                else
-                {
-                    other.BeingAttacked(this.damage());
-                }
+                this.clasf.HowToAttack(this, other);
+                this.GainExperience(2);
                 break;
             case Weapon weap:
-                other.BeingAttacked(this.damage());
-                this.GainExperience(2);
+                this.clasf.HowToAttack(this, other); //Falta testear !!
+                this.GainExperience(2); //Modificar el ganado de exp
                 break;
             default:
                 throw new System.Exception("Algo salio mal en la funcion 'Attack'");
