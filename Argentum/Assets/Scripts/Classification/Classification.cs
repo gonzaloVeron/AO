@@ -24,7 +24,7 @@ public abstract class Classification
     public virtual int stabDamage(int dmg) => dmg + Mathf.RoundToInt(dmg * 1.5f);
     public virtual float stabChance(int skill) => this.calculateChance(skill, this.stabbingPercentage);
     public virtual float critChance(int skill) => 0f;
-    public virtual void HowToAttack(Character self, Character other)
+    public virtual void Attack(Character self, Character other)
     {
         other.BeingAttacked(self.damage());
     }

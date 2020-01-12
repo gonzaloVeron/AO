@@ -47,15 +47,4 @@ public class Assassin : Classification
                 throw new System.Exception("Skill fuera de los limites");
         }
     }
-    public override void HowToAttack(Character self, Character other)
-    {
-        if (Random.Range(0f, 101f) <= this.stabChance(self.skills.stabbing))
-        {
-            other.BeingAttacked(this.stabDamage(self.damage()));
-        }
-        else
-        {
-            other.BeingAttacked(self.damage());
-        }
-    }
 }

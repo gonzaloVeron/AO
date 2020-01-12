@@ -13,4 +13,8 @@ public class Weapon : Equipable
 
     public int maxWeapon() => this.weapon.item2;
 
+    public virtual void HowToAttack(Character self, Character other)
+    {
+        self.clasf.Attack(self, other);
+    }
 }

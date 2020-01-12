@@ -34,7 +34,7 @@ public class Bandit : Classification
     public override float withoutWeaponDamageMod() => 1.05f;
     public override int critDamage(int dmg) => dmg + Mathf.RoundToInt(dmg * 0.75f);
     public override float critChance(int skill) => this.calculateChance(skill, this.criticalPercentage);
-    public override void HowToAttack(Character self, Character other)
+    public override void Attack(Character self, Character other)
     {
         if (Random.Range(0f, 101f) <= this.critChance(self.skills.armedCombat))
         {
