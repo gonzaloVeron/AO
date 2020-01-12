@@ -56,21 +56,55 @@ public class Character
     }
     public void Attack(Character other)
     {
-        switch (this.weapon)
+        var probAcierto = Random.Range(0f, 101f);
+        Debug.Log("Numero random: " + probAcierto);
+        var probAciertoReal = this.probabilidadDeAcierto(this.skills.armedCombat, this.attributes.agility, other);
+        Debug.Log("Prob. Acierto: " + probAciertoReal);
+        if(probAcierto <= probAciertoReal)
         {
-            case Dagger dag:
-                this.clasf.HowToAttack(this, other);
-                this.GainExperience(2);
-                break;
-            case Weapon weap:
-                this.clasf.HowToAttack(this, other); //Falta testear !!
-                this.GainExperience(2); //Modificar el ganado de exp
-                break;
-            default:
-                throw new System.Exception("Algo salio mal en la funcion 'Attack'");
+            this.weapon.HowToAttack(this, other);
+            this.GainExperience(2);
         }
-        //Falta agregar la chance de acertar el golpe
+        else
+        {
+            throw new FailedAttackException(this.name); //Sacar el exception y repensar si es necesario mantener el else para devolver que fallaste
+        }
     }
+
+    public float probabilidadDeAcierto(int cantidadDeSkillsDelTipoDeArmaConLaQuePegue, int agilidad, Character other)
+    {
+        var cuenta = Mathf.RoundToInt(0.4f * ( ( (cantidadDeSkillsDelTipoDeArmaConLaQuePegue + agilidad * this.fun(cantidadDeSkillsDelTipoDeArmaConLaQuePegue)) * this.fun2(this.weapon) + 2.5f * Mathf.Max(this.lvl - 12, 0)) - (other.skills.shieldDefese * 0.5f * other.clasf.defenseShieldMod() + (other.skills.combatTactics + other.skills.combatTactics / 33 * other.attributes.agility) * other.clasf.defenseEvasionMod() + 2.5f * Mathf.Max(other.lvl - 12, 0))));
+        return Mathf.Max(10, Mathf.Min(90, 50 + cuenta));
+    }
+
+    public float fun2(Weapon w)
+    {
+        return clasf.meleeAimMod();
+    }
+
+    public int fun(float skill)
+    {
+        switch (skill)
+        {
+            case float n when n < 31:
+                return 0;
+            case float n when n < 61:
+                return 1;
+            case float n when n < 91:
+                return 2;
+            default:
+                return 3;
+        }
+    }
+
+
+
+
+
+
+
+
+
     public void castSpell(Spell s, Character other)
     {
         this.ControlMana(s.manaPointsNeeded);

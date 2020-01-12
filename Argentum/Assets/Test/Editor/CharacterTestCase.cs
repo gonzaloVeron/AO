@@ -34,87 +34,153 @@ public class CharacterTestCase
     }
 
     [Test]
+    public void AttackWithProbOfSuccess()
+    {
+        try
+        {
+            //Settear a spore para el test
+            spore.clasf = new Paladin();
+            spore.lvl = 30;
+            spore.attributes.agility = 38;
+            spore.skills.armedCombat = 100;
+            //Settear al atacado para el test
+            other.clasf = new Druid();
+            other.lvl = 30;
+            other.attributes.agility = 38;
+            other.skills.combatTactics = 100;
+            other.skills.shieldDefese = 100;
+
+            //-----//
+            var espada = new Weapon("Espada larga rota", 1, 1, 1, 0.5f);
+            spore.attributes.strength = 40;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
+            spore.TakeItem(espada);
+            spore.UseItem("Espada larga rota");
+
+            spore.Attack(other);
+
+            var lifeExpected = 7;
+            var experienceExpected = 2;
+
+            Assert.AreEqual(lifeExpected, other.state.lifePoints);
+            Assert.AreEqual(experienceExpected, spore.xp);
+        }
+        catch (FailedAttackException e)
+        {
+            Assert.Catch<FailedAttackException>(() => throw e);
+        }        
+    }
+    [Test]
     public void AttackWithWeaponTest()
     {
-        var experienceExpected = 2;
-        var lifeExpected = 5;
+        try
+        {
+            var experienceExpected = 2;
+            var lifeExpected = 5;
 
-        spore.weapon = new Weapon("Espada Larga", 1, 1, 1, 0.5f);
-        spore.attributes.strength = 40;
-        spore.hitPoints.item2 = 1;
-        spore.hitPoints.item1 = 1;
+            spore.weapon = new Weapon("Espada Larga rota", 1, 1, 1, 0.5f);
+            spore.attributes.strength = 40;
+            spore.hitPoints.item2 = 1;
+            spore.hitPoints.item1 = 1;
 
-        spore.Attack(other);
+            spore.Attack(other);
 
-        Assert.AreEqual(lifeExpected, other.state.lifePoints);
-        Assert.AreEqual(experienceExpected, spore.xp);
+            Assert.AreEqual(lifeExpected, other.state.lifePoints);
+            Assert.AreEqual(experienceExpected, spore.xp);
+        }
+        catch (FailedAttackException e)
+        {
+            Assert.Catch<FailedAttackException>(() => throw e);
+        }
     }
     [Test]
     public void AttackWithAssasinDaggerTest()
     {
-        var dagger = new Dagger("Daga +1", 3, 4, 1, 0.1f);
-        spore.clasf = new Assassin();
-        spore.skills.stabbing = 100;
-        spore.attributes.strength = 40;
-        spore.TakeItem(dagger);
-        spore.UseItem("Daga +1");
-        other.state.lifePoints = 300;
+        try
+        {
+            var dagger = new Dagger("Daga +1", 3, 4, 1, 0.1f);
+            spore.clasf = new Assassin();
+            spore.skills.stabbing = 100;
+            spore.attributes.strength = 40;
+            spore.TakeItem(dagger);
+            spore.UseItem("Daga +1");
+            other.state.lifePoints = 300;
 
-        spore.hitPoints.item1 = 1;
-        spore.hitPoints.item2 = 1;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
 
-        spore.Attack(other);
+            spore.Attack(other);
 
-        var lifeRangeStabExpected = new Range(228, 235).calculateRange();
+            var lifeRangeStabExpected = new Range(228, 235).calculateRange();
 
-        var lifeRangeWithoutStabExpected = new Range(270, 278).calculateRange();
+            var lifeRangeWithoutStabExpected = new Range(270, 278).calculateRange();
 
-        Assert.IsTrue(lifeRangeStabExpected.Contains(other.state.lifePoints) || lifeRangeWithoutStabExpected.Contains(other.state.lifePoints));
+            Assert.IsTrue(lifeRangeStabExpected.Contains(other.state.lifePoints) || lifeRangeWithoutStabExpected.Contains(other.state.lifePoints));
+        }
+        catch (FailedAttackException e)
+        {
+            Assert.Catch<FailedAttackException>(() => throw e);
+        }
     }
 
     [Test]
     public void AttackWithWarriorDaggerTest()
     {
-        var dagger = new Dagger("Daga +1", 3, 4, 1, 0.1f);
-        spore.skills.stabbing = 100;
-        spore.attributes.strength = 40;
-        spore.TakeItem(dagger);
-        spore.UseItem("Daga +1");
-        other.state.lifePoints = 300;
-        spore.hitPoints.item1 = 1;
-        spore.hitPoints.item2 = 1;
+        try
+        {
+            var dagger = new Dagger("Daga +1", 3, 4, 1, 0.1f);
+            spore.skills.stabbing = 100;
+            spore.attributes.strength = 40;
+            spore.TakeItem(dagger);
+            spore.UseItem("Daga +1");
+            other.state.lifePoints = 300;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
 
-        spore.Attack(other);
+            spore.Attack(other);
 
-        var lifeRangeStabExpected = new Range(210, 217).calculateRange();
+            var lifeRangeStabExpected = new Range(210, 217).calculateRange();
 
-        var lifeRangeWithoutStabExpected = new Range(264, 267).calculateRange();
+            var lifeRangeWithoutStabExpected = new Range(264, 267).calculateRange();
 
-        Assert.IsTrue(lifeRangeStabExpected.Contains(other.state.lifePoints) || lifeRangeWithoutStabExpected.Contains(other.state.lifePoints));
+            Assert.IsTrue(lifeRangeStabExpected.Contains(other.state.lifePoints) || lifeRangeWithoutStabExpected.Contains(other.state.lifePoints));
+        }
+        catch (FailedAttackException e)
+        {
+            Assert.Catch<FailedAttackException>(() => throw e);
+        }
     }
 
     [Test]
     public void AttackWithBanditWeaponTest()
     {
-        var weapon = new Weapon("Espada larga", 4, 8, 1, 1.3f);
-        spore.clasf = new Bandit();
-        spore.attributes.strength = 40;
-        spore.skills.armedCombat = 100;
-        spore.TakeItem(weapon);
-        spore.UseItem("Espada larga");
-        other.state.lifePoints = 300;
-        spore.hitPoints.item1 = 1;
-        spore.hitPoints.item2 = 1;
+        try
+        {
+            var weapon = new Weapon("Espada larga", 4, 8, 1, 1.3f);
+            spore.clasf = new Bandit();
+            spore.attributes.strength = 40;
+            spore.skills.armedCombat = 100;
+            spore.TakeItem(weapon);
+            spore.UseItem("Espada larga");
+            other.state.lifePoints = 300;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
 
-        spore.Attack(other);
+            spore.Attack(other);
 
-        Debug.Log(other.state.lifePoints);
+            Debug.Log(other.state.lifePoints);
 
-        var lifeRangeCritExpected = new Range(212, 246).calculateRange();
+            var lifeRangeCritExpected = new Range(212, 246).calculateRange();
 
-        var lifeRangeWithoutCritExpected = new Range(250, 269).calculateRange();
+            var lifeRangeWithoutCritExpected = new Range(250, 269).calculateRange();
 
-        Assert.IsTrue(lifeRangeCritExpected.Contains(other.state.lifePoints) || lifeRangeWithoutCritExpected.Contains(other.state.lifePoints));
+            Assert.IsTrue(lifeRangeCritExpected.Contains(other.state.lifePoints) || lifeRangeWithoutCritExpected.Contains(other.state.lifePoints));
+        }
+        catch (FailedAttackException e)
+        {
+            Assert.Catch<FailedAttackException>(() => throw e);
+        }
     }
 
     [Test]
@@ -128,7 +194,6 @@ public class CharacterTestCase
 
         spore.BeingAttacked(35);
         var lifeExpected = spore.state.lifePoints;
-
 
         Assert.IsTrue(range.Contains(lifeExpected));
     }

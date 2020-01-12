@@ -23,7 +23,7 @@ public class Druid : Classification
 
     public override int calculateManaPerLevel(int intelligence) => intelligence * 2;
     public override int initialMana() => 50;
-    public override float defenseEvasionMod() => 0.75f;
+    public override float defenseEvasionMod() => 0.6f; //Estaba en 0.75f revisar si todos los mods del excel son iguales a los de las clases
     public override float defenseShieldMod() => 0f;
     public override int hitPointsPerLevel(int characterLvl) => 2;
     public override float meleeAimMod() => 0.65f;
