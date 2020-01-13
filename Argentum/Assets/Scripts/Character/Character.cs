@@ -30,7 +30,8 @@ public class Character
     public Helmet helmet;
     public Inventory inv;
     public HashSet<Spell> spells;
-    public LimitedList<Magical> magicalItemsEquiped; 
+    public LimitedList<Magical> magicalItemsEquiped;
+    public Arrow arrow;
     /*** Character Equipment ***/
     
     public Character(string name, Attributes attributes, Skills skills, Classification clasf)
@@ -56,33 +57,26 @@ public class Character
     }
     public void Attack(Character other)
     {
-        var probAcierto = Random.Range(0f, 101f);
-        Debug.Log("Numero random: " + probAcierto);
-        var probAciertoReal = this.probabilidadDeAcierto(this.skills.armedCombat, this.attributes.agility, other);
-        Debug.Log("Prob. Acierto: " + probAciertoReal);
-        if(probAcierto <= probAciertoReal)
+        if(Random.Range(0f, 101f) <= this.probabilidadDeAcierto(this.weapon.requiredSkill(this.skills), this.attributes.agility, other))
         {
             this.weapon.HowToAttack(this, other);
             this.GainExperience(2);
         }
         else
         {
-            throw new FailedAttackException(this.name); //Sacar el exception y repensar si es necesario mantener el else para devolver que fallaste
+            throw new FailedAttackException(this.name);
         }
     }
-
-    public float probabilidadDeAcierto(int cantidadDeSkillsDelTipoDeArmaConLaQuePegue, int agilidad, Character other)
+    //Skill del tipo de arma que usa, ej: armedCombat, martial arts, projectile weapons
+    public float probabilidadDeAcierto(int skill, int agility, Character other)
     {
-        var cuenta = Mathf.RoundToInt(0.4f * ( ( (cantidadDeSkillsDelTipoDeArmaConLaQuePegue + agilidad * this.fun(cantidadDeSkillsDelTipoDeArmaConLaQuePegue)) * this.fun2(this.weapon) + 2.5f * Mathf.Max(this.lvl - 12, 0)) - (other.skills.shieldDefese * 0.5f * other.clasf.defenseShieldMod() + (other.skills.combatTactics + other.skills.combatTactics / 33 * other.attributes.agility) * other.clasf.defenseEvasionMod() + 2.5f * Mathf.Max(other.lvl - 12, 0))));
-        return Mathf.Max(10, Mathf.Min(90, 50 + cuenta));
+        return Mathf.Max(10, Mathf.Min(90, 50 + Mathf.RoundToInt(0.4f * (((skill + agility * this.skillAmountModificator(skill)) * this.aimModificator(this.weapon) + 2.5f * Mathf.Max(this.lvl - 12, 0)) - (other.skills.shieldDefese * 0.5f * other.clasf.defenseShieldMod() + (other.skills.combatTactics + other.skills.combatTactics / 33 * other.attributes.agility) * other.clasf.defenseEvasionMod() + 2.5f * Mathf.Max(other.lvl - 12, 0))))));
     }
-
-    public float fun2(Weapon w)
+    public float aimModificator(Weapon w)
     {
-        return clasf.meleeAimMod();
+        return w.modForWeapon(this.clasf);
     }
-
-    public int fun(float skill)
+    public int skillAmountModificator(float skill)
     {
         switch (skill)
         {
@@ -96,15 +90,6 @@ public class Character
                 return 3;
         }
     }
-
-
-
-
-
-
-
-
-
     public void castSpell(Spell s, Character other)
     {
         this.ControlMana(s.manaPointsNeeded);
@@ -236,6 +221,9 @@ public class Character
             case Weapon we:
                 this.weapon = we;
                 break;
+            case Arrow arr:
+                this.arrow = arr;
+                break;
             default:
                 throw new System.Exception("No se puede equipar este item");
         }
@@ -257,6 +245,9 @@ public class Character
             case Weapon we:
                 this.weapon = null;
                 break;
+            case Arrow arr:
+                this.arrow = null;
+                break;
             default:
                 throw new System.Exception("No se puede desequipar este item");
         }
@@ -276,6 +267,8 @@ public class Character
                 return this.weapon != null && this.weapon.name == obj.name;
             case Magical mag:
                 return this.magicalItemsEquiped.exists(s => s.name == mag.name);
+            case Arrow arr:
+                return this.arrow != null && this.weapon.name == obj.name;
             default:
                 throw new System.Exception("Pasaron cosas en la funcion 'isEquiped' ");
         }
