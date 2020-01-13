@@ -8,6 +8,8 @@ public class Knuckles : Weapon
     {
         this.weapon = new Tuple<int, int>(minWeapon, maxWeapon);
     }
+    public override Tuple<int, int> calculateDamage(Character self) => self.weapon.weapon;
+    public override float damageMod(Classification clasf) => clasf.withoutWeaponDamageMod();
     public override float modForWeapon(Classification clasf) => clasf.withoutWeaponAimMod();
     public override int requiredSkill(Skills sk) => sk.martialArts;
 }

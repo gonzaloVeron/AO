@@ -72,10 +72,8 @@ public class Character
     {
         return Mathf.Max(10, Mathf.Min(90, 50 + Mathf.RoundToInt(0.4f * (((skill + agility * this.skillAmountModificator(skill)) * this.aimModificator(this.weapon) + 2.5f * Mathf.Max(this.lvl - 12, 0)) - (other.skills.shieldDefese * 0.5f * other.clasf.defenseShieldMod() + (other.skills.combatTactics + other.skills.combatTactics / 33 * other.attributes.agility) * other.clasf.defenseEvasionMod() + 2.5f * Mathf.Max(other.lvl - 12, 0))))));
     }
-    public float aimModificator(Weapon w)
-    {
-        return w.modForWeapon(this.clasf);
-    }
+    public float aimModificator(Weapon w) => w.modForWeapon(this.clasf);
+    public float damageModificator(Weapon w) => w.damageMod(this.clasf);
     public int skillAmountModificator(float skill)
     {
         switch (skill)
@@ -116,12 +114,16 @@ public class Character
     {
         this.state.lifePoints = Mathf.Min(this.state.maxLifePoints, this.state.lifePoints + value);
     }
-    public int damage() => Random.Range(this.physicalDamage(this.weapon.minWeapon(), this.hitPoints.item1), this.physicalDamage(this.weapon.maxWeapon(), this.hitPoints.item2) + 1);
+    public int damage() => Random.Range(this.physicalDamage(this.weapon.minWeapon(), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage(this.weapon.maxWeapon() , this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
+    public int damageWithBow() => Random.Range(this.physicalDamageWithBow((this.weapon.minWeapon() + this.minArrow()), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamageWithBow((this.weapon.maxWeapon() + this.maxArrow()), this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int magicDamage(int minSpellDamage, int maxSpellDamage, int extraMagicDamage) => Mathf.RoundToInt((70 + extraMagicDamage) * ((float)this.spellDamage(minSpellDamage, maxSpellDamage) / 100));
     public int extraMagicDamage() => 0;
     public int spellDamage(int minDamage, int maxDamage) => Random.Range(Mathf.RoundToInt(minDamage + ((float)(minDamage * 3 * this.lvl) / 100)), Mathf.RoundToInt(maxDamage + ((float)(maxDamage * 3 * this.lvl) / 100)) + 1);
-    private int physicalDamage(int damage, int hitPoints) => Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.maxWeapon() / 5) * (this.attributes.strength - 15)) + hitPoints) * this.clasf.meleeDamageMod());
-    public void ModifyState() { } //Implementar !!
+    public int physicalDamage(int damage, int hitPoints, float modificator) => Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.maxWeapon() / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
+    public int physicalDamageWithBow(int damage, int hitPoints, float modificator) => Mathf.RoundToInt(((damage * 3) + (((float)(this.weapon.maxWeapon() + this.maxArrow()) / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
+    public void ModifyState() { }
+    public int minArrow() => (this.arrow != null) ? this.arrow.damage.item1 : 0;
+    public int maxArrow() => (this.arrow != null) ? this.arrow.damage.item2 : 0;
     public void TakeItem(Item i)
     {
         switch (i)
@@ -273,6 +275,14 @@ public class Character
                 throw new System.Exception("Pasaron cosas en la funcion 'isEquiped' ");
         }
     }
-
+    public bool hasAmmunition() => this.arrow != null;
+    public void DiscardAmmunition()
+    {
+        this.inv.RemoveItemByQuantity(this.arrow.name, 1);
+        if(this.arrow.quantity - 1 <= 0)
+        {
+            this.arrow = null;
+        }
+    }
 }
 
