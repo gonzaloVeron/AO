@@ -34,6 +34,56 @@ public class CharacterTestCase
     }
 
     [Test]
+    public void AttackWithBowTest()
+    {
+        try
+        {
+            var bow = new RangedWeapon("Compoud bow", 4, 9, 1, 0.5f);
+            var arrow = new Arrow("Arrow +3", 1, 6, 5, 0f);
+            spore.clasf = new Druid();
+            spore.lvl = 30;
+            spore.attributes.strength = 40;
+            spore.attributes.agility = 38;
+            spore.skills.projectileWeapons = 100;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
+            spore.TakeItem(bow);
+            spore.TakeItem(arrow);
+            spore.UseItem("Compoud bow");
+            spore.UseItem("Arrow +3");
+
+            other.clasf = new Druid();
+            other.lvl = 30;
+            other.attributes.agility = 38;
+            other.skills.combatTactics = 100;
+            other.skills.shieldDefese = 100;
+            other.state.lifePoints = 300;
+
+            spore.Attack(other);
+
+            Debug.Log("Vida del enemigo: " + other.state.lifePoints);
+            Debug.Log(spore.weapon.minWeapon() + spore.minArrow());
+            Debug.Log(spore.weapon.maxWeapon() + spore.maxArrow());
+            Debug.Log("Daño minimo spore: " + spore.physicalDamage(spore.weapon.minWeapon(), spore.hitPoints.item1, spore.damageModificator(spore.weapon)));
+            Debug.Log("Daño maximo spore: " + spore.physicalDamage(spore.weapon.maxWeapon(), spore.hitPoints.item2, spore.damageModificator(spore.weapon)));
+
+            Debug.Log(spore.physicalDamage2(spore.weapon.minWeapon(), spore.hitPoints.item1, spore.damageModificator(spore.weapon)));
+            Debug.Log(spore.physicalDamage2(spore.weapon.maxWeapon(), spore.hitPoints.item2, spore.damageModificator(spore.weapon)));
+
+
+            var lifePointsExpected = new Range(209, 232).calculateRange();
+            var arrowAmountExpected = 4;
+
+            Assert.IsTrue(lifePointsExpected.Contains(other.state.lifePoints));
+            Assert.AreEqual(arrowAmountExpected, spore.arrow.quantity);
+        }
+        catch (FailedAttackException e)
+        {
+            Assert.Catch<FailedAttackException>(() => throw e);
+        }
+    }
+
+    [Test]
     public void AttackWithProbOfSuccess()
     {
         try
