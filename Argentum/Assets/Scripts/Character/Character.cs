@@ -290,8 +290,17 @@ public class Character
     }
     public void incrementHitPoints(int n)
     {
-        this.hitPoints.item1 = (this.lvl < 35) ? Mathf.Min(99, this.hitPoints.item1 + n) : this.hitPoints.item1 + n;
-        this.hitPoints.item2 = (this.lvl < 35) ? Mathf.Min(99, this.hitPoints.item2 + n) : this.hitPoints.item2 + n;
+        switch (this.clasf)
+        {
+            case Bandit cl:
+                this.hitPoints.item1 += n;
+                this.hitPoints.item2 += n;
+                break;
+            default:
+                this.hitPoints.item1 = (this.lvl < 35) ? Mathf.Min(99, this.hitPoints.item1 + n) : this.hitPoints.item1 + n;
+                this.hitPoints.item2 = (this.lvl < 35) ? Mathf.Min(99, this.hitPoints.item2 + n) : this.hitPoints.item2 + n;
+                break;
+        }
     }
 }
 
