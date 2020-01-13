@@ -61,16 +61,6 @@ public class CharacterTestCase
 
             spore.Attack(other);
 
-            Debug.Log("Vida del enemigo: " + other.state.lifePoints);
-            Debug.Log(spore.weapon.minWeapon() + spore.minArrow());
-            Debug.Log(spore.weapon.maxWeapon() + spore.maxArrow());
-            Debug.Log("Daño minimo spore: " + spore.physicalDamage(spore.weapon.minWeapon(), spore.hitPoints.item1, spore.damageModificator(spore.weapon)));
-            Debug.Log("Daño maximo spore: " + spore.physicalDamage(spore.weapon.maxWeapon(), spore.hitPoints.item2, spore.damageModificator(spore.weapon)));
-
-            Debug.Log(spore.physicalDamage2(spore.weapon.minWeapon(), spore.hitPoints.item1, spore.damageModificator(spore.weapon)));
-            Debug.Log(spore.physicalDamage2(spore.weapon.maxWeapon(), spore.hitPoints.item2, spore.damageModificator(spore.weapon)));
-
-
             var lifePointsExpected = new Range(209, 232).calculateRange();
             var arrowAmountExpected = 4;
 

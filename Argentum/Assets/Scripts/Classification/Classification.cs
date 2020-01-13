@@ -28,6 +28,10 @@ public abstract class Classification
     {
         other.BeingAttacked(self.damage());
     }
+    public virtual void AttackWithBow(Character self, Character other)
+    {
+        other.BeingAttacked(self.damageWithBow());
+    }
     protected float calculateChance(int skill, List<float> chances)
     {
         switch (skill.ToString().Length)

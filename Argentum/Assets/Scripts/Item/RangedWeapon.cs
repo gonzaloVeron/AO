@@ -17,7 +17,7 @@ public class RangedWeapon : Weapon
     {
         if (self.hasAmmunition())
         {
-            self.clasf.Attack(self, other);
+            self.clasf.AttackWithBow(self, other);
             self.DiscardAmmunition();
         }
         else

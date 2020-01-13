@@ -114,20 +114,13 @@ public class Character
     {
         this.state.lifePoints = Mathf.Min(this.state.maxLifePoints, this.state.lifePoints + value);
     }
-    public int damage() => Random.Range(this.physicalDamage((this.weapon.minWeapon() + this.minArrow()), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage((this.weapon.maxWeapon() + this.maxArrow()), this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
+    public int damage() => Random.Range(this.physicalDamage(this.weapon.minWeapon(), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage(this.weapon.maxWeapon() , this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
+    public int damageWithBow() => Random.Range(this.physicalDamageWithBow((this.weapon.minWeapon() + this.minArrow()), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamageWithBow((this.weapon.maxWeapon() + this.maxArrow()), this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int magicDamage(int minSpellDamage, int maxSpellDamage, int extraMagicDamage) => Mathf.RoundToInt((70 + extraMagicDamage) * ((float)this.spellDamage(minSpellDamage, maxSpellDamage) / 100));
     public int extraMagicDamage() => 0;
     public int spellDamage(int minDamage, int maxDamage) => Random.Range(Mathf.RoundToInt(minDamage + ((float)(minDamage * 3 * this.lvl) / 100)), Mathf.RoundToInt(maxDamage + ((float)(maxDamage * 3 * this.lvl) / 100)) + 1);
     public int physicalDamage(int damage, int hitPoints, float modificator) => Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.maxWeapon() / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
-    public int physicalDamage2(int damage, int hitPoints, float modificator) 
-    {
-        var dmg = damage * 3;
-        var dmg2 = ((float)this.weapon.maxWeapon() / 5);
-        var dmg3 = (this.attributes.strength - 15);
-        Debug.Log("Daño pasado por parametro " + damage);
-        //Debug.Log("((" + dmg + ")" + " + " + "((" + dmg2 + ")" + " * " + "(" + dmg3 + "))" + " + " + hitPoints + ")" + " * " + modificator);
-        return Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.maxWeapon() / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
-    }
+    public int physicalDamageWithBow(int damage, int hitPoints, float modificator) => Mathf.RoundToInt(((damage * 3) + (((float)(this.weapon.maxWeapon() + this.maxArrow()) / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
     public void ModifyState() { }
     public int minArrow() => (this.arrow != null) ? this.arrow.damage.item1 : 0;
     public int maxArrow() => (this.arrow != null) ? this.arrow.damage.item2 : 0;
