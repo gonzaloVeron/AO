@@ -30,7 +30,7 @@ public class CharacterTestCase
         other.armor = new Armor("Vestimenta Simple", 0, 0, 1, 0f);
         other.helmet = new Helmet("Capucha", 0, 0, 1, 0f);
         other.shield = new Shield("Escudo de madera roto", 0, 0, 1, 0f);
-        other.weapon = new Weapon("Daga rota", 0, 0, 1, 0f);
+        other.weapon = new MeleeWeapon("Daga rota", 0, 0, 1, 0f);
     }
 
     [Test]
@@ -51,7 +51,7 @@ public class CharacterTestCase
             other.skills.shieldDefese = 100;
 
             //-----//
-            var espada = new Weapon("Espada larga rota", 1, 1, 1, 0.5f);
+            var espada = new MeleeWeapon("Espada larga rota", 1, 1, 1, 0.5f);
             spore.attributes.strength = 40;
             spore.hitPoints.item1 = 1;
             spore.hitPoints.item2 = 1;
@@ -79,7 +79,7 @@ public class CharacterTestCase
             var experienceExpected = 2;
             var lifeExpected = 5;
 
-            spore.weapon = new Weapon("Espada Larga rota", 1, 1, 1, 0.5f);
+            spore.weapon = new MeleeWeapon("Espada Larga rota", 1, 1, 1, 0.5f);
             spore.attributes.strength = 40;
             spore.hitPoints.item2 = 1;
             spore.hitPoints.item1 = 1;
@@ -157,7 +157,7 @@ public class CharacterTestCase
     {
         try
         {
-            var weapon = new Weapon("Espada larga", 4, 8, 1, 1.3f);
+            var weapon = new MeleeWeapon("Espada larga", 4, 8, 1, 1.3f);
             spore.clasf = new Bandit();
             spore.attributes.strength = 40;
             spore.skills.armedCombat = 100;
@@ -168,8 +168,6 @@ public class CharacterTestCase
             spore.hitPoints.item2 = 1;
 
             spore.Attack(other);
-
-            Debug.Log(other.state.lifePoints);
 
             var lifeRangeCritExpected = new Range(212, 246).calculateRange();
 
@@ -207,7 +205,7 @@ public class CharacterTestCase
         spore.hitPoints.item1 = 109;
         spore.hitPoints.item2 = 109;
         spore.attributes.strength = 40;
-        spore.weapon = new Weapon("Hacha de dos filos", 7, 20, 1, 2.1f);
+        spore.weapon = new MeleeWeapon("Hacha de dos filos", 7, 20, 1, 2.1f);
         Assert.IsTrue(damagesExpected.Contains(spore.damage()));
     }
 
@@ -414,7 +412,7 @@ public class CharacterTestCase
 
         var magicalRing = new Magical("The unique ring", 1, 0f, 60, 60, 0, 0);
         var potion = new Consumable("Red Potion", 30, 0, 0, 0, 0, 4, 0f);
-        var weap = new Weapon("Dragon killer", 23, 25, 1, 3.4f);
+        var weap = new MeleeWeapon("Dragon killer", 23, 25, 1, 3.4f);
         var helm = new Helmet("Champ Helmet", 5, 10, 1, 0.3f);
         var armo = new Armor("Black dragon armor", 45, 50, 1, 4.1f);
         var shie = new Shield("Tortuge shield", 1, 5, 1, 0.1f);
