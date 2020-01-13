@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Thief : Classification
 {
-    public override int calculateLifePoints(int constitution)
+    public override int calculateLifePointsPerLevel(int constitution)
     {
         switch (constitution)
         {

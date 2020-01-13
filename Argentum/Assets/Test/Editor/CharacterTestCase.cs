@@ -357,10 +357,11 @@ public class CharacterTestCase
     [Test]
     public void GainExperienceLevelUpTest()
     {
+        spore.attributes.constitution = 21;
+        spore.attributes.intelligence = 18;
         var lvlExpected = 2;
         var experienceExpected = 0;
-        spore.xpMax = 5;
-        spore.GainExperience(52);
+        spore.GainExperience(152);
         Assert.AreEqual(experienceExpected, spore.xp);
         Assert.AreEqual(lvlExpected, spore.lvl);
     }
@@ -393,15 +394,31 @@ public class CharacterTestCase
     }
 
     [Test]
-    public void LevelUpTest()
+    public void LevelUpWarriorTest()
     {
-        var experienceExpected = 0;
-        var lvlExpected = 45;
-        spore.xp = 9999;
-        spore.lvl = 44;
-        spore.LevelUp();
+        spore.attributes.constitution = 21;
+        spore.attributes.intelligence = 18;
+        var hitPointsExpected = new Tuple<int, int>(109, 109);
+        var energyPointsExpected = 625;
+        var manaPointsExpected = 0;
+        var lifePointsExpected = new Range(334, 490).calculateRange();
+        var actualExperienceExpected = 0;
+        var maxExperienceExpected = 0;
+        var lvlExpected = 40;
+        
+        for(int i = 1; i < 40; i += 1)
+        {
+            spore.LevelUp();
+        }
+
         Assert.AreEqual(lvlExpected, spore.lvl);
-        Assert.AreEqual(experienceExpected, spore.xp);
+        Assert.AreEqual(actualExperienceExpected, spore.xp);
+        Assert.AreEqual(maxExperienceExpected, spore.xpMax);
+        Assert.IsTrue(lifePointsExpected.Contains(spore.state.maxLifePoints));
+        Assert.AreEqual(manaPointsExpected, spore.state.maxManaPoints);
+        Assert.AreEqual(energyPointsExpected, spore.state.maxEnergyPoints);
+        Assert.AreEqual(hitPointsExpected.item1, spore.hitPoints.item1);
+        Assert.AreEqual(hitPointsExpected.item2, spore.hitPoints.item2);
     }
 
     [Test]

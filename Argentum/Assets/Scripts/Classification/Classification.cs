@@ -7,7 +7,7 @@ public abstract class Classification
 {
     public List<float> stabbingPercentage = new List<float>() { 0.8f, 1.6f, 2.4f, 3.2f, 4f, 4.8f, 5.6f, 6.4f, 7.2f, 8f };
     public List<float> criticalPercentage = new List<float>();
-    public abstract int calculateLifePoints(int constitution);
+    public abstract int calculateLifePointsPerLevel(int constitution);
     public abstract int calculateManaPerLevel(int intelligence);
     public abstract int initialMana();
     public abstract int hitPointsPerLevel(int characterLvl);
