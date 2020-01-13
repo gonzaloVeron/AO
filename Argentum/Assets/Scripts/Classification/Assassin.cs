@@ -5,7 +5,7 @@ using UnityEngine;
 public class Assassin : Classification
 {
     public new List<float> stabbingPercentage = new List<float>(){ 2.4f, 4.8f, 7.2f, 9.6f, 12f, 14.4f, 16.8f, 19.2f, 21.6f, 24f };
-    public override int calculateLifePoints(int constitution)
+    public override int calculateLifePointsPerLevel(int constitution)
     {
         switch (constitution)
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bandit : Classification
 {
     public new List<float> criticalPercentage = new List<float>() { 1.9f, 3.8f, 5.7f, 7.6f, 9.5f, 11.4f, 13.3f, 15.2f, 17.2f, 19f };
-    public override int calculateLifePoints(int constitution)
+    public override int calculateLifePointsPerLevel(int constitution)
     {
         switch (constitution)
         {

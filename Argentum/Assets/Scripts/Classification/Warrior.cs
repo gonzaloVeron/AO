@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Warrior : Classification
 {
-    public override int calculateLifePoints(int constitution)
+    public override int calculateLifePointsPerLevel(int constitution)
     {
         switch (constitution)
         {
@@ -25,7 +25,7 @@ public class Warrior : Classification
     public override int initialMana() => 0;
     public override float defenseEvasionMod() => 1f;
     public override float defenseShieldMod() => 1f;
-    public override int hitPointsPerLevel(int characterLvl) => characterLvl <= 36 ? 3 : 2;
+    public override int hitPointsPerLevel(int characterLvl) => characterLvl < 35 ? 3 : 2;
     public override float meleeAimMod() => 1.025f;
     public override float meleeDamageMod() => 1.1f;
     public override float projectileWeaponAimMod() => 1f;

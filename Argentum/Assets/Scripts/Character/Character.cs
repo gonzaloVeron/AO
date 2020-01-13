@@ -173,9 +173,13 @@ public class Character
     }
     public void LevelUp()
     {
+        this.state.maxLifePoints += this.clasf.calculateLifePointsPerLevel(this.attributes.constitution);
+        this.state.maxManaPoints += this.clasf.calculateManaPerLevel(this.attributes.intelligence);
+        this.state.maxEnergyPoints += this.clasf.energyPerLevel();
+        this.incrementHitPoints(this.clasf.hitPointsPerLevel(this.lvl));
         this.lvl += 1;
+        this.xpMax = this.xp * 2; //Reemplazar esta asignacion por otra que traiga el siguiente lvl de la base de datos
         this.xp = 0;
-        //falta aumentar la vida, la mana y la energia maxima
     }
     public void BuyItem(int value, Item i)
     {
@@ -253,7 +257,7 @@ public class Character
             default:
                 throw new System.Exception("No se puede desequipar este item");
         }
-        this.weight += obj.weight;
+        this.weight -= obj.weight;
     }
     public bool isEquiped(Equipable obj)
     {
@@ -283,6 +287,11 @@ public class Character
         {
             this.arrow = null;
         }
+    }
+    public void incrementHitPoints(int n)
+    {
+        this.hitPoints.item1 = (this.lvl < 35) ? Mathf.Min(99, this.hitPoints.item1 + n) : this.hitPoints.item1 + n;
+        this.hitPoints.item2 = (this.lvl < 35) ? Mathf.Min(99, this.hitPoints.item2 + n) : this.hitPoints.item2 + n;
     }
 }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Druid : Classification
 {
-    public override int calculateLifePoints(int constitution)
+    public override int calculateLifePointsPerLevel(int constitution)
     {
         switch (constitution)
         {
@@ -20,7 +20,6 @@ public class Druid : Classification
                 throw new System.Exception("Calculo de vida con una constitucion incorrecta");
         }
     }
-
     public override int calculateManaPerLevel(int intelligence) => intelligence * 2;
     public override int initialMana() => 50;
     public override float defenseEvasionMod() => 0.6f; //Estaba en 0.75f revisar si todos los mods del excel son iguales a los de las clases
