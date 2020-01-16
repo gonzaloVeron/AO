@@ -27,7 +27,7 @@ public class Druid : Classification
     public override int hitPointsPerLevel(int characterLvl) => 2;
     public override float meleeAimMod() => 0.65f;
     public override float meleeDamageMod() => 0.7f;
-    public override float projectileWeaponAimMod() => 0.75f;
+    public override float projectileWeaponAimMod() => 0.7f;
     public override float projectileWeaponDamageMod() => 0.75f;
     public override float withoutWeaponAimMod() => 0.4f;
     public override float withoutWeaponDamageMod() => 0.4f;
