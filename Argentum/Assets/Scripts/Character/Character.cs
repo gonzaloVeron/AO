@@ -57,21 +57,45 @@ public class Character
     }
     public void Attack(Character other)
     {
-        if(Random.Range(0f, 101f) <= this.probabilidadDeAcierto(this.weapon.requiredSkill(this.skills), this.attributes.agility, other))
+        if (other.hasAShield())
         {
-            this.weapon.HowToAttack(this, other);
-            this.GainExperience(2);
+            var probConEsc = this.probabilidadDeAcierto(this.weapon.requiredSkill(this.skills), this.attributes.agility, other);
+            var probRand = Random.Range(0, 101);
+            Debug.Log("Probabilidad con escudo: " + probConEsc);
+            Debug.Log("Numero random: " + probRand);
+            if (probRand <= probConEsc)
+            {
+                Debug.Log("No falle !");
+                this.weapon.HowToAttack(this, other);
+                this.GainExperience(2);
+            }
+            else
+            {
+                throw new FailedAttackException(this.name);
+            }
         }
         else
         {
-            throw new FailedAttackException(this.name);
+            var probSinEsc = this.probabilidadDeAciertoSinEscudo(this.weapon.requiredSkill(this.skills), this.attributes.agility, other);
+            var probRand = Random.Range(0, 101);
+            Debug.Log("Probabilidad sin escudo: " + probSinEsc);
+            Debug.Log("Numero random: " + probRand);
+            if (probRand <= probSinEsc)
+            {
+                Debug.Log("No falle !");
+                this.weapon.HowToAttack(this, other);
+                this.GainExperience(2);
+            }
+            else
+            {
+                throw new FailedAttackException(this.name);
+            }
         }
     }
     //Skill del tipo de arma que usa, ej: armedCombat, martial arts, projectile weapons
-    public float probabilidadDeAcierto(int skill, int agility, Character other)
-    {
-        return Mathf.Max(10, Mathf.Min(90, 50 + Mathf.RoundToInt(0.4f * (((skill + agility * this.skillAmountModificator(skill)) * this.aimModificator(this.weapon) + 2.5f * Mathf.Max(this.lvl - 12, 0)) - (other.skills.shieldDefese * 0.5f * other.clasf.defenseShieldMod() + (other.skills.combatTactics + other.skills.combatTactics / 33 * other.attributes.agility) * other.clasf.defenseEvasionMod() + 2.5f * Mathf.Max(other.lvl - 12, 0))))));
-    }
+    public int probabilidadDeAcierto(int skill, int agility, Character other) => Mathf.Max(10, Mathf.Min(90, 50 + Mathf.RoundToInt(0.4f * (((skill + agility * this.skillAmountModificator(skill)) * this.aimModificator(this.weapon) + 2.5f * Mathf.Max(this.lvl - 12, 0)) - (other.skills.shieldDefese * 0.5f * other.clasf.defenseShieldMod() + (other.skills.combatTactics + ((float)other.skills.combatTactics / 33) * other.attributes.agility) * other.clasf.defenseEvasionMod() + 2.5f * Mathf.Max(other.lvl - 12, 0))))));
+    public int probabilidadDeAciertoSinEscudo(int skill, int agility, Character other) => Mathf.Max(10, Mathf.Min(90, 50 + Mathf.RoundToInt(0.4f * (((skill + agility * this.skillAmountModificator(skill)) * this.aimModificator(this.weapon) + 2.5f * Mathf.Max(this.lvl - 12, 0)) - ((other.skills.combatTactics + ((float)other.skills.combatTactics / 33) * other.attributes.agility) * other.clasf.defenseEvasionMod() + 2.5f * Mathf.Max(other.lvl - 12, 0))))));
+    public bool hasAShield() => this.shield != null;
     public float aimModificator(Weapon w) => w.modForWeapon(this.clasf);
     public float damageModificator(Weapon w) => w.damageMod(this.clasf);
     public int skillAmountModificator(float skill)
@@ -103,8 +127,19 @@ public class Character
     }
     public void BeingAttacked(int value)
     {
-        this.state.lifePoints = Mathf.Max(0, this.state.lifePoints - Mathf.Max(0, (value - Random.Range(this.armor.minArmor() + this.shield.minShield() + this.helmet.minHelmet(), this.armor.maxArmor() + this.shield.maxShield() + this.helmet.maxHelmet() + 1))));
+        this.state.lifePoints = Mathf.Max(0, this.state.lifePoints - Mathf.Max(0, value - this.physicalDefense()));
     }
+    public int physicalDefense() => Random.Range(this.minArmor() + this.minShield() + this.minHelmet(), this.maxArmor() + this.maxShield() + this.maxHelmet() + 1);
+
+    //-----//
+    public int minArmor() => this.armor != null ? this.armor.minArmor() : 0;
+    public int maxArmor() => this.armor != null ? this.armor.maxArmor() : 0;
+    public int minHelmet() => this.helmet != null ? this.helmet.minHelmet() : 0;
+    public int maxHelmet() => this.helmet != null ? this.helmet.maxHelmet() : 0;
+    public int minShield() => this.shield != null ? this.shield.minShield() : 0;
+    public int maxShield() => this.shield != null ? this.shield.maxShield() : 0;
+    //-----//
+    
     public void BeAttackedWithMagic(int value)
     {
         this.state.lifePoints -= value; //restar defensa magica a value y no restar daño magico menor a 0
@@ -115,12 +150,11 @@ public class Character
         this.state.lifePoints = Mathf.Min(this.state.maxLifePoints, this.state.lifePoints + value);
     }
     public int damage() => Random.Range(this.physicalDamage(this.weapon.minWeapon(), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage(this.weapon.maxWeapon() , this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
-    public int damageWithBow() => Random.Range(this.physicalDamageWithBow((this.weapon.minWeapon() + this.minArrow()), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamageWithBow((this.weapon.maxWeapon() + this.maxArrow()), this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
+    public int damageWithBow() => Random.Range(this.physicalDamage((this.weapon.minWeapon() + this.minArrow()), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage((this.weapon.maxWeapon() + this.maxArrow()), this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int magicDamage(int minSpellDamage, int maxSpellDamage, int extraMagicDamage) => Mathf.RoundToInt((70 + extraMagicDamage) * ((float)this.spellDamage(minSpellDamage, maxSpellDamage) / 100));
     public int extraMagicDamage() => 0;
     public int spellDamage(int minDamage, int maxDamage) => Random.Range(Mathf.RoundToInt(minDamage + ((float)(minDamage * 3 * this.lvl) / 100)), Mathf.RoundToInt(maxDamage + ((float)(maxDamage * 3 * this.lvl) / 100)) + 1);
     public int physicalDamage(int damage, int hitPoints, float modificator) => Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.maxWeapon() / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
-    public int physicalDamageWithBow(int damage, int hitPoints, float modificator) => Mathf.RoundToInt(((damage * 3) + (((float)(this.weapon.maxWeapon() + this.maxArrow()) / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
     public void ModifyState() { }
     public int minArrow() => (this.arrow != null) ? this.arrow.damage.item1 : 0;
     public int maxArrow() => (this.arrow != null) ? this.arrow.damage.item2 : 0;

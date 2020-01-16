@@ -23,8 +23,8 @@ public class Thief : Classification
 
     public override int calculateManaPerLevel(int intelligence) => 0;
     public override int initialMana() => 0;
-    public override float defenseEvasionMod() => 1f;
-    public override float defenseShieldMod() => 1.1f;
+    public override float defenseEvasionMod() => 1.1f;
+    public override float defenseShieldMod() => 0f;
     public override int hitPointsPerLevel(int characterLvl) => 3;
     public override float meleeAimMod() => 0.9f;
     public override float meleeDamageMod() => 0.8f;

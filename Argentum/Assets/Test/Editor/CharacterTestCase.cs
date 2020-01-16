@@ -20,17 +20,49 @@ public class CharacterTestCase
     [SetUp]
     public void SetUp()
     {
-        attributesSpore = new Attributes(12, 0, 0, 0, 0, 0, 0);
-        attributesOther = new Attributes(6, 0, 0, 0, 0, 0, 0);
+        attributesSpore = new Attributes(40, 38, 0, 0, 0, 0, 0);
+        attributesOther = new Attributes(40, 38, 0, 0, 0, 0, 0);
         skillsSpore = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         skillsOther = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
         spore = new Character("Spore", attributesSpore, skillsSpore, new Warrior());
         other = new Character("Other", attributesOther, skillsOther, new Warrior());
-        other.armor = new Armor("Vestimenta Simple", 0, 0, 1, 0f);
-        other.helmet = new Helmet("Capucha", 0, 0, 1, 0f);
-        other.shield = new Shield("Escudo de madera roto", 0, 0, 1, 0f);
-        other.weapon = new MeleeWeapon("Daga rota", 0, 0, 1, 0f);
+        other.armor = new Armor("Vestimenta Simple", 3, 6, 1, 0f);
+        other.helmet = new Helmet("Capucha", 2, 5, 1, 0f);
+        other.shield = new Shield("Escudo de madera roto", 1, 2, 1, 0f);
+        other.weapon = new MeleeWeapon("Daga rota", 1, 1, 1, 0f);
+        other.state.lifePoints = 300;
+
+    }
+    [Test]
+    public void BardAttackClericTest()
+    {
+        try
+        {
+            var knuckles = new Knuckles("Nudillos de plata", 4, 9, 1, 0.6f);
+            spore.clasf = new Bard();
+            spore.lvl = 30;
+            spore.skills.martialArts = 100;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
+            spore.TakeItem(knuckles);
+            spore.UseItem("Nudillos de plata");
+
+            other.clasf = new Cleric();
+            other.lvl = 30;
+            other.skills.shieldDefese = 100;
+            other.skills.combatTactics = 100;
+
+            spore.Attack(other);
+
+            var lifePointsExpected = new Range(277, 290).calculateRange();
+
+            Assert.IsTrue(lifePointsExpected.Contains(other.state.lifePoints));
+        }
+        catch (FailedAttackException e)
+        {
+            Assert.Catch<FailedAttackException>(() => throw e);
+        }
     }
 
     [Test]
@@ -42,8 +74,6 @@ public class CharacterTestCase
             var arrow = new Arrow("Arrow +3", 1, 6, 5, 0f);
             spore.clasf = new Druid();
             spore.lvl = 30;
-            spore.attributes.strength = 40;
-            spore.attributes.agility = 38;
             spore.skills.projectileWeapons = 100;
             spore.hitPoints.item1 = 1;
             spore.hitPoints.item2 = 1;
@@ -54,14 +84,16 @@ public class CharacterTestCase
 
             other.clasf = new Druid();
             other.lvl = 30;
-            other.attributes.agility = 38;
             other.skills.combatTactics = 100;
             other.skills.shieldDefese = 100;
             other.state.lifePoints = 300;
+            other.armor = null;
+            other.helmet = null;
+            other.shield = null;
 
             spore.Attack(other);
 
-            var lifePointsExpected = new Range(209, 232).calculateRange();
+            var lifePointsExpected = new Range(232, 254).calculateRange();
             var arrowAmountExpected = 4;
 
             Assert.IsTrue(lifePointsExpected.Contains(other.state.lifePoints));
@@ -81,7 +113,6 @@ public class CharacterTestCase
             //Settear a spore para el test
             spore.clasf = new Paladin();
             spore.lvl = 30;
-            spore.attributes.agility = 38;
             spore.skills.armedCombat = 100;
             //Settear al atacado para el test
             other.clasf = new Druid();
@@ -92,7 +123,6 @@ public class CharacterTestCase
 
             //-----//
             var espada = new MeleeWeapon("Espada larga rota", 1, 1, 1, 0.5f);
-            spore.attributes.strength = 40;
             spore.hitPoints.item1 = 1;
             spore.hitPoints.item2 = 1;
             spore.TakeItem(espada);
@@ -100,10 +130,11 @@ public class CharacterTestCase
 
             spore.Attack(other);
 
-            var lifeExpected = 7;
+            //el enemigo tiene una armadura de 6/13 por lo tanto el mejor golpe es 8 - 6 que resulta ser (300 - 2) = 298
+            var lifePointsExpected = new Range(298, 300).calculateRange();
             var experienceExpected = 2;
 
-            Assert.AreEqual(lifeExpected, other.state.lifePoints);
+            Assert.IsTrue(lifePointsExpected.Contains(other.state.lifePoints));
             Assert.AreEqual(experienceExpected, spore.xp);
         }
         catch (FailedAttackException e)
@@ -112,22 +143,29 @@ public class CharacterTestCase
         }        
     }
     [Test]
-    public void AttackWithWeaponTest()
+    public void ClericAttackThiefTest()
     {
         try
         {
-            var experienceExpected = 2;
-            var lifeExpected = 5;
-
-            spore.weapon = new MeleeWeapon("Espada Larga rota", 1, 1, 1, 0.5f);
-            spore.attributes.strength = 40;
-            spore.hitPoints.item2 = 1;
+            var espada = new MeleeWeapon("Espada de plata", 15, 22, 1, 2.1f);
+            spore.clasf = new Cleric();
+            spore.lvl = 30;
+            spore.skills.armedCombat = 100;
             spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 2;
+            spore.weapon = espada;
+
+            other.clasf = new Thief();
+            other.lvl = 30;
+            other.skills.combatTactics = 100;
+            other.skills.shieldDefese = 100;
+            other.shield = null;
 
             spore.Attack(other);
 
-            Assert.AreEqual(lifeExpected, other.state.lifePoints);
-            Assert.AreEqual(experienceExpected, spore.xp);
+            var lifePointsExpected = new Range(163, 186).calculateRange();
+
+            Assert.IsTrue(lifePointsExpected.Contains(other.state.lifePoints));
         }
         catch (FailedAttackException e)
         {
@@ -141,20 +179,22 @@ public class CharacterTestCase
         {
             var dagger = new Dagger("Daga +1", 3, 4, 1, 0.1f);
             spore.clasf = new Assassin();
+            spore.lvl = 30;
+            spore.skills.armedCombat = 100;
             spore.skills.stabbing = 100;
-            spore.attributes.strength = 40;
             spore.TakeItem(dagger);
             spore.UseItem("Daga +1");
-            other.state.lifePoints = 300;
-
-            spore.hitPoints.item1 = 1;
             spore.hitPoints.item2 = 1;
+            spore.hitPoints.item1 = 1;
 
+            other.lvl = 30;
+            other.skills.shieldDefese = 100;
+            other.skills.combatTactics = 100;
+            other.shield = null;
             spore.Attack(other);
 
-            var lifeRangeStabExpected = new Range(228, 235).calculateRange();
-
-            var lifeRangeWithoutStabExpected = new Range(270, 278).calculateRange();
+            var lifeRangeStabExpected = new Range(234, 248).calculateRange();
+            var lifeRangeWithoutStabExpected = new Range(276, 286).calculateRange();
 
             Assert.IsTrue(lifeRangeStabExpected.Contains(other.state.lifePoints) || lifeRangeWithoutStabExpected.Contains(other.state.lifePoints));
         }
@@ -170,19 +210,23 @@ public class CharacterTestCase
         try
         {
             var dagger = new Dagger("Daga +1", 3, 4, 1, 0.1f);
+            spore.lvl = 30;
             spore.skills.stabbing = 100;
-            spore.attributes.strength = 40;
+            spore.skills.armedCombat = 100;
             spore.TakeItem(dagger);
             spore.UseItem("Daga +1");
-            other.state.lifePoints = 300;
             spore.hitPoints.item1 = 1;
             spore.hitPoints.item2 = 1;
 
+            other.lvl = 30;
+            other.skills.combatTactics = 100;
+            other.skills.shieldDefese = 100;
+            other.shield = null;
+
             spore.Attack(other);
 
-            var lifeRangeStabExpected = new Range(210, 217).calculateRange();
-
-            var lifeRangeWithoutStabExpected = new Range(264, 267).calculateRange();
+            var lifeRangeStabExpected = new Range(215, 228).calculateRange();
+            var lifeRangeWithoutStabExpected = new Range(269, 278).calculateRange();
 
             Assert.IsTrue(lifeRangeStabExpected.Contains(other.state.lifePoints) || lifeRangeWithoutStabExpected.Contains(other.state.lifePoints));
         }
@@ -199,19 +243,22 @@ public class CharacterTestCase
         {
             var weapon = new MeleeWeapon("Espada larga", 4, 8, 1, 1.3f);
             spore.clasf = new Bandit();
-            spore.attributes.strength = 40;
+            spore.lvl = 30;
             spore.skills.armedCombat = 100;
             spore.TakeItem(weapon);
             spore.UseItem("Espada larga");
-            other.state.lifePoints = 300;
             spore.hitPoints.item1 = 1;
             spore.hitPoints.item2 = 1;
 
+            other.lvl = 30;
+            other.skills.shieldDefese = 100;
+            other.skills.combatTactics = 100;
+            other.shield = null;
+
             spore.Attack(other);
-
-            var lifeRangeCritExpected = new Range(212, 246).calculateRange();
-
-            var lifeRangeWithoutCritExpected = new Range(250, 269).calculateRange();
+            
+            var lifeRangeCritExpected = new Range(217, 239).calculateRange();
+            var lifeRangeWithoutCritExpected = new Range(255, 270).calculateRange();
 
             Assert.IsTrue(lifeRangeCritExpected.Contains(other.state.lifePoints) || lifeRangeWithoutCritExpected.Contains(other.state.lifePoints));
         }
@@ -244,7 +291,6 @@ public class CharacterTestCase
         spore.clasf = new Warrior();
         spore.hitPoints.item1 = 109;
         spore.hitPoints.item2 = 109;
-        spore.attributes.strength = 40;
         spore.weapon = new MeleeWeapon("Hacha de dos filos", 7, 20, 1, 2.1f);
         Assert.IsTrue(damagesExpected.Contains(spore.damage()));
     }

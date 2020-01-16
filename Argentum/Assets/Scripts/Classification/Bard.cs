@@ -20,7 +20,6 @@ public class Bard : Classification
                 throw new System.Exception("Calculo de vida con una constitucion incorrecta");
         }
     }
-
     public override int calculateManaPerLevel(int intelligence) => intelligence * 2;
     public override int initialMana() => 50;
     public override float defenseEvasionMod() => 1.075f;
