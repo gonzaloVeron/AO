@@ -142,8 +142,7 @@ public class Character
     
     public void BeAttackedWithMagic(int value)
     {
-        this.state.lifePoints -= value; //restar defensa magica a value y no restar daño magico menor a 0
-        //Modificar Test
+        this.state.lifePoints = Mathf.Max(0, this.state.lifePoints - Mathf.Max(0, value - this.magicDefense()));
     }
     public void Heal(int value)
     {
@@ -152,7 +151,8 @@ public class Character
     public int damage() => Random.Range(this.physicalDamage(this.weapon.minWeapon(), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage(this.weapon.maxWeapon() , this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int damageWithBow() => Random.Range(this.physicalDamage((this.weapon.minWeapon() + this.minArrow()), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage((this.weapon.maxWeapon() + this.maxArrow()), this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int magicDamage(int minSpellDamage, int maxSpellDamage, int extraMagicDamage) => Mathf.RoundToInt((70 + extraMagicDamage) * ((float)this.spellDamage(minSpellDamage, maxSpellDamage) / 100));
-    public int extraMagicDamage() => 0;
+    public int extraMagicDamage() => this.magicalItemsEquiped.sum(i => i.magicalDamage);
+    public int magicDefense() => this.magicalItemsEquiped.sum(i => i.magicalDefense) + this.armor.magicalDefense + this.shield.magicalDefense + this.helmet.magicalDefense;
     public int spellDamage(int minDamage, int maxDamage) => Random.Range(Mathf.RoundToInt(minDamage + ((float)(minDamage * 3 * this.lvl) / 100)), Mathf.RoundToInt(maxDamage + ((float)(maxDamage * 3 * this.lvl) / 100)) + 1);
     public int physicalDamage(int damage, int hitPoints, float modificator) => Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.maxWeapon() / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
     public void ModifyState() { }
@@ -233,16 +233,6 @@ public class Character
     {
         this.inv.fetchItem(itemName).Use(this);;
     }
-    public void EquipMagicalItem(Magical obj)
-    {
-        this.magicalItemsEquiped.Add(obj);
-        this.weight += obj.weight;
-    }
-    public void UnequipMagicalItem(Magical obj)
-    {
-        this.magicalItemsEquiped.Remove(obj);
-        this.weight -= obj.weight;
-    }
     public Item dropItem(string name, int quantity) => this.inv.itemToDrop(name, quantity);
     private int initialLife() => 15 + (Mathf.RoundToInt(this.attributes.constitution / 3));
     public void EquipItem(Equipable obj)
@@ -263,6 +253,9 @@ public class Character
                 break;
             case Arrow arr:
                 this.arrow = arr;
+                break;
+            case Magical mag:
+                this.magicalItemsEquiped.Add(mag);
                 break;
             default:
                 throw new System.Exception("No se puede equipar este item");
@@ -287,6 +280,9 @@ public class Character
                 break;
             case Arrow arr:
                 this.arrow = null;
+                break;
+            case Magical mag:
+                this.magicalItemsEquiped.Remove(mag);
                 break;
             default:
                 throw new System.Exception("No se puede desequipar este item");

@@ -9,6 +9,8 @@ public class Equipable : Item
     public Tuple<int, int> helmet;
     public Tuple<int, int> shield;
     public Tuple<int, int> weapon;
+    public int magicalDefense;
+    public int magicalDamage;
 
     public Equipable(string name, int quantity, float weight)
     {

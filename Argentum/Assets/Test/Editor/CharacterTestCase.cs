@@ -510,10 +510,9 @@ public class CharacterTestCase
         var armorDefenseExpected = new Tuple<int, int>(45, 50); 
         var shieldDefenseExpected = new Tuple<int, int>(1, 5); 
         var weaponDamageExpected = new Tuple<int, int>(23, 25);
-        var maxMagicalDef = 60;
-        var minMagicalDef = 60;
+        var magicalDef = 60;
 
-        var magicalRing = new Magical("The unique ring", 1, 0f, 60, 60, 0, 0);
+        var magicalRing = new Magical("The unique ring", 60, 60, 1, 0f);
         var potion = new Consumable("Red Potion", 30, 0, 0, 0, 0, 4, 0f);
         var weap = new MeleeWeapon("Dragon killer", 23, 25, 1, 3.4f);
         var helm = new Helmet("Champ Helmet", 5, 10, 1, 0.3f);
@@ -542,8 +541,7 @@ public class CharacterTestCase
         Assert.AreEqual(helmetDefenseExpected, spore.helmet.helmet);
         Assert.AreEqual(armorDefenseExpected, spore.armor.armor);
         Assert.AreEqual(shieldDefenseExpected, spore.shield.shield);
-        Assert.AreEqual(maxMagicalDef, spore.magicalItemsEquiped.sum(i => i.magicalDefense.item2));
-        Assert.AreEqual(minMagicalDef, spore.magicalItemsEquiped.sum(i => i.magicalDefense.item1));
+        Assert.AreEqual(magicalDef, spore.magicalItemsEquiped.sum(i => i.magicalDefense));
     }
 
     [Test]
