@@ -32,4 +32,5 @@ public class Wizard : Classification
     public override float projectileWeaponDamageMod() => 0.5f;
     public override float withoutWeaponAimMod() => 0.3f;
     public override float withoutWeaponDamageMod() => 0.4f;
+    public override float magicalDamageMod() => 1f;
 }

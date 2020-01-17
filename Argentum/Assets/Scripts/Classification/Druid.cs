@@ -31,4 +31,5 @@ public class Druid : Classification
     public override float projectileWeaponDamageMod() => 0.75f;
     public override float withoutWeaponAimMod() => 0.4f;
     public override float withoutWeaponDamageMod() => 0.4f;
+    public override float magicalDamageMod() => 0.7f;
 }

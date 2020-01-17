@@ -32,4 +32,5 @@ public class WorkingMan : Classification
     public override float projectileWeaponDamageMod() => 0.8f;
     public override float withoutWeaponAimMod() => 0.9f;
     public override float withoutWeaponDamageMod() => 0.8f;
+    public override float magicalDamageMod() => 0f;
 }

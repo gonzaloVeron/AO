@@ -115,7 +115,7 @@ public class Character
     public void castSpell(Spell s, Character other)
     {
         this.ControlMana(s.manaPointsNeeded);
-        this.state.manaPoints -= Mathf.Max(0, s.manaPointsNeeded);
+        this.state.manaPoints = Mathf.Max(0, this.state.manaPoints - s.manaPointsNeeded);
         s.Effect(this, other);
     }
     private void ControlMana(int manaPointsNeeded)
@@ -151,7 +151,7 @@ public class Character
     public int damage() => Random.Range(this.physicalDamage(this.weapon.minWeapon(), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage(this.weapon.maxWeapon() , this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int damageWithBow() => Random.Range(this.physicalDamage((this.weapon.minWeapon() + this.minArrow()), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage((this.weapon.maxWeapon() + this.maxArrow()), this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int magicDamage(int minSpellDamage, int maxSpellDamage, int extraMagicDamage) => Mathf.RoundToInt((70 + extraMagicDamage) * ((float)this.spellDamage(minSpellDamage, maxSpellDamage) / 100));
-    public int extraMagicDamage() => this.magicalItemsEquiped.sum(i => i.magicalDamage);
+    public int extraMagicDamage() => this.magicalItemsEquiped.sum(i => i.magicalDamage) + this.weapon.magicalDamage;
     public int magicDefense() => this.magicalItemsEquiped.sum(i => i.magicalDefense) + this.armor.magicalDefense + this.shield.magicalDefense + this.helmet.magicalDefense;
     public int spellDamage(int minDamage, int maxDamage) => Random.Range(Mathf.RoundToInt(minDamage + ((float)(minDamage * 3 * this.lvl) / 100)), Mathf.RoundToInt(maxDamage + ((float)(maxDamage * 3 * this.lvl) / 100)) + 1);
     public int physicalDamage(int damage, int hitPoints, float modificator) => Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.maxWeapon() / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
