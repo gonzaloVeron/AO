@@ -347,9 +347,12 @@ public class CharacterTestCase
         var spellsAmountExpected = 2;
         var spell1 = new DirectDamage("Dardo magico", 1, 5, 10);
         var spell2 = new DirectDamage("Bomba magica", 6, 9, 40);
+        var spell3 = new DirectDamage("Dardo magico", 1, 5, 10);
         spore.LearnSpell(spell1);
         spore.LearnSpell(spell2);
-        Assert.AreEqual(spellsAmountExpected, spore.spells.Count);
+        spore.LearnSpell(spell3);
+
+        Assert.AreEqual(spellsAmountExpected, spore.spells.Count());
     }
 
     [Test]
@@ -575,6 +578,6 @@ public class CharacterTestCase
         Assert.AreEqual(itemDropped3AmountExpected, itemDropped3.quantity);
         Assert.AreEqual(sporeItemsAmount, spore.inv.itemsAmount());
     }
-
+    
     
 }

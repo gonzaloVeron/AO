@@ -31,4 +31,5 @@ public class Paladin : Classification
     public override float projectileWeaponDamageMod() => 0.8f;
     public override float withoutWeaponAimMod() => 0.95f;
     public override float withoutWeaponDamageMod() => 0.9f;
+    public override float magicalDamageMod() => 0.5f;
 }

@@ -47,4 +47,5 @@ public class Assassin : Classification
                 throw new System.Exception("Skill fuera de los limites");
         }
     }
+    public override float magicalDamageMod() => 0.5f;
 }

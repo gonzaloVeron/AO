@@ -32,4 +32,5 @@ public class Thief : Classification
     public override float projectileWeaponDamageMod() => 0.95f;
     public override float withoutWeaponAimMod() => 1f;
     public override float withoutWeaponDamageMod() => 1.075f;
+    public override float magicalDamageMod() => 0f;
 }

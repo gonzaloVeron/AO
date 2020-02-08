@@ -46,4 +46,5 @@ public abstract class Classification
                 throw new System.Exception("Skill fuera de los limites");
         }
     }
+    public abstract float magicalDamageMod();
 }

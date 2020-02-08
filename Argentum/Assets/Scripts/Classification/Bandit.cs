@@ -45,4 +45,5 @@ public class Bandit : Classification
             other.BeingAttacked(self.damage());
         }
     }
+    public override float magicalDamageMod() => 0.4f;
 }
