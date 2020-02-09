@@ -25,4 +25,5 @@ public class RangedWeapon : Weapon
             throw new WithoutAmmunitionException(self.name);
         }
     }
+    public override Item copy() => new RangedWeapon(this.name, this.weapon.item1, this.weapon.item2, this.quantity, this.weight);
 }

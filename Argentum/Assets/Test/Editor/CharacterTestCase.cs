@@ -17,9 +17,12 @@ public class CharacterTestCase
 
     private Skills skillsOther;
 
+    private ListUtils utils;
+
     [SetUp]
     public void SetUp()
     {
+        utils = new ListUtils();
         attributesSpore = new Attributes(40, 38, 0, 0, 0, 0, 0);
         attributesOther = new Attributes(40, 38, 0, 0, 0, 0, 0);
         skillsSpore = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -578,6 +581,44 @@ public class CharacterTestCase
         Assert.AreEqual(itemDropped3AmountExpected, itemDropped3.quantity);
         Assert.AreEqual(sporeItemsAmount, spore.inv.itemsAmount());
     }
-    
+
+    [Test]
+    public void StealTest()
+    {
+        var goldValuesExpected = new List<int>() { 0, 15 };
+        spore.skills.steal = 100;
+
+        other.gold = 500;
+
+        spore.Steal(other);
+
+        Assert.IsTrue(goldValuesExpected.Contains(spore.gold));
+    }
+
+    [Test]
+    public void StealWithThiefTest()
+    {
+        spore.clasf = new Thief();
+        spore.skills.steal = 100;
+        var itemsNamesExpected = new List<string>() { "Red potion", "Dragon armor", "Bottle of water" };
+        var goldValuesExpected = new List<int>() { 0, 15 };
+
+        Consumable redPotion = new Consumable("Red potion", 30, 0, 0, 0, 0, 30, 0.5f);
+        Armor dragonArmor = new Armor("Dragon armor", 45, 50, 1, 5.6f);
+        Consumable bottleOfWater = new Consumable("Bottle of water", 00, 0, 0, 0, 10, 30, 0.5f);
+        other.TakeItem(redPotion);
+        other.TakeItem(dragonArmor);
+        other.TakeItem(bottleOfWater);
+        other.gold = 500;
+
+        spore.Steal(other);
+
+        Debug.Log("Cantidad de oro de Spore: " + spore.gold);
+        Debug.Log("Cantidad de oro de la victima: " + other.gold);
+        Debug.Log("Items de la victima: " + utils.listToString(other.inv.inv.ConvertAll(i => "(" + i.name + ", " + i.quantity + ")")));
+        Debug.Log("Items de Spore: " + utils.listToString(spore.inv.inv.ConvertAll(i => "(" + i.name + ", " + i.quantity + ")")));
+
+        Assert.IsTrue(goldValuesExpected.Contains(spore.gold) || itemsNamesExpected.Contains(spore.inv.inv[0].name));
+    }
     
 }

@@ -10,4 +10,5 @@ public class Arrow : Equipable
     {
         this.damage = new Tuple<int, int>(minDamage, maxDamage);
     }
+    public override Item copy() => new Arrow(this.name, this.damage.item1, this.damage.item2, this.quantity, this.weight);
 }

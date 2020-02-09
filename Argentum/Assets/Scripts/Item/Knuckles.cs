@@ -12,4 +12,5 @@ public class Knuckles : Weapon
     public override float damageMod(Classification clasf) => clasf.withoutWeaponDamageMod();
     public override float modForWeapon(Classification clasf) => clasf.withoutWeaponAimMod();
     public override int requiredSkill(Skills sk) => sk.martialArts;
+    public override Item copy() => new Knuckles(this.name, this.weapon.item1, this.weapon.item2, this.quantity, this.weight);
 }

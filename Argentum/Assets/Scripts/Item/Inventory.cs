@@ -70,4 +70,10 @@ public class Inventory
         algo.Invoke(this.fetchItem(name));
     }
 
+    public Item getRandomItem()
+    {
+        var rand = Random.Range(0, this.inv.Count - 1);
+        return this.inv[rand];
+    }
+
 }
