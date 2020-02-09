@@ -331,6 +331,17 @@ public class Character
                 break;
         }
     }
+    public void Steal(Character other)
+    {
+        var randomNumber = Random.Range(0, 100);
+        var stealChance = this.clasf.stealChance(this.skills.steal);
+        Debug.Log("Numero random para robar: " + randomNumber);
+        Debug.Log("Chance de robar: " + stealChance);
+        if (randomNumber < stealChance)
+        {
+            this.clasf.Steal(this, other);
+        }
+    }
     public void ModifyState() { }
 }
 

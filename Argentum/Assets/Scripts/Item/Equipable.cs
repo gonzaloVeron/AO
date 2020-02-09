@@ -18,7 +18,6 @@ public class Equipable : Item
         this.quantity = quantity;
         this.weight = weight;
     }
-
     public override void Use(Character other)
     {
         if (other.isEquiped(this))
@@ -30,7 +29,6 @@ public class Equipable : Item
             other.EquipItem(this);
         }
     }
-
     public override Item toDrop(int quantity, bool needRemove, Inventory inv)
     {
         if (needRemove)
@@ -43,6 +41,10 @@ public class Equipable : Item
             this.quantity -= quantity;
             return new Equipable(this.name, quantity, this.weight);
         }
+    }
+    public override Item copy()
+    {
+        throw new NonCopyableItemException(this.name);
     }
 }
 

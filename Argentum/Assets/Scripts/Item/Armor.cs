@@ -10,7 +10,7 @@ public class Armor : Equipable
     }
 
     public int minArmor() => this.armor.item1;
-
     public int maxArmor() => this.armor.item2;
+    public override Item copy() => new Armor(this.name, this.armor.item1, this.armor.item2, this.quantity, this.weight);
 
 }

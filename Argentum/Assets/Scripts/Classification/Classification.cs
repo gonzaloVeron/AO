@@ -7,6 +7,7 @@ public abstract class Classification
 {
     public List<float> stabbingPercentage = new List<float>() { 0.8f, 1.6f, 2.4f, 3.2f, 4f, 4.8f, 5.6f, 6.4f, 7.2f, 8f };
     public List<float> criticalPercentage = new List<float>();
+    public List<float> stealPercentage = new List<float>() { 2f, 4f, 6f, 8f, 10f, 12f, 14f, 16f, 18f, 20f };
     public abstract int calculateLifePointsPerLevel(int constitution);
     public abstract int calculateManaPerLevel(int intelligence);
     public abstract int initialMana();
@@ -46,5 +47,12 @@ public abstract class Classification
                 throw new System.Exception("Skill fuera de los limites");
         }
     }
+    public virtual float stealChance(int skill) => this.calculateChance(skill, this.stealPercentage);
     public abstract float magicalDamageMod();
+    public virtual void Steal(Character thief, Character victim)
+    {
+        int goldStealed = Mathf.RoundToInt(victim.gold * 0.03f);
+        victim.gold = Mathf.Max(0, victim.gold - goldStealed);
+        thief.gold += goldStealed; 
+    }
 }

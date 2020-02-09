@@ -23,4 +23,5 @@ public class Dagger : Weapon
         }
     }
     public override int requiredSkill(Skills sk) => sk.armedCombat;
+    public override Item copy() => new Dagger(this.name, this.weapon.item1, this.weapon.item2, this.quantity, this.weight);
 }

@@ -15,4 +15,5 @@ public abstract class Weapon : Equipable
         self.clasf.Attack(self, other);
     }
     public abstract int requiredSkill(Skills sk);
+
 }

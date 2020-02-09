@@ -48,5 +48,6 @@ public class Consumable : Item
             return new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, quantity, this.weight);
         }
     }
+    public override Item copy() => new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, this.quantity, this.weight);
 
 }
