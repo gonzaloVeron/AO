@@ -35,6 +35,7 @@ public class CharacterTestCase
         other.shield = new Shield("Escudo de madera roto", 1, 2, 1, 0f);
         other.weapon = new MeleeWeapon("Daga rota", 1, 1, 1, 0f);
         other.state.lifePoints = 300;
+        other.state.maxLifePoints = 300;
 
     }
     [Test]
@@ -620,5 +621,170 @@ public class CharacterTestCase
 
         Assert.IsTrue(goldValuesExpected.Contains(spore.gold) || itemsNamesExpected.Contains(spore.inv.inv[0].name));
     }
-    
+
+    [Test]
+    public void ExamineLifePointsOfTestCase1()
+    {
+        spore.skills.survival = 7;
+
+        Assert.AreEqual("Dudoso", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase2()
+    {
+        spore.skills.survival = 13;
+
+        Assert.AreEqual("Sano", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase3()
+    {
+        spore.skills.survival = 13;
+
+        other.state.lifePoints = 143;
+
+        Assert.AreEqual("Herido", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase4()
+    {
+        spore.skills.survival = 25;
+
+        other.state.lifePoints = 230;
+
+        Assert.AreEqual("Sano", spore.examineLifePointsOf(other));
+    }
+
+
+    [Test]
+    public void ExamineLifePointsOfTestCase5()
+    {
+        spore.skills.survival = 25;
+
+        other.state.lifePoints = 169;
+
+        Assert.AreEqual("Herido", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase6()
+    {
+        spore.skills.survival = 25;
+
+        other.state.lifePoints = 149;
+
+        Assert.AreEqual("Gravemente Herido", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase7()
+    {
+        spore.skills.survival = 37;
+
+        other.state.lifePoints = 227;
+
+        Assert.AreEqual("Sano", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase8()
+    {
+        spore.skills.survival = 37;
+
+        other.state.lifePoints = 200;
+
+        Assert.AreEqual("Levemente Herido", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase9()
+    {
+        spore.skills.survival = 37;
+
+        other.state.lifePoints = 140;
+
+        Assert.AreEqual("Herido", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase10()
+    {
+        spore.skills.survival = 37;
+
+        other.state.lifePoints = 75;
+
+        Assert.AreEqual("Gravemente Herido", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase11()
+    {
+        spore.skills.survival = 51;
+
+        Assert.AreEqual("Intacto", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase12()
+    {
+        spore.skills.survival = 51;
+
+        other.state.lifePoints = 299;
+
+        Assert.AreEqual("Sano", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase13()
+    {
+        spore.skills.survival = 51;
+
+        other.state.lifePoints = 200;
+
+        Assert.AreEqual("Levemente Herido", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase14()
+    {
+        spore.skills.survival = 51;
+
+        other.state.lifePoints = 140;
+
+        Assert.AreEqual("Herido", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase15()
+    {
+        spore.skills.survival = 51;
+
+        other.state.lifePoints = 45;
+
+        Assert.AreEqual("Gravemente Herido", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase16()
+    {
+        spore.skills.survival = 51;
+
+        other.state.lifePoints = 10;
+
+        Assert.AreEqual("Casi Muerto", spore.examineLifePointsOf(other));
+    }
+
+    [Test]
+    public void ExamineLifePointsOfTestCase17()
+    {
+        spore.skills.survival = 80;
+
+        other.state.lifePoints = 191;
+
+        Assert.AreEqual("(191/300)", spore.examineLifePointsOf(other));
+    }
+
 }
