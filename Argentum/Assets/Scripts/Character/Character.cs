@@ -342,6 +342,62 @@ public class Character
             this.clasf.Steal(this, other);
         }
     }
+
+    /* Para la skill de supervivencia */ /* TESTEAR !!*/
+    public string examineLifePointsOf(Character ch, int skill)
+    {
+        switch (skill)
+        {
+            case int n when n > 0 && n < 10:
+                return this.examine(ch, 0);
+            case int n when n > 11 && n < 20:
+                return this.examine(ch, 1);
+            case int n when n > 21 && n < 30:
+                return this.examine(ch, 2);
+            case int n when n > 31 && n < 40:
+                return this.examine(ch, 3);
+            case int n when n > 41 && n < 60:
+                return this.examine(ch, 4);
+            case int n when n > 60:
+                return this.examine(ch, -1);
+            default:
+                throw new System.Exception("Cantidad de skills invalida");
+        }
+    }
+
+    public string examine(Character ch, int discriminator)
+    {
+        switch (ch.state.lifePoints)
+        {
+            case int cl when discriminator == 0:
+                return "Dudoso";
+            case int cl when discriminator == 1:
+                return (cl > cl * 0.5) ? "Sano" : "Herido";
+            case int cl when discriminator == 2 && cl > cl * 0.5f && cl < cl * 0.75f:
+                return "Levemente Herido";
+            case int cl when discriminator == 2 && cl > cl * 0.25f && cl < cl * 0.5f:
+                return "Herido";
+            case int cl when discriminator == 2 && cl < cl * 0.5f:
+                return "Malherido";
+            case int cl when discriminator >= 2 && cl > cl * 0.75:
+                return "Sano";
+            case int cl when discriminator == 3 && cl < cl * 0.25f:
+                return "Malherido";
+            case int cl when discriminator >= 3 && cl > cl * 0.5f && cl < cl * 0.75f:
+                return "Levemente Herido";
+            case int cl when discriminator >= 3 && cl > cl * 0.25f && cl < cl * 0.5f:
+                return "Herido";
+            case int cl when discriminator == 4 && cl > cl * 0.1f && cl < cl * 0.25f: 
+                return "MalHerido";
+            case int cl when discriminator == 4 && cl < cl * 0.1f:
+                return "Casi Muerto";
+            case int cl when discriminator == 4 && cl == cl * 1:
+                return "Intacto";
+            default:
+                return "(" + ch.state.lifePoints + "/" + ch.state.maxLifePoints + ")";
+        }
+    }
+    /* ------------------------------ */
     public void ModifyState() { }
 }
 
