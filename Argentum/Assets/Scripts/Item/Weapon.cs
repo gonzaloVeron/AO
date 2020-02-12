@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Weapon : Equipable
 {
-    public Weapon(string name, int quantity, float weight) : base(name, quantity, weight) { }
+    public Weapon(string name, int quantity, float weight, int magicalDefense, int magicalDamage) : base(name, quantity, weight, magicalDefense, magicalDamage) { }
     public int minWeapon() => this.weapon.item1;
     public int maxWeapon() => this.weapon.item2;
     public abstract float modForWeapon(Classification clasf);

@@ -12,11 +12,13 @@ public class Equipable : Item
     public int magicalDefense;
     public int magicalDamage;
 
-    public Equipable(string name, int quantity, float weight)
+    public Equipable(string name, int quantity, float weight, int magicalDefense, int magicalDamage)
     {
         this.name = name;
         this.quantity = quantity;
         this.weight = weight;
+        this.magicalDefense = magicalDefense;
+        this.magicalDamage = magicalDamage;
     }
     public override void Use(Character other)
     {
@@ -34,12 +36,12 @@ public class Equipable : Item
         if (needRemove)
         {
             inv.RemoveItem(this);
-            return new Equipable(this.name, this.quantity, this.weight);
+            return new Equipable(this.name, this.quantity, this.weight, this.magicalDefense, this.magicalDamage);
         }
         else
         {
             this.quantity -= quantity;
-            return new Equipable(this.name, quantity, this.weight);
+            return new Equipable(this.name, quantity, this.weight, this.magicalDefense, this.magicalDamage);
         }
     }
     public override Item copy()

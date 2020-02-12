@@ -19,10 +19,11 @@ public class ItemService
         mongodao.Save(item);
     }
 
+    // ARREGLAR !!!
     public void CreateItemEquipable(string name, float weight)
     {
-        Item item = new Equipable(name, 0, weight);
-        mongodao.Save(item);
+        //Item item = new Equipable(name, 0, weight); 
+        //mongodao.Save(item);
     }
 
     public Item fetchItem(string name) => mongodao.get(this.query(name));

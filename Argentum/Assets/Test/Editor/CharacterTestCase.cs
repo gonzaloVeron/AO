@@ -30,10 +30,10 @@ public class CharacterTestCase
 
         spore = new Character("Spore", attributesSpore, skillsSpore, new Warrior());
         other = new Character("Other", attributesOther, skillsOther, new Warrior());
-        other.armor = new Armor("Vestimenta Simple", 3, 6, 1, 0f);
-        other.helmet = new Helmet("Capucha", 2, 5, 1, 0f);
-        other.shield = new Shield("Escudo de madera roto", 1, 2, 1, 0f);
-        other.weapon = new MeleeWeapon("Daga rota", 1, 1, 1, 0f);
+        other.armor = new Armor("Vestimenta Simple", 3, 6, 0, 0, 1, 0f);
+        other.helmet = new Helmet("Capucha", 2, 5, 0, 0, 1, 0f);
+        other.shield = new Shield("Escudo de madera roto", 1, 2, 0, 0, 1, 0f);
+        other.weapon = new MeleeWeapon("Daga rota", 1, 1, 0, 0, 1, 0f);
         other.state.lifePoints = 300;
         other.state.maxLifePoints = 300;
 
@@ -126,7 +126,7 @@ public class CharacterTestCase
             other.skills.shieldDefese = 100;
 
             //-----//
-            var espada = new MeleeWeapon("Espada larga rota", 1, 1, 1, 0.5f);
+            var espada = new MeleeWeapon("Espada larga rota", 1, 1, 0, 0, 1, 0.5f);
             spore.hitPoints.item1 = 1;
             spore.hitPoints.item2 = 1;
             spore.TakeItem(espada);
@@ -151,7 +151,7 @@ public class CharacterTestCase
     {
         try
         {
-            var espada = new MeleeWeapon("Espada de plata", 15, 22, 1, 2.1f);
+            var espada = new MeleeWeapon("Espada de plata", 15, 22, 0, 0, 1, 2.1f);
             spore.clasf = new Cleric();
             spore.lvl = 30;
             spore.skills.armedCombat = 100;
@@ -245,7 +245,7 @@ public class CharacterTestCase
     {
         try
         {
-            var weapon = new MeleeWeapon("Espada larga", 4, 8, 1, 1.3f);
+            var weapon = new MeleeWeapon("Espada larga", 4, 8, 0, 0, 1, 1.3f);
             spore.clasf = new Bandit();
             spore.lvl = 30;
             spore.skills.armedCombat = 100;
@@ -275,9 +275,9 @@ public class CharacterTestCase
     [Test]
     public void BeingAttacked()
     {
-        spore.armor = new Armor("Placas completas", 15, 25, 1, 2.6f);
-        spore.helmet = new Helmet("Almete de hierro", 5, 10, 1, 0.2f);
-        spore.shield = new Shield("Placas completas", 1, 2, 1, 2.6f);
+        spore.armor = new Armor("Placas completas", 15, 25, 0, 0, 1, 2.6f);
+        spore.helmet = new Helmet("Almete de hierro", 5, 10, 0, 0, 1, 0.2f);
+        spore.shield = new Shield("Placas completas", 1, 2, 0, 0, 1, 2.6f);
 
         var range = new Range(0, 15).calculateRange();
 
@@ -295,7 +295,7 @@ public class CharacterTestCase
         spore.clasf = new Warrior();
         spore.hitPoints.item1 = 109;
         spore.hitPoints.item2 = 109;
-        spore.weapon = new MeleeWeapon("Hacha de dos filos", 7, 20, 1, 2.1f);
+        spore.weapon = new MeleeWeapon("Hacha de dos filos", 7, 20, 0, 0, 1, 2.1f);
         Assert.IsTrue(damagesExpected.Contains(spore.damage()));
     }
 
@@ -327,7 +327,7 @@ public class CharacterTestCase
     {
         var inventoryQuantityExpected = 2;
         var item1 = new Consumable("Pocion Azul", 0, 0.4f, 0, 0, 0, 4, 0f);
-        var item2 = new Equipable("Espada Larga", 1, 0f);
+        var item2 = new Equipable("Espada Larga", 1, 0f, 0, 0);
         spore.TakeItem(item1);
         spore.TakeItem(item2);
         Assert.AreEqual(inventoryQuantityExpected, spore.inv.itemsAmount());
@@ -368,11 +368,10 @@ public class CharacterTestCase
         spore.LearnSpell(spell1);
         spore.LearnSpell(spell2);
 
+        spore.clasf = new Druid(); //El druida tiene un modificador de daño magico de 0.7f
         spore.lvl = 40;
         spore.attributes.intelligence = 22;
         spore.state.manaPoints = 2500;
-
-        other.state.lifePoints = 300;
 
         spore.castSpell(spell2, other);
         spore.castSpell(spell1, other);
@@ -382,6 +381,61 @@ public class CharacterTestCase
 
         Assert.IsTrue(lifesExpected.Contains(other.state.lifePoints));
         Assert.AreEqual(manaExpected, spore.state.manaPoints);
+    }
+
+    [Test]
+    public void CastSpellTest_DirectDamageWithMagicResist()
+    {
+        var spell1 = new DirectDamage("Dardo magico", 1, 5, 10);
+        var spell2 = new DirectDamage("Apocalipsis", 85, 100, 1000);
+        var magicalRing1 = new Magical("Gloom ring", 10, 0, 1, 0f);
+        var magicalRing2 = new Magical("Espectral ring", 5, 0, 1, 0f);
+        var magicalEarring = new Magical("Archer pendant", 10, 0, 1, 0f);
+
+        other.TakeItem(magicalRing1);
+        other.TakeItem(magicalRing2);
+        other.TakeItem(magicalEarring);
+        other.EquipItem(magicalRing1);
+        other.EquipItem(magicalRing2);
+        other.EquipItem(magicalEarring);
+
+        spore.clasf = new Druid();
+        spore.lvl = 40;
+        spore.attributes.intelligence = 22;
+        spore.state.manaPoints = 2500;
+        spore.LearnSpell(spell1);
+        spore.LearnSpell(spell2);
+
+        spore.castSpell(spell2, other);
+
+        var lifesExpected = new Range(171, 194).calculateRange();
+
+        Assert.IsTrue(lifesExpected.Contains(other.state.lifePoints));
+    }
+
+    [Test]
+    public void CastSpellTest_DirectDamageWithExtraDamage()
+    {
+        var crosier = new MeleeWeapon("Baculo de lazull", 8, 17, 0, 15, 1, 0.8f);
+        var spell2 = new DirectDamage("Apocalipsis", 85, 100, 1000);
+
+        spore.TakeItem(crosier);
+        spore.UseItem("Baculo de lazull");
+        spore.clasf = new Wizard();
+        spore.lvl = 40;
+        spore.attributes.intelligence = 22;
+        spore.state.manaPoints = 2500;
+        spore.LearnSpell(spell2);
+
+        spore.castSpell(spell2, other);
+
+        var lifesExpected = new Range(55, 98).calculateRange();
+
+        Debug.Log("Daño magico extra de spore: " + spore.extraMagicDamage());
+
+        Debug.Log(other.state.lifePoints);
+
+        Assert.IsTrue(lifesExpected.Contains(other.state.lifePoints));
     }
 
     [Test]
@@ -480,7 +534,7 @@ public class CharacterTestCase
         var goldExpected = 600;
         var itemsAmmount = 1;
         spore.gold = 55600;
-        var itemToBuy = new Equipable("Espada de plata", 1, 0.4f);
+        var itemToBuy = new Equipable("Espada de plata", 1, 0.4f, 0, 0);
         spore.BuyItem(55000, itemToBuy);
         Assert.AreEqual(goldExpected, spore.gold);
         Assert.AreEqual(itemsAmmount, spore.inv.itemsAmount());
@@ -491,8 +545,8 @@ public class CharacterTestCase
     {
         var swordAmountExpected = 3;
         var goldExpected = 678000;
-        var item = new Equipable("Espada MataDragones", 4, 3f);
-        var item2 = new Equipable("Espada MataDragones", 1, 3f);
+        var item = new Equipable("Espada MataDragones", 4, 3f, 0, 0);
+        var item2 = new Equipable("Espada MataDragones", 1, 3f, 0, 0);
         spore.TakeItem(item);
         spore.SellItem(678000, item2);
         Assert.AreEqual(swordAmountExpected, spore.inv.inv.Find(i => i.name == item.name).quantity);
@@ -521,10 +575,10 @@ public class CharacterTestCase
 
         var magicalRing = new Magical("The unique ring", 60, 60, 1, 0f);
         var potion = new Consumable("Red Potion", 30, 0, 0, 0, 0, 4, 0f);
-        var weap = new MeleeWeapon("Dragon killer", 23, 25, 1, 3.4f);
-        var helm = new Helmet("Champ Helmet", 5, 10, 1, 0.3f);
-        var armo = new Armor("Black dragon armor", 45, 50, 1, 4.1f);
-        var shie = new Shield("Tortuge shield", 1, 5, 1, 0.1f);
+        var weap = new MeleeWeapon("Dragon killer", 23, 25, 0, 0, 1, 3.4f);
+        var helm = new Helmet("Champ Helmet", 5, 10, 0, 0, 1, 0.3f);
+        var armo = new Armor("Black dragon armor", 45, 50, 0, 0, 1, 4.1f);
+        var shie = new Shield("Tortuge shield", 1, 5, 0, 0, 1, 0.1f);
 
         spore.TakeItem(potion);
         spore.TakeItem(weap);
@@ -564,7 +618,7 @@ public class CharacterTestCase
 
         var item1 = new Consumable("Blue Potion", 0, 0.4f, 0, 0, 0, 10, 0f);
         var item2 = new Consumable("Chicken", 0, 0, 5, 60, 0, 55, 0f);
-        var item3 = new Equipable("Armor", 1, 2.3f);
+        var item3 = new Equipable("Armor", 1, 2.3f, 0, 0);
 
         spore.TakeItem(item1);
         spore.TakeItem(item2);
@@ -605,7 +659,7 @@ public class CharacterTestCase
         var goldValuesExpected = new List<int>() { 0, 15 };
 
         Consumable redPotion = new Consumable("Red potion", 30, 0, 0, 0, 0, 30, 0.5f);
-        Armor dragonArmor = new Armor("Dragon armor", 45, 50, 1, 5.6f);
+        Armor dragonArmor = new Armor("Dragon armor", 45, 50, 0, 0, 1, 5.6f);
         Consumable bottleOfWater = new Consumable("Bottle of water", 00, 0, 0, 0, 10, 30, 0.5f);
         other.TakeItem(redPotion);
         other.TakeItem(dragonArmor);

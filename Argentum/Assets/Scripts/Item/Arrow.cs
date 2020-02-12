@@ -6,7 +6,7 @@ public class Arrow : Equipable
 {
     public Tuple<int, int> damage;
 
-    public Arrow(string name, int minDamage, int maxDamage, int quantity, float weight) : base(name, quantity, weight)
+    public Arrow(string name, int minDamage, int maxDamage, int quantity, float weight) : base(name, quantity, weight, 0, 0)
     {
         this.damage = new Tuple<int, int>(minDamage, maxDamage);
     }

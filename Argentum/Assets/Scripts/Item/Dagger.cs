@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dagger : Weapon
 {
-    public Dagger(string name, int minWeapon, int maxWeapon, int quantity, float weight) : base(name, quantity, weight)
+    public Dagger(string name, int minWeapon, int maxWeapon, int quantity, float weight) : base(name, quantity, weight, 0, 0)
     {
         this.weapon = new Tuple<int, int>(minWeapon, maxWeapon);
     }

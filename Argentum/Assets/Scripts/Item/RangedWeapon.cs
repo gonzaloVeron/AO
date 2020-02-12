@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RangedWeapon : Weapon
 {
-    public RangedWeapon(string name, int minWeapon, int maxWeapon, int quantity, float weight) : base(name, quantity, weight)
+    public RangedWeapon(string name, int minWeapon, int maxWeapon, int quantity, float weight) : base(name, quantity, weight, 0, 0)
     {
         this.weapon = new Tuple<int, int>(minWeapon, maxWeapon);
     }
