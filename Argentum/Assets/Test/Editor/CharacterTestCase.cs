@@ -447,6 +447,7 @@ public class CharacterTestCase
         spore.LearnSpell(spell1);
         spore.LearnSpell(spell2);
 
+        spore.clasf = new Wizard();
         spore.lvl = 40;
         spore.attributes.intelligence = 22;
         spore.state.manaPoints = 2500;

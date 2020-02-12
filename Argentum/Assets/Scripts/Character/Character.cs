@@ -151,8 +151,8 @@ public class Character
     public int damage() => Random.Range(this.physicalDamage(this.weapon.minWeapon(), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage(this.weapon.maxWeapon() , this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int damageWithBow() => Random.Range(this.physicalDamage((this.weapon.minWeapon() + this.minArrow()), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage((this.weapon.maxWeapon() + this.maxArrow()), this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int magicDamage(int minSpellDamage, int maxSpellDamage, int extraMagicDamage) => Mathf.RoundToInt((float)this.spellDamage(minSpellDamage, maxSpellDamage) * this.clasf.magicalDamageMod() + this.extraMagicDamage());
-    public int extraMagicDamage() => ((this.magicalItemsEquiped.size == 0) ? 0 : this.magicalItemsEquiped.sum(i => i.magicalDamage)) + this.weapon.magicalDamage;
-    public int magicDefense() => this.magicalItemsEquiped.sum(i => i.magicalDefense) + this.armor.magicalDefense + this.shield.magicalDefense + this.helmet.magicalDefense;
+    public int extraMagicDamage() => ((this.magicalItemsEquiped.size == 0) ? 0 : this.magicalItemsEquiped.sum(i => i.magicalDamage)) + ((this.weapon == null) ? 0 : this.weapon.magicalDamage);
+    public int magicDefense() => this.magicalItemsEquiped.sum(i => i.magicalDefense) + this.armor.magicalDefense + this.shield.magicalDefense + this.helmet.magicalDefense + Mathf.RoundToInt(this.skills.magicResist * 0.1f);
     public int spellDamage(int minDamage, int maxDamage) => Random.Range(Mathf.RoundToInt(minDamage + ((float)(minDamage * 3 * this.lvl) / 100)), Mathf.RoundToInt(maxDamage + ((float)(maxDamage * 3 * this.lvl) / 100)) + 1);
     public int physicalDamage(int damage, int hitPoints, float modificator) => Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.maxWeapon() / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
     public int minArrow() => (this.arrow != null) ? this.arrow.damage.item1 : 0;
@@ -246,9 +246,6 @@ public class Character
                 break;
             case Shield sh:
                 this.shield = sh;
-                break;
-            case MeleeWeapon wea:
-                this.weapon = wea;
                 break;
             case Weapon we:
                 this.weapon = we;
@@ -400,5 +397,6 @@ public class Character
     }
 
     public void ModifyState() { }
+
 }
 
