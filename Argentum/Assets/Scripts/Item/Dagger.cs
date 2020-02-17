@@ -8,10 +8,10 @@ public class Dagger : Weapon
     {
         this.weapon = new Tuple<int, int>(minWeapon, maxWeapon);
     }
-    public override Tuple<int, int> calculateDamage(Character self) => self.weapon.weapon;
+    public override Tuple<int, int> calculateDamage(Player self) => self.weapon.weapon;
     public override float damageMod(Classification clasf) => clasf.meleeDamageMod();
     public override float modForWeapon(Classification clasf) => clasf.meleeAimMod();
-    public override void HowToAttack(Character self, Character other)
+    public override void HowToAttack(Player self, Player other)
     {
         if (Random.Range(0f, 101f) <= self.clasf.stabChance(self.skills.stabbing))
         {

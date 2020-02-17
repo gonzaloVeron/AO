@@ -9,11 +9,11 @@ public class RangedWeapon : Weapon
     {
         this.weapon = new Tuple<int, int>(minWeapon, maxWeapon);
     }
-    public override Tuple<int, int> calculateDamage(Character self) => new Tuple<int, int>(self.weapon.weapon.item1 + self.arrow.damage.item1, self.weapon.weapon.item2 + self.arrow.damage.item2);
+    public override Tuple<int, int> calculateDamage(Player self) => new Tuple<int, int>(self.weapon.weapon.item1 + self.arrow.damage.item1, self.weapon.weapon.item2 + self.arrow.damage.item2);
     public override float damageMod(Classification clasf) => clasf.projectileWeaponDamageMod();
     public override float modForWeapon(Classification clasf) => clasf.projectileWeaponAimMod();
     public override int requiredSkill(Skills sk) => sk.projectileWeapons;
-    public override void HowToAttack(Character self, Character other)
+    public override void HowToAttack(Player self, Player other)
     {
         if (self.hasAmmunition())
         {

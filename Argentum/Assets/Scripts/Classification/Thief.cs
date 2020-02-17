@@ -34,7 +34,7 @@ public class Thief : Classification
     public override float withoutWeaponDamageMod() => 1.075f;
     public override float magicalDamageMod() => 0f;
     public override float stealChance(int skill) => this.calculateChance(skill, this.stealPercentage.ConvertAll(n => n * 3));
-    public override void Steal(Character thief, Character victim)
+    public override void Steal(Player thief, Player victim)
     {
         var randomNumber = Random.Range(0, 100);
         var chanceToStealItem = base.stealChance(thief.skills.steal);

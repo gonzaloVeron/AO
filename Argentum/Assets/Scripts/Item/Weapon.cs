@@ -9,8 +9,8 @@ public abstract class Weapon : Equipable
     public int maxWeapon() => this.weapon.item2;
     public abstract float modForWeapon(Classification clasf);
     public abstract float damageMod(Classification clasf);
-    public abstract Tuple<int, int> calculateDamage(Character self);
-    public virtual void HowToAttack(Character self, Character other)
+    public abstract Tuple<int, int> calculateDamage(Player self);
+    public virtual void HowToAttack(Player self, Player other)
     {
         self.clasf.Attack(self, other);
     }

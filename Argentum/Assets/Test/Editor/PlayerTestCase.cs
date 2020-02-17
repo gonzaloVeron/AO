@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
 
-public class CharacterTestCase
+public class PlayerTestCase
 {
-    private Character spore;
+    private Player spore;
 
-    private Character other;
+    private Player other;
 
     private Attributes attributesSpore;
 
@@ -28,8 +28,8 @@ public class CharacterTestCase
         skillsSpore = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         skillsOther = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-        spore = new Character("Spore", attributesSpore, skillsSpore, new Warrior());
-        other = new Character("Other", attributesOther, skillsOther, new Warrior());
+        spore = new Player("Spore", attributesSpore, skillsSpore, new Warrior());
+        other = new Player("Other", attributesOther, skillsOther, new Warrior());
         other.armor = new Armor("Vestimenta Simple", 3, 6, 0, 0, 1, 0f);
         other.helmet = new Helmet("Capucha", 2, 5, 0, 0, 1, 0f);
         other.shield = new Shield("Escudo de madera roto", 1, 2, 0, 0, 1, 0f);
@@ -197,8 +197,8 @@ public class CharacterTestCase
             other.shield = null;
             spore.Attack(other);
 
-            var lifeRangeStabExpected = new Range(234, 248).calculateRange();
-            var lifeRangeWithoutStabExpected = new Range(276, 286).calculateRange();
+            var lifeRangeStabExpected = new Range(229, 248).calculateRange();
+            var lifeRangeWithoutStabExpected = new Range(274, 286).calculateRange();
 
             Assert.IsTrue(lifeRangeStabExpected.Contains(other.state.lifePoints) || lifeRangeWithoutStabExpected.Contains(other.state.lifePoints));
         }

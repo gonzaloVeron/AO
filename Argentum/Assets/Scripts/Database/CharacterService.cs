@@ -4,32 +4,32 @@ using UnityEngine;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver;
 
-public class CharacterService
+public class PlayerService
 {
-    private GenericMongoDAO<Character> mongodao;
+    private GenericMongoDAO<Player> mongodao;
 
-    public CharacterService()
+    public PlayerService()
     {
-        this.mongodao = new GenericMongoDAO<Character>(typeof(Character).ToString());
+        this.mongodao = new GenericMongoDAO<Player>(typeof(Player).ToString());
     }
 
-    public void CreateCharacter(string name, Attributes attributes, Skills skills, Classification clasf)
+    public void CreatePlayer(string name, Attributes attributes, Skills skills, Classification clasf)
     {
-        Character newCharacter = new Character(name, attributes, skills, clasf);
-        mongodao.Save(newCharacter);
+        Player newPlayer = new Player(name, attributes, skills, clasf);
+        mongodao.Save(newPlayer);
     }
 
     //Deberia recibir el objeto ya modificado
-    public void UpgradeCharacter(Character ch)
+    public void UpgradePlayer(Player ch)
     {
         mongodao.Update(this.query(ch.name), ch);
     }
 
-    public void DeleteCharacter(string name)
+    public void DeletePlayer(string name)
     {
         mongodao.Delete(this.query(name));
     }
 
-    public Character fetchCharacter(string name) => mongodao.get(this.query(name));
-    private IMongoQuery query(string st) => Query<Character>.EQ(doc => doc.name, st);    
+    public Player fetchPlayer(string name) => mongodao.get(this.query(name));
+    private IMongoQuery query(string st) => Query<Player>.EQ(doc => doc.name, st);    
 }

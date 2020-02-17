@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestScript : MonoBehaviour
 {
-    public Character cha;
+    public Player cha;
 
     // Start is called before the first frame update
     void Start()
@@ -12,7 +12,7 @@ public class TestScript : MonoBehaviour
         var attr = new Attributes(0, 0, 0, 0, 0, 0, 0);
         var skills = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-        cha = new Character("Spore", attr, skills, new Wizard());
+        cha = new Player("Spore", attr, skills, new Wizard());
 
     }
 }

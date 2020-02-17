@@ -11,7 +11,7 @@ public class Invocation : Spell
         this.maxDamage = maxDamage;
         this.manaPointsNeeded = manaPointsNeeded;
     }
-    public override void Effect(Character caster, Character affected)
+    public override void Effect(Player caster, Player affected)
     {
 
     }

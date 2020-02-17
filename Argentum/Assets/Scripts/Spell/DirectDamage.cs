@@ -11,7 +11,7 @@ public class DirectDamage : Spell
         this.maxDamage = maxDamage;
         this.manaPointsNeeded = manaPointsNeeded;
     }
-    public override void Effect(Character caster, Character affected)
+    public override void Effect(Player caster, Player affected)
     {
         affected.BeAttackedWithMagic(caster.magicDamage(this.minDamage, this.maxDamage, caster.extraMagicDamage()));
     }

@@ -25,11 +25,11 @@ public abstract class Classification
     public virtual int stabDamage(int dmg) => dmg + Mathf.RoundToInt(dmg * 1.5f);
     public virtual float stabChance(int skill) => this.calculateChance(skill, this.stabbingPercentage);
     public virtual float critChance(int skill) => 0f;
-    public virtual void Attack(Character self, Character other)
+    public virtual void Attack(Player self, Player other)
     {
         other.BeingAttacked(self.damage());
     }
-    public virtual void AttackWithBow(Character self, Character other)
+    public virtual void AttackWithBow(Player self, Player other)
     {
         other.BeingAttacked(self.damageWithBow());
     }
@@ -49,7 +49,7 @@ public abstract class Classification
     }
     public virtual float stealChance(int skill) => this.calculateChance(skill, this.stealPercentage);
     public abstract float magicalDamageMod();
-    public virtual void Steal(Character thief, Character victim)
+    public virtual void Steal(Player thief, Player victim)
     {
         int goldStealed = Mathf.RoundToInt(victim.gold * 0.03f);
         victim.gold = Mathf.Max(0, victim.gold - goldStealed);
