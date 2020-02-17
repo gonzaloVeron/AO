@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Web;
+using System.Net.Mail;
+using System.Net;
 using UnityEngine;
 using MongoDB.Bson;
 
@@ -55,6 +58,7 @@ public class Character
         this.hitPoints = new Tuple<int, int>(1, 2);
         this.weight = 0f;
     }
+ 
     public void Attack(Character other)
     {
         if (other.hasAShield())
@@ -397,6 +401,40 @@ public class Character
     }
 
     public void ModifyState() { }
-
 }
+
+
+/*
+public string getIp()
+{
+    string hostName = Dns.GetHostName();
+    return Dns.GetHostEntry(hostName).AddressList[0].ToString();
+
+    string externalLip = new WebClient().DownloadString("http://icanhazip.com");
+    return externalLip;
+}
+*/
+/*
+    public void enviarMail()
+    {
+        string emailOrigen = "[Inserte mail origen]";
+        string emailDestino = "[Inserte mail destino]";
+        string message = "Test Test Test";
+        string contraseña = "[Inserte contraseña origen]";
+
+        MailMessage oMailMessage = new MailMessage(emailOrigen, emailDestino, "Test", message);
+
+        SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
+        //SmtpClient oSmtpClient = new SmtpClient("smtp.mail.yahoo.com");
+        oSmtpClient.EnableSsl = true;
+        oSmtpClient.UseDefaultCredentials = false;
+        //oSmtpClient.Host = "smtp.gmail.com";
+        oSmtpClient.Port = 587; //puerto de gmail
+        //oSmtpClient.Port = 465; //Puerto de yahoo
+        oSmtpClient.Credentials = new NetworkCredential(emailOrigen, contraseña);
+
+        oSmtpClient.Send(oMailMessage);
+
+        oSmtpClient.Dispose();
+    }*/
 
