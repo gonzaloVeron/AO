@@ -10,7 +10,7 @@ public abstract class Weapon : Equipable
     public abstract float modForWeapon(Classification clasf);
     public abstract float damageMod(Classification clasf);
     public abstract Tuple<int, int> calculateDamage(Player self);
-    public virtual void HowToAttack(Player self, Player other)
+    public virtual void HowToAttack(Player self, Character other)
     {
         self.clasf.Attack(self, other);
     }

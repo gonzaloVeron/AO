@@ -6,7 +6,7 @@ using System.Net;
 using UnityEngine;
 using MongoDB.Bson;
 
-public class Player
+public class Player : Character
 {
     public ObjectId _id;
     /*** Player Identification ***/
@@ -20,11 +20,9 @@ public class Player
     public int xp; //Experience
     public int xpMax;
     public int lvl; //Level
-    public State state;
     public Attributes attributes;
     public Skills skills;
     public float weight;
-    public Tuple<int, int> hitPoints;
     /*** Player State ***/
     /*** Player Equipment ***/
     public Armor armor;
@@ -59,9 +57,9 @@ public class Player
         this.weight = 0f;
     }
  
-    public void Attack(Player other)
+    public override void Attack(Character other)
     {
-        var prob = this.probabilidadDeAcierto(this.weapon.requiredSkill(this.skills), this.attributes.agility, other);
+        var prob = this.successProbability(other);
         var probRand = Random.Range(0, 101);
         Debug.Log("Probabilidad de acierto: " + prob);
         Debug.Log("Numero random: " + probRand);
@@ -76,10 +74,11 @@ public class Player
             throw new FailedAttackException(this.name);
         }
     }
-    //Skill del tipo de arma que usa, ej: armedCombat, martial arts, projectile weapons               el calculo contempla si usa escudo o no
-    public int probabilidadDeAcierto(int skill, int agility, Player other) => Mathf.Max(10, Mathf.Min(90, 50 + Mathf.RoundToInt(0.4f * (((skill + agility * this.skillAmountModificator(skill)) * this.aimModificator(this.weapon) + 2.5f * Mathf.Max(this.lvl - 12, 0)) - other.evasion() ))));
-    public float evasion() => this.escudeo() + (this.skills.combatTactics + ((float)this.skills.combatTactics / 33) * this.attributes.agility) * this.clasf.defenseEvasionMod() + 2.5f * Mathf.Max(this.lvl - 12, 0);
-    public float escudeo() => (this.shield != null) ? this.skills.shieldDefese * 0.5f * this.clasf.defenseShieldMod() : 0f;
+    //Skill del tipo de arma que usa, ej: armedCombat, martial arts, projectile weapons        el calculo contempla si usa escudo o no
+    public override int successProbability(Character other) => Mathf.Max(10, Mathf.Min(90, 50 + Mathf.RoundToInt(0.4f * (this.aim() - other.evasion()))));
+    public float aim() => ((this.weapon.requiredSkill(this.skills) + this.attributes.agility * this.skillAmountModificator(this.weapon.requiredSkill(this.skills))) * this.aimModificator(this.weapon) + 2.5f * Mathf.Max(this.lvl - 12, 0));
+    public override float evasion() => this.shielding() + (this.skills.combatTactics + ((float)this.skills.combatTactics / 33) * this.attributes.agility) * this.clasf.defenseEvasionMod() + 2.5f * Mathf.Max(this.lvl - 12, 0);
+    public float shielding() => (this.shield != null) ? this.skills.shieldDefese * 0.5f * this.clasf.defenseShieldMod() : 0f;
     public bool hasAShield() => this.shield != null;
     public float aimModificator(Weapon w) => w.modForWeapon(this.clasf);
     public float damageModificator(Weapon w) => w.damageMod(this.clasf);
@@ -110,11 +109,11 @@ public class Player
             throw new System.Exception("Mana insuficiente para lanzar el hechizo");
         }
     }
-    public void BeingAttacked(int value)
+    public override void BeingAttacked(int value)
     {
         this.state.lifePoints = Mathf.Max(0, this.state.lifePoints - Mathf.Max(0, value - this.physicalDefense()));
     }
-    public int physicalDefense() => Random.Range(this.minArmor() + this.minShield() + this.minHelmet(), this.maxArmor() + this.maxShield() + this.maxHelmet() + 1);
+    public override int physicalDefense() => Random.Range(this.minArmor() + this.minShield() + this.minHelmet(), this.maxArmor() + this.maxShield() + this.maxHelmet() + 1);
 
     //-----//
     public int minArmor() => this.armor != null ? this.armor.minArmor() : 0;

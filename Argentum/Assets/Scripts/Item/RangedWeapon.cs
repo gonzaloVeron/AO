@@ -13,7 +13,7 @@ public class RangedWeapon : Weapon
     public override float damageMod(Classification clasf) => clasf.projectileWeaponDamageMod();
     public override float modForWeapon(Classification clasf) => clasf.projectileWeaponAimMod();
     public override int requiredSkill(Skills sk) => sk.projectileWeapons;
-    public override void HowToAttack(Player self, Player other)
+    public override void HowToAttack(Player self, Character other)
     {
         if (self.hasAmmunition())
         {
