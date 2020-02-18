@@ -36,8 +36,45 @@ public class PlayerTestCase
         other.weapon = new MeleeWeapon("Daga rota", 1, 1, 0, 0, 1, 0f);
         other.state.lifePoints = 300;
         other.state.maxLifePoints = 300;
-
     }
+
+    [Test]
+    public void WarriorAttackCreatureTest() //Controlar el porcentaje de probabilidad de acierto
+    {
+        try
+        {
+            var sword = new MeleeWeapon("Espada larga", 4, 8, 0, 0, 1, 0.4f);
+            spore.lvl = 30;
+            spore.skills.armedCombat = 11;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
+            spore.TakeItem(sword);
+            spore.UseItem("Espada larga");
+
+            var mostroDrop = new List<Item>();
+            var mostroHitPoints = new Tuple<int, int>(2, 10);
+            Creature mostro = new Creature("Anfisbena", 75, mostroHitPoints, 8, 80, 25, 100, mostroDrop); //Tiene las stats de un lobo
+
+            spore.Attack(mostro);
+
+            var monsterLife = new Range(11, 25).calculateRange();
+
+            Debug.Log("Vida del mostro: " + mostro.state.lifePoints);
+
+            Assert.IsTrue(monsterLife.Contains(mostro.state.lifePoints));
+        }
+        catch(FailedAttackException e)
+        {
+            Assert.Catch<FailedAttackException>(() => throw e);
+        }
+    }
+
+    [Test]
+    public void TameAnimalTest()
+    {
+        //Completar !!
+    }
+
     [Test]
     public void BardAttackClericTest()
     {

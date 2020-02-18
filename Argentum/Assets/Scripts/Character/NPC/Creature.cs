@@ -10,9 +10,11 @@ public class Creature : Character
     public int exp;
     public List<Item> drop;
 
-    public Creature(string name, int creatureDefense, int creatureAim, int creatureEvasion, int exp, List<Item> drop)
+    public Creature(string name, int lifePoints, Tuple<int, int> hitPoints,int creatureDefense, int creatureAim, int creatureEvasion, int exp, List<Item> drop)
     {
         this.name = name;
+        this.state = new State(lifePoints, 0, 0, 0, 0);
+        this.hitPoints = new Tuple<int, int>(hitPoints.item1, hitPoints.item2);
         this.creatureDefense = creatureDefense;
         this.creatureAim = creatureAim;
         this.creatureEvasion = creatureEvasion;

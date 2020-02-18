@@ -10,7 +10,6 @@ public class Player : Character
 {
     public ObjectId _id;
     /*** Player Identification ***/
-    public string name;
     public Gender gender;
     public Classification clasf; //Representa la clase, ej: Paladin, Nigromante
     public Faction faction;

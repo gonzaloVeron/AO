@@ -5,7 +5,7 @@ using UnityEngine;
 public class Animal : Creature
 {
     public float tameChance;
-    public Animal(string name, int creatureDefense, int creatureAim, int creatureEvasion, int exp, List<Item> drop, float tameChance) : base(name, creatureDefense, creatureAim, creatureEvasion, exp, drop)
+    public Animal(string name, int lifePoints, Tuple<int, int> hitPoints, int creatureDefense, int creatureAim, int creatureEvasion, int exp, List<Item> drop, float tameChance) : base(name, lifePoints, hitPoints, creatureDefense, creatureAim, creatureEvasion, exp, drop)
     {
         this.tameChance = tameChance;
     }
