@@ -41,4 +41,8 @@ public class Creature : Character
     public override int successProbability(Character other) => Mathf.Max(10, Mathf.Min(90, 50 + Mathf.RoundToInt(0.4f * (this.creatureAim - other.evasion()))));
     public override int physicalDefense() => this.creatureDefense;
     public override float evasion() => this.creatureEvasion;
+    public virtual void BeingTamed(Player player)
+    {
+        throw new CantTameCreaturesException(this.name);
+    }
 }

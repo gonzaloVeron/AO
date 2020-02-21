@@ -33,7 +33,8 @@ public class Player : Character
     public LimitedList<Magical> magicalItemsEquiped;
     public Arrow arrow;
     /*** Player Equipment ***/
-    
+    public LimitedList<Animal> tamedAnimals;
+
     public Player(string name, Attributes attributes, Skills skills, Classification clasf)
     {
         this.name = name;
@@ -54,8 +55,14 @@ public class Player : Character
         this.spells = new SpellsBook();
         this.hitPoints = new Tuple<int, int>(1, 2);
         this.weight = 0f;
+        this.tamedAnimals = new LimitedList<Animal>(3);
     }
- 
+
+    public void TameAnimal(Creature a)
+    {
+        a.BeingTamed(this);
+    }
+
     public override void Attack(Character other)
     {
         var prob = this.successProbability(other);

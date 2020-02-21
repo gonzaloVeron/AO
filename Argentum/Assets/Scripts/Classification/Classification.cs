@@ -55,4 +55,5 @@ public abstract class Classification
         victim.gold = Mathf.Max(0, victim.gold - goldStealed);
         thief.gold += goldStealed; 
     }
+    public virtual float tameAnimalMod() => 0.35f;
 }

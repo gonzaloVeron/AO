@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
@@ -72,7 +73,73 @@ public class PlayerTestCase
     [Test]
     public void TameAnimalTest()
     {
-        //Completar !!
+        try
+        {
+            spore.clasf = new Druid();
+            spore.lvl = 30;
+            spore.attributes.charisma = 22;
+            spore.skills.tameAnimals = 100;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
+
+            var loboDrop = new List<Item>();
+            var loboHitPoints = new Tuple<int, int>(2, 10);
+            Animal lobo = new Animal("Lobo", 75, loboHitPoints, 8, 80, 25, 100, loboDrop, 270f);
+
+            spore.TameAnimal(lobo);
+
+            Assert.IsTrue(spore.tamedAnimals.contains(lobo));
+        }
+        catch(TheAnimalWasNotTamedException e)
+        {
+            Assert.Catch<TheAnimalWasNotTamedException>(() => throw e);
+        }
+    }
+
+    [Test]
+    public void TameAnimalMaxTest() //Deberia crear una exception y verificar antes si hay espacio y catchear un error mas especifico
+    {
+        Assert.Catch<IndexOutOfRangeException>(() =>
+        {
+            spore.clasf = new Druid();
+            spore.lvl = 30;
+            spore.attributes.charisma = 22;
+            spore.skills.tameAnimals = 100;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
+
+            var loboDrop = new List<Item>();
+            var loboHitPoints = new Tuple<int, int>(2, 10);
+            Animal lobo = new Animal("Lobo", 75, loboHitPoints, 8, 80, 25, 100, loboDrop, 270f);
+            Animal lobo1 = new Animal("Lobo", 75, loboHitPoints, 8, 80, 25, 100, loboDrop, 270f);
+            Animal lobo2 = new Animal("Lobo", 75, loboHitPoints, 8, 80, 25, 100, loboDrop, 270f);
+            Animal lobo3 = new Animal("Lobo", 75, loboHitPoints, 8, 80, 25, 100, loboDrop, 270f);
+
+            spore.TameAnimal(lobo);
+            spore.TameAnimal(lobo1);
+            spore.TameAnimal(lobo2);
+            spore.TameAnimal(lobo3);
+        });
+    }
+
+    [Test]
+    public void TameCreatureTest()
+    {
+        Assert.Catch<CantTameCreaturesException>(() =>
+        {
+            spore.clasf = new Druid();
+            spore.lvl = 30;
+            spore.attributes.charisma = 22;
+            spore.skills.tameAnimals = 100;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
+
+            var mostroDrop = new List<Item>();
+            var mostroHitPoints = new Tuple<int, int>(2, 10);
+            Creature mostro = new Creature("Anfisbena", 75, mostroHitPoints, 8, 80, 25, 100, mostroDrop);
+
+            spore.TameAnimal(mostro);
+        });
     }
 
     [Test]

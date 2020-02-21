@@ -9,9 +9,17 @@ public class Animal : Creature
     {
         this.tameChance = tameChance;
     }
-    public void BeingTamed()
+    public override void BeingTamed(Player player)
     {
-        //Que deberia hacer ?
+        if (player.attributes.charisma * player.skills.tameAnimals * player.clasf.tameAnimalMod() >= this.tameChance)
+        {
+            player.tamedAnimals.Add(this);
+            //ahora deberia desaparecer el gameobject del animal
+        }
+        else
+        {
+            throw new TheAnimalWasNotTamedException(this.name);
+        }
     }
 
 }
