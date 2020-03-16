@@ -22,7 +22,7 @@ public class Skills
     public int survival;
     public int leadership;
     public int fishing;
-    public int mining;
+    public int mining; //Este lo hace fede
     public int cutDownTrees;
     public int botany;
     public int smithy; //Herreria
