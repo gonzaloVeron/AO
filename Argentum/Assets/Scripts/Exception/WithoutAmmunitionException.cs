@@ -3,5 +3,5 @@ using UnityEngine;
 
 public class WithoutAmmunitionException : Exception
 {
-    public WithoutAmmunitionException(string characterName) : base("El personaje: " + characterName + " no tiene municion") { }
+    public WithoutAmmunitionException(string playerName) : base("El personaje: " + playerName + " no tiene municion.") { }
 }

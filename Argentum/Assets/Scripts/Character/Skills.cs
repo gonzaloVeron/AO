@@ -14,7 +14,7 @@ public class Skills
     public int magic;
     public int magicResist;
     public int meditating;
-    public int hiding; //Ocultarse
+    public int hiding;
     public int tameAnimals;
     public int music;
     public int steal;

@@ -5,5 +5,5 @@ using UnityEngine;
 
 public class FailedAttackException : Exception
 {
-    public FailedAttackException(string characterName) : base("El ataque de " + characterName + " fallo") { }
+    public FailedAttackException(string playerName) : base("El ataque de " + playerName + " fallo.") { }
 }

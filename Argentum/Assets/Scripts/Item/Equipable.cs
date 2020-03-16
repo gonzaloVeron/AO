@@ -20,7 +20,7 @@ public class Equipable : Item
         this.magicalDefense = magicalDefense;
         this.magicalDamage = magicalDamage;
     }
-    public override void Use(Character other)
+    public override void Use(Player other)
     {
         if (other.isEquiped(this))
         {

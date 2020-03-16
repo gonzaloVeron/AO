@@ -9,5 +9,6 @@ public class Magical : Equipable
         this.magicalDefense = magicalDefense;
         this.magicalDamage = magicalDamage;
     }
-    
+
+    public override Item copy() => new Magical(this.name, this.magicalDefense, this.magicalDamage, this.quantity, this.weight);
 }

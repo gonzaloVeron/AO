@@ -21,7 +21,7 @@ public class Consumable : Item
         this.weight = weight;
     }
 
-    public override void Use(Character other)
+    public override void Use(Player other)
     {
         other.state.lifePoints += this.lifeRegen;
         other.state.manaPoints += Mathf.RoundToInt(other.state.maxManaPoints * manaRegen);

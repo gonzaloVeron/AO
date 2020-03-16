@@ -1,13 +1,14 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
 
-public class CharacterTestCase
+public class PlayerTestCase
 {
-    private Character spore;
+    private Player spore;
 
-    private Character other;
+    private Player other;
 
     private Attributes attributesSpore;
 
@@ -28,16 +29,118 @@ public class CharacterTestCase
         skillsSpore = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         skillsOther = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-        spore = new Character("Spore", attributesSpore, skillsSpore, new Warrior());
-        other = new Character("Other", attributesOther, skillsOther, new Warrior());
+        spore = new Player("Spore", attributesSpore, skillsSpore, new Warrior());
+        other = new Player("Other", attributesOther, skillsOther, new Warrior());
         other.armor = new Armor("Vestimenta Simple", 3, 6, 0, 0, 1, 0f);
         other.helmet = new Helmet("Capucha", 2, 5, 0, 0, 1, 0f);
         other.shield = new Shield("Escudo de madera roto", 1, 2, 0, 0, 1, 0f);
         other.weapon = new MeleeWeapon("Daga rota", 1, 1, 0, 0, 1, 0f);
         other.state.lifePoints = 300;
         other.state.maxLifePoints = 300;
-
     }
+
+    [Test]
+    public void WarriorAttackCreatureTest() //Controlar el porcentaje de probabilidad de acierto
+    {
+        var sword = new MeleeWeapon("Espada larga", 4, 8, 0, 0, 1, 0.4f);
+        spore.lvl = 30;
+        spore.skills.armedCombat = 11;
+        spore.hitPoints.item1 = 1;
+        spore.hitPoints.item2 = 1;
+        spore.TakeItem(sword);
+        spore.UseItem("Espada larga");
+
+        var mostroDrop = new List<Item>();
+        var mostroHitPoints = new Tuple<int, int>(2, 10);
+        Creature mostro = new Creature("Anfisbena", 75, mostroHitPoints, 8, 80, 25, 100, mostroDrop); //Tiene las stats de un lobo
+
+        var monsterLife = new Range(11, 25).calculateRange();
+        try
+        {
+            spore.Attack(mostro);
+
+            Debug.Log("Vida del mostro: " + mostro.state.lifePoints);
+            Assert.IsTrue(monsterLife.Contains(mostro.state.lifePoints));
+        }
+        catch(FailedAttackException e)
+        {
+            Assert.Catch<FailedAttackException>(() => throw e);
+            Assert.IsFalse(monsterLife.Contains(mostro.state.lifePoints));
+        }
+    }
+
+    [Test]
+    public void TameAnimalTest()
+    {
+        try
+        {
+            spore.clasf = new Druid();
+            spore.lvl = 30;
+            spore.attributes.charisma = 22;
+            spore.skills.tameAnimals = 100;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
+
+            var loboDrop = new List<Item>();
+            var loboHitPoints = new Tuple<int, int>(2, 10);
+            Animal lobo = new Animal("Lobo", 75, loboHitPoints, 8, 80, 25, 100, loboDrop, 270f);
+
+            spore.TameAnimal(lobo);
+
+            Assert.IsTrue(spore.tamedAnimals.contains(lobo));
+        }
+        catch(TheAnimalWasNotTamedException e)
+        {
+            Assert.Catch<TheAnimalWasNotTamedException>(() => throw e);
+        }
+    }
+
+    [Test]
+    public void TameAnimalMaxTest() //Deberia crear una exception y verificar antes si hay espacio y catchear un error mas especifico
+    {
+        Assert.Catch<IndexOutOfRangeException>(() =>
+        {
+            spore.clasf = new Druid();
+            spore.lvl = 30;
+            spore.attributes.charisma = 22;
+            spore.skills.tameAnimals = 100;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
+
+            var loboDrop = new List<Item>();
+            var loboHitPoints = new Tuple<int, int>(2, 10);
+            Animal lobo = new Animal("Lobo", 75, loboHitPoints, 8, 80, 25, 100, loboDrop, 270f);
+            Animal lobo1 = new Animal("Lobo", 75, loboHitPoints, 8, 80, 25, 100, loboDrop, 270f);
+            Animal lobo2 = new Animal("Lobo", 75, loboHitPoints, 8, 80, 25, 100, loboDrop, 270f);
+            Animal lobo3 = new Animal("Lobo", 75, loboHitPoints, 8, 80, 25, 100, loboDrop, 270f);
+
+            spore.TameAnimal(lobo);
+            spore.TameAnimal(lobo1);
+            spore.TameAnimal(lobo2);
+            spore.TameAnimal(lobo3);
+        });
+    }
+
+    [Test]
+    public void TameCreatureTest()
+    {
+        Assert.Catch<CantTameCreaturesException>(() =>
+        {
+            spore.clasf = new Druid();
+            spore.lvl = 30;
+            spore.attributes.charisma = 22;
+            spore.skills.tameAnimals = 100;
+            spore.hitPoints.item1 = 1;
+            spore.hitPoints.item2 = 1;
+
+            var mostroDrop = new List<Item>();
+            var mostroHitPoints = new Tuple<int, int>(2, 10);
+            Creature mostro = new Creature("Anfisbena", 75, mostroHitPoints, 8, 80, 25, 100, mostroDrop);
+
+            spore.TameAnimal(mostro);
+        });
+    }
+
     [Test]
     public void BardAttackClericTest()
     {
@@ -197,8 +300,8 @@ public class CharacterTestCase
             other.shield = null;
             spore.Attack(other);
 
-            var lifeRangeStabExpected = new Range(234, 248).calculateRange();
-            var lifeRangeWithoutStabExpected = new Range(276, 286).calculateRange();
+            var lifeRangeStabExpected = new Range(229, 248).calculateRange();
+            var lifeRangeWithoutStabExpected = new Range(274, 286).calculateRange();
 
             Assert.IsTrue(lifeRangeStabExpected.Contains(other.state.lifePoints) || lifeRangeWithoutStabExpected.Contains(other.state.lifePoints));
         }

@@ -9,6 +9,6 @@ public abstract class Spell
     public int maxDamage;
     public int manaPointsNeeded;
 
-    public abstract void Effect(Character caster, Character affected);
+    public abstract void Effect(Player caster, Player affected);
 }
 
