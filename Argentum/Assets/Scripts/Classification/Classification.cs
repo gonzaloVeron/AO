@@ -56,4 +56,5 @@ public abstract class Classification
         thief.gold += goldStealed; 
     }
     public virtual float tameAnimalMod() => 0.35f;
+    public virtual int resourcesObtained(int lvl) => 1;
 }

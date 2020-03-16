@@ -61,6 +61,8 @@ public class Player : Character
     public void TameAnimal(Creature a)
     {
         a.BeingTamed(this);
+        Debug.Log("Promedio sin ingles: " + (float)(6 + 7 + 9 + 9 + 6 + 9 + 7 + 9 + 6 + 8 + 8 + 7 + 7 + 4) / 14);
+        Debug.Log("Promedio con ingles: " + (float)(6 + 7 + 7 + 9 + 8 + 9 + 6 + 9 + 7 + 9 + 6 + 8 + 8 + 7 + 7 + 4) / 16);
     }
 
     public override void Attack(Character other)
@@ -77,6 +79,7 @@ public class Player : Character
         }
         else
         {
+            Debug.Log("Falle !");
             throw new FailedAttackException(this.name);
         }
     }
@@ -385,8 +388,23 @@ public class Player : Character
                 return "(" + ch.state.lifePoints + "/" + ch.state.maxLifePoints + ")";
         }
     }
-
     public void ModifyState() { }
+    public int resourcesObtained() => this.clasf.resourcesObtained(this.lvl);
+    public int fishingChance()
+    {
+        var fishingPercentage = new List<int>() { 12, 13, 14, 15, 17, 20, 23, 28, 35, 55, 100 };
+        switch (this.skills.fishing.ToString().Length)
+        {
+            case 1:
+                return fishingPercentage[0];
+            case 2:
+                return fishingPercentage[this.skills.fishing.ToString()[0]];
+            case 3:
+                return fishingPercentage[9];
+            default:
+                throw new System.Exception("Skill fuera de los limites");
+        }
+    }
 }
 
 
