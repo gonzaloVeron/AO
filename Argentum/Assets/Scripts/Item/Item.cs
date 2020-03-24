@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
+[BsonKnownTypes(typeof(Consumable), typeof(Equipable))]
 public abstract class Item
 {
     public ObjectId _id;

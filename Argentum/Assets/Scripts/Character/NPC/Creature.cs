@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MongoDB.Bson.Serialization.Attributes;
 
+[BsonKnownTypes(typeof(Animal))]
 public class Creature : Character
 {
     public int creatureDefense;

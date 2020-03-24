@@ -1,26 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using MongoDB.Driver;
+using MongoDB.Bson;
 using UnityEngine;
+using MongoDB.Bson.Serialization;
 
 public class TestScript : MonoBehaviour
 {
     public Player cha;
 
-    public PlayerService sv;
+    public PlayerService playerService;
 
     // Start is called before the first frame update
     void Start()
     {
-        sv = new PlayerService();
+        playerService = new PlayerService();
 
         var attr = new Attributes(0, 0, 0, 0, 0, 0, 0);
         var skills = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-        Player spore = sv.fetchPlayer("Spore");
+        //playerService.CreatePlayer("Spore", attr, skills, new Wizard());
 
-        spore.attributes.intelligence = 22;
+        //Player spore = playerService.fetchPlayer("Spore");
 
-        sv.UpgradePlayer(spore);
-    
+        //spore.attributes.intelligence = 22;
+
+        //playerService.UpgradePlayer(spore);
+
+        //Debug.Log(spore.name);
+
     }
 }

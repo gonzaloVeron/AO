@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MongoDB.Bson.Serialization.Attributes;
 
+[BsonKnownTypes(typeof(Magical), typeof(Armor), typeof(Shield), typeof(Weapon), typeof(Helmet), typeof(Arrow))]
 public class Equipable : Item
 {
-
     public Tuple<int, int> armor;
     public Tuple<int, int> helmet;
     public Tuple<int, int> shield;
@@ -31,7 +32,7 @@ public class Equipable : Item
             other.EquipItem(this);
         }
     }
-    public override Item toDrop(int quantity, bool needRemove, Inventory inv)
+    public override Item toDrop(int quantity, bool needRemove, Inventory inv) //necesita reformularse
     {
         if (needRemove)
         {

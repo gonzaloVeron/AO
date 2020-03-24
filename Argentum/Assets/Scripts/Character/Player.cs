@@ -8,7 +8,6 @@ using MongoDB.Bson;
 
 public class Player : Character
 {
-    public ObjectId _id;
     /*** Player Identification ***/
     public Gender gender;
     public Classification clasf; //Representa la clase, ej: Paladin, Nigromante
@@ -32,6 +31,7 @@ public class Player : Character
     public SpellsBook spells;
     public LimitedList<Magical> magicalItemsEquiped;
     public Arrow arrow;
+    public Tool tool;
     /*** Player Equipment ***/
     public LimitedList<Animal> tamedAnimals;
 
@@ -249,6 +249,9 @@ public class Player : Character
             case Magical mag:
                 this.magicalItemsEquiped.Add(mag);
                 break;
+            case Tool too:
+                this.tool = too;
+                break;
             default:
                 throw new System.Exception("No se puede equipar este item");
         }
@@ -276,6 +279,9 @@ public class Player : Character
             case Magical mag:
                 this.magicalItemsEquiped.Remove(mag);
                 break;
+            case Tool too:
+                this.tool = null;
+                break;
             default:
                 throw new System.Exception("No se puede desequipar este item");
         }
@@ -288,17 +294,19 @@ public class Player : Character
             case Helmet hel:
                 return this.helmet != null && this.helmet.name == obj.name;
             case Armor arm:
-                return this.armor != null && this.helmet.name == obj.name;
+                return this.armor != null && this.armor.name == obj.name;
             case Shield shi:
                 return this.shield != null && this.shield.name == obj.name;
             case Weapon wea:
                 return this.weapon != null && this.weapon.name == obj.name;
             case Magical mag:
-                return this.magicalItemsEquiped.exists(s => s.name == mag.name);
+                return this.magicalItemsEquiped.exists(s => s.name == obj.name);
             case Arrow arr:
-                return this.arrow != null && this.weapon.name == obj.name;
+                return this.arrow != null && this.arrow.name == obj.name;
+            case Tool too:
+                return this.tool != null && this.tool.name == obj.name;
             default:
-                throw new System.Exception("Pasaron cosas en la funcion 'isEquiped' ");
+                throw new System.Exception("Pasaron cosas en la funcion 'isEquiped' en la clase Player");
         }
     }
     public bool hasAmmunition() => this.arrow != null;
@@ -390,21 +398,34 @@ public class Player : Character
     }
     public void ModifyState() { }
     public int resourcesObtained() => this.clasf.resourcesObtained(this.lvl);
-    public int fishingChance()
-    {
-        var fishingPercentage = new List<int>() { 12, 13, 14, 15, 17, 20, 23, 28, 35, 55, 100 };
-        switch (this.skills.fishing.ToString().Length)
+    public int extractionChance(int skillPoints)
+    { 
+        var extractionPercentage = new List<int>() { 12, 13, 14, 15, 17, 20, 23, 28, 35, 55, 100 };
+        switch (skillPoints.ToString().Length)
         {
             case 1:
-                return fishingPercentage[0];
+                return extractionPercentage[0];
             case 2:
-                return fishingPercentage[this.skills.fishing.ToString()[0]];
+                return extractionPercentage[int.Parse(skillPoints.ToString()[0].ToString())];
             case 3:
-                return fishingPercentage[9];
+                return extractionPercentage[10];
             default:
                 throw new System.Exception("Skill fuera de los limites");
         }
     }
+    public int fishingChance() => this.extractionChance(this.skills.fishing);
+
+    public void CatchFish()
+    {
+        if(Random.Range(0, 101) <= this.fishingChance())
+        {
+            this.TakeItem(this.tool.itemExtracted(Random.Range(0, 21), this.resourcesObtained()));
+        }
+    }
+
+
+
+
 }
 
 

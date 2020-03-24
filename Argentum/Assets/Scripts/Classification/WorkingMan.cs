@@ -38,17 +38,17 @@ public class WorkingMan : Classification
         switch (lvl)
         {
             case int n when n >= 1 && n <= 9:
-                return Random.Range(1, 3);
-            case int n when n >= 10 && n <= 14:
                 return Random.Range(1, 4);
-            case int n when n >= 15 && n <= 19:
+            case int n when n >= 10 && n <= 14:
                 return Random.Range(1, 5);
-            case int n when n >= 20 && n <= 24:
+            case int n when n >= 15 && n <= 19:
                 return Random.Range(1, 6);
-            case int n when n >= 25 && n <= 29:
+            case int n when n >= 20 && n <= 24:
                 return Random.Range(1, 7);
-            default:
+            case int n when n >= 25 && n <= 29:
                 return Random.Range(1, 8);
+            default:
+                return Random.Range(1, 9);
         }
     }
 }

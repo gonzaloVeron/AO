@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Assassin : Classification
 {
-    public new List<float> stabbingPercentage = new List<float>(){ 2.4f, 4.8f, 7.2f, 9.6f, 12f, 14.4f, 16.8f, 19.2f, 21.6f, 24f };
+    public override List<float> stabbingPercentage() => new List<float>(){ 2.4f, 4.8f, 7.2f, 9.6f, 12f, 14.4f, 16.8f, 19.2f, 21.6f, 24f };
     public override int calculateLifePointsPerLevel(int constitution)
     {
         switch (constitution)
@@ -38,11 +38,11 @@ public class Assassin : Classification
         switch (skill.ToString().Length)
         {
             case 1:
-                return this.stabbingPercentage[0];
+                return this.stabbingPercentage()[0];
             case 2:
-                return this.stabbingPercentage[skill.ToString()[0]];
+                return this.stabbingPercentage()[int.Parse(skill.ToString()[0].ToString())];
             case 3:
-                return this.stabbingPercentage[9];
+                return this.stabbingPercentage()[9];
             default:
                 throw new System.Exception("Skill fuera de los limites");
         }

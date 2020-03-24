@@ -62,7 +62,7 @@ public class PlayerTestCase
             Debug.Log("Vida del mostro: " + mostro.state.lifePoints);
             Assert.IsTrue(monsterLife.Contains(mostro.state.lifePoints));
         }
-        catch(FailedAttackException e)
+        catch (FailedAttackException e)
         {
             Assert.Catch<FailedAttackException>(() => throw e);
             Assert.IsFalse(monsterLife.Contains(mostro.state.lifePoints));
@@ -89,7 +89,7 @@ public class PlayerTestCase
 
             Assert.IsTrue(spore.tamedAnimals.contains(lobo));
         }
-        catch(TheAnimalWasNotTamedException e)
+        catch (TheAnimalWasNotTamedException e)
         {
             Assert.Catch<TheAnimalWasNotTamedException>(() => throw e);
         }
@@ -247,7 +247,7 @@ public class PlayerTestCase
         catch (FailedAttackException e)
         {
             Assert.Catch<FailedAttackException>(() => throw e);
-        }        
+        }
     }
     [Test]
     public void ClericAttackThiefTest()
@@ -363,7 +363,7 @@ public class PlayerTestCase
             other.shield = null;
 
             spore.Attack(other);
-            
+
             var lifeRangeCritExpected = new Range(217, 239).calculateRange();
             var lifeRangeWithoutCritExpected = new Range(255, 270).calculateRange();
 
@@ -389,7 +389,7 @@ public class PlayerTestCase
 
         Assert.IsTrue(range.Contains(lifeExpected));
     }
-    
+
     [Test]
     public void DamageTest()
     {
@@ -616,8 +616,8 @@ public class PlayerTestCase
         var actualExperienceExpected = 0;
         var maxExperienceExpected = 0;
         var lvlExpected = 40;
-        
-        for(int i = 1; i < 40; i += 1)
+
+        for (int i = 1; i < 40; i += 1)
         {
             spore.LevelUp();
         }
@@ -671,9 +671,9 @@ public class PlayerTestCase
         var weightExpected = 7.9f;
         var lifePointsExpected = 45;
         var redPotionAmountExpected = 3;
-        var helmetDefenseExpected = new Tuple<int, int>(5, 10); 
-        var armorDefenseExpected = new Tuple<int, int>(45, 50); 
-        var shieldDefenseExpected = new Tuple<int, int>(1, 5); 
+        var helmetDefenseExpected = new Tuple<int, int>(5, 10);
+        var armorDefenseExpected = new Tuple<int, int>(45, 50);
+        var shieldDefenseExpected = new Tuple<int, int>(1, 5);
         var weaponDamageExpected = new Tuple<int, int>(23, 25);
         var magicalDef = 60;
 
@@ -697,7 +697,7 @@ public class PlayerTestCase
         spore.UseItem("Dragon killer");
         spore.UseItem("Tortuge shield");
         spore.UseItem("Black dragon armor");
-        
+
 
         Assert.AreEqual(lifePointsExpected, spore.state.lifePoints);
         Assert.AreEqual(redPotionAmountExpected, spore.inv.inv.Find(i => i.name == "Red Potion").quantity);
@@ -944,5 +944,40 @@ public class PlayerTestCase
 
         Assert.AreEqual("(191/300)", spore.examineLifePointsOf(other));
     }
+
+    [Test]
+    public void ResourcesObtainedTest()
+    {
+        spore.clasf = new WorkingMan();
+        spore.lvl = 17;
+
+        var numRange = new Range(1, 5).calculateRange();
+
+        Assert.IsTrue(numRange.Contains(spore.resourcesObtained()));
+    }
+
+    [Test]
+    public void ExtractionChanceTest()
+    {
+        spore.skills.fishing = 67;
+
+        Assert.AreEqual(23, spore.fishingChance());
+    }
+
+    [Test]
+    public void CatchFishTest()
+    {
+        var caña = new FishingRod(1, 0.5f);
+        spore.clasf = new WorkingMan();
+        spore.skills.fishing = 100;
+        spore.lvl = 50;
+        spore.TakeItem(caña);
+        spore.UseItem(caña.name);
+
+        spore.CatchFish();
+
+        Assert.IsTrue(spore.inv.existsItem("Cornalito"));
+    }
+    
 
 }
