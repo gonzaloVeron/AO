@@ -21,7 +21,7 @@ public class Skills
     public int trade;
     public int survival;
     public int leadership;
-    public int fishing;
+    public int fishing; 
     public int mining; //Este lo hace fede
     public int cutDownTrees;
     public int botany;

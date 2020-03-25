@@ -965,18 +965,40 @@ public class PlayerTestCase
     }
 
     [Test]
-    public void CatchFishTest()
+    public void SubstractResourcesTestCatchFish()
     {
-        var caña = new FishingRod(1, 0.5f);
+        Shoal shoal = new Shoal(500);
+        var rod = new FishingRod(1, 0.5f);
         spore.clasf = new WorkingMan();
         spore.skills.fishing = 100;
         spore.lvl = 50;
-        spore.TakeItem(caña);
-        spore.UseItem(caña.name);
+        spore.TakeItem(rod);
+        spore.UseItem(rod.name);
 
-        spore.CatchFish();
+        spore.SubstractResources(shoal);
+
+        var totalResourcesExpected = new Range(492, 499).calculateRange();
 
         Assert.IsTrue(spore.inv.existsItem("Cornalito"));
+        Assert.IsTrue(totalResourcesExpected.Contains(shoal.resourceAmount));
+    }
+    [Test]
+    public void SubstractResourcesTestCutdown()
+    {
+        Treee tree = new Treee(500);
+        var axe = new Axe(1, 5f);
+        spore.clasf = new WorkingMan();
+        spore.skills.cutDownTrees = 100;
+        spore.lvl = 50;
+        spore.TakeItem(axe);
+        spore.UseItem(axe.name);
+
+        spore.SubstractResources(tree);
+
+        var totalResourcesExpected = new Range(492, 499).calculateRange();
+
+        Assert.IsTrue(spore.inv.existsItem("Madera"));
+        Assert.IsTrue(totalResourcesExpected.Contains(tree.resourceAmount));
     }
     
 

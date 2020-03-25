@@ -4,7 +4,7 @@ using UnityEngine;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-[BsonKnownTypes(typeof(Consumable), typeof(Equipable))]
+[BsonKnownTypes(typeof(Consumable), typeof(Equipable), typeof(Resource))]
 public abstract class Item
 {
     public ObjectId _id;

@@ -414,13 +414,29 @@ public class Player : Character
         }
     }
     public int fishingChance() => this.extractionChance(this.skills.fishing);
-
-    public void CatchFish()
+    public int cutDownChance() => this.extractionChance(this.skills.cutDownTrees);
+    public void CatchFish(FountainOfResources res)
     {
-        if(Random.Range(0, 101) <= this.fishingChance())
+        this.ActionOfSubstractResource(res, Random.Range(0, 101) <= this.fishingChance());
+
+    }
+    public void Cutdown(FountainOfResources res)
+    {
+        this.ActionOfSubstractResource(res, Random.Range(0, 101) <= this.cutDownChance());
+    }
+    public void ActionOfSubstractResource(FountainOfResources res, bool b)
+    {
+        if (b)
         {
-            this.TakeItem(this.tool.itemExtracted(Random.Range(0, 21), this.resourcesObtained()));
+            var obtained = this.resourcesObtained();
+            this.TakeItem(this.tool.itemExtracted(Random.Range(0, 21), res.resources(obtained)));
+            res.substractResources(obtained);
         }
+    }
+    public void SubstractResources(FountainOfResources res)
+    {
+        res.verifyTool(this.tool.name);
+        res.howToSubstract(this);
     }
 
 
