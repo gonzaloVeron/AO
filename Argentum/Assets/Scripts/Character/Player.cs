@@ -443,6 +443,37 @@ public class Player : Character
     {
         res.HowToSubstract(this);
     }
+
+    public void GenerateIngot(Resource re) /* Esta funcion funde 1 solo lingote, deberia hacerse un funcion que ponga esta funcion en loop */
+    {
+        switch (re)
+        {
+            case Resource r when r.name == "Mineral de hierro":
+                this.verifyResourceAmount(r.quantity, 7);
+                this.inv.RemoveItemByQuantity(r.name, 7);
+                this.TakeItem(new Resource("Lingote de hierro", 1, 0f));
+                break;
+            case Resource r when r.name == "Mineral de plata":
+                this.verifyResourceAmount(r.quantity, 20);
+                this.inv.RemoveItemByQuantity(r.name, 20);
+                this.TakeItem(new Resource("Lingote de plata", 1, 0f));
+                break;
+            case Resource r when r.name == "Mineral de oro":
+                this.verifyResourceAmount(r.quantity, 35);
+                this.inv.RemoveItemByQuantity(r.name, 35);
+                this.TakeItem(new Resource("Lingote de oro", 1, 0f));
+                break;
+            default:
+                break;
+        }
+    }
+    public void verifyResourceAmount(int resourceAmount, int value)
+    {
+        if(resourceAmount < value)
+        {
+            throw new System.Exception("No tienes los suficientes recursos.");
+        }
+    }
 }
 
 
@@ -457,26 +488,27 @@ public string getIp()
 }
 */
 /*
-    public void enviarMail()
-    {
-        string emailOrigen = "[Inserte mail origen]";
-        string emailDestino = "[Inserte mail destino]";
-        string message = "Test Test Test";
-        string contraseña = "[Inserte contraseña origen]";
+public void enviarMail()
+{
+    string emailOrigen = "[Inserte mail origen]";
+    string emailDestino = "[Inserte mail destino]";
+    string message = "Test Test Test";
+    string contraseña = "[Inserte contraseña origen]";
 
-        MailMessage oMailMessage = new MailMessage(emailOrigen, emailDestino, "Test", message);
+    MailMessage oMailMessage = new MailMessage(emailOrigen, emailDestino, "Test", message);
 
-        SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
-        //SmtpClient oSmtpClient = new SmtpClient("smtp.mail.yahoo.com");
-        oSmtpClient.EnableSsl = true;
-        oSmtpClient.UseDefaultCredentials = false;
-        //oSmtpClient.Host = "smtp.gmail.com";
-        oSmtpClient.Port = 587; //puerto de gmail
-        //oSmtpClient.Port = 465; //Puerto de yahoo
-        oSmtpClient.Credentials = new NetworkCredential(emailOrigen, contraseña);
+    SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
+    //SmtpClient oSmtpClient = new SmtpClient("smtp.mail.yahoo.com");
+    oSmtpClient.EnableSsl = true;
+    oSmtpClient.UseDefaultCredentials = false;
+    //oSmtpClient.Host = "smtp.gmail.com";
+    oSmtpClient.Port = 587; //puerto de gmail
+    //oSmtpClient.Port = 465; //Puerto de yahoo
+    oSmtpClient.Credentials = new NetworkCredential(emailOrigen, contraseña);
 
-        oSmtpClient.Send(oMailMessage);
+    oSmtpClient.Send(oMailMessage);
 
-        oSmtpClient.Dispose();
-    }*/
+    oSmtpClient.Dispose();
+}
+*/
 
