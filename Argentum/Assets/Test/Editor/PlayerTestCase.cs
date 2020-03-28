@@ -961,7 +961,7 @@ public class PlayerTestCase
     {
         spore.skills.fishing = 67;
 
-        Assert.AreEqual(23, spore.fishingChance());
+        Assert.AreEqual(23, spore.extractionChance(spore.skills.fishing));
     }
 
     [Test]

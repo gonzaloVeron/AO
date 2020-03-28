@@ -61,8 +61,6 @@ public class Player : Character
     public void TameAnimal(Creature a)
     {
         a.BeingTamed(this);
-        Debug.Log("Promedio sin ingles: " + (float)(6 + 7 + 9 + 9 + 6 + 9 + 7 + 9 + 6 + 8 + 8 + 7 + 7 + 4) / 14);
-        Debug.Log("Promedio con ingles: " + (float)(6 + 7 + 7 + 9 + 8 + 9 + 6 + 9 + 7 + 9 + 6 + 8 + 8 + 7 + 7 + 4) / 16);
     }
 
     public override void Attack(Character other)
@@ -413,31 +411,28 @@ public class Player : Character
                 throw new System.Exception("Skill fuera de los limites");
         }
     }
-    public int fishingChance() => this.extractionChance(this.skills.fishing);
-    public int cutDownChance() => this.extractionChance(this.skills.cutDownTrees);
-    public int extractRootChance() => this.extractionChance(this.skills.botany);
-    public int miningChance() => this.extractionChance(this.skills.mining);
+
     public void CatchFish(FountainOfResources res)
     {
-        this.SubstractResources(res, this.fishingChance());
+        this.SubstractResources(res, this.extractionChance(this.skills.fishing));
 
     }
     public void Cutdown(FountainOfResources res)
     {
-        this.SubstractResources(res, this.cutDownChance());
+        this.SubstractResources(res, this.extractionChance(this.skills.cutDownTrees));
     }
     public void ExtractRoots(FountainOfResources res)
     {
-        this.SubstractResources(res, this.extractRootChance());
+        this.SubstractResources(res, this.extractionChance(this.skills.botany));
     }
     public void Mine(FountainOfResources res)
     {
-        this.SubstractResources(res, this.miningChance());
+        this.SubstractResources(res, this.extractionChance(this.skills.mining));
     }
     public void SubstractResources(FountainOfResources res, int chanceOfSuccess)
     {
-        var obtained = this.resourcesObtained();
-        Item fromFountain = tool.whatSubstract(res, Random.Range(0, 21), res.resources(obtained));
+        var obtained = this.resourcesObtained(); 
+        Item fromFountain = tool.whatSubstract(res, Random.Range(0, 21), res.resources(obtained)); //Esta funcion es la que levanta un exception si no se esta usando la herramienta adecuada para el trabajo.
         if (Random.Range(0, 101) <= chanceOfSuccess)
         {
             this.TakeItem(fromFountain);
