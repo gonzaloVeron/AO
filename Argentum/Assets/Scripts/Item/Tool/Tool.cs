@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MongoDB.Bson.Serialization.Attributes;
 
-[BsonKnownTypes(typeof(FishingNet), typeof(FishingRod), typeof(Axe), typeof(Pickaxe), typeof(Scissors))]
+[BsonKnownTypes(typeof(FishingNet), typeof(FishingRod), typeof(Axe), typeof(Pickaxe), typeof(Scissors), typeof(Hammer))]
 public abstract class Tool : Equipable
 {
     public Tool(string name, int quantity, float weight) : base(name, quantity, weight, 0, 0)

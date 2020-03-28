@@ -444,22 +444,26 @@ public class Player : Character
         res.HowToSubstract(this);
     }
 
+    /* Bloque de codigo mal puesto ? */
     public void GenerateIngot(Resource re) /* Esta funcion funde 1 solo lingote, deberia hacerse un funcion que ponga esta funcion en loop */
-    {
+    { /* ¿Quiza un objeto fragua que abra una ventana para seleccionar que mineral fundir y que lo ponga en loop? */
         switch (re)
         {
             case Resource r when r.name == "Mineral de hierro":
                 this.verifyResourceAmount(r.quantity, 7);
+                this.verifyMiningSkillForFoundry(this.skills.mining, 25);
                 this.inv.RemoveItemByQuantity(r.name, 7);
                 this.TakeItem(new Resource("Lingote de hierro", 1, 0f));
                 break;
             case Resource r when r.name == "Mineral de plata":
                 this.verifyResourceAmount(r.quantity, 20);
+                this.verifyMiningSkillForFoundry(this.skills.mining, 50);
                 this.inv.RemoveItemByQuantity(r.name, 20);
                 this.TakeItem(new Resource("Lingote de plata", 1, 0f));
                 break;
             case Resource r when r.name == "Mineral de oro":
                 this.verifyResourceAmount(r.quantity, 35);
+                this.verifyMiningSkillForFoundry(this.skills.mining, 100);
                 this.inv.RemoveItemByQuantity(r.name, 35);
                 this.TakeItem(new Resource("Lingote de oro", 1, 0f));
                 break;
@@ -474,6 +478,15 @@ public class Player : Character
             throw new System.Exception("No tienes los suficientes recursos.");
         }
     }
+    public void verifyMiningSkillForFoundry(int skill, int value)
+    {
+        if(skill < value)
+        {
+            throw new System.Exception("No tiene skills en mineria suficientes.");
+        }
+    }
+
+    /* Bloque de codigo mal puesto ? */
 }
 
 
