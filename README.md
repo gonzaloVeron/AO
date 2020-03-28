@@ -1,5 +1,5 @@
 # Argentum AO
-###Cosas que faltan hacer:
+Cosas que faltan hacer:
 * Herreria
 * Generar lingotes
 * Alquimia
