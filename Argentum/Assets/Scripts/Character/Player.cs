@@ -413,35 +413,24 @@ public class Player : Character
                 throw new System.Exception("Skill fuera de los limites");
         }
     }
-    public int fishingChance() => this.extractionChance(this.skills.fishing);
-    public int cutDownChance() => this.extractionChance(this.skills.cutDownTrees);
-    public void CatchFish(FountainOfResources res)
-    {
-        this.ActionOfSubstractResource(res, Random.Range(0, 101) <= this.fishingChance());
 
-    }
-    public void Cutdown(FountainOfResources res)
+    public void GetResource(FountainOfResources resources, int skillLevel)
     {
-        this.ActionOfSubstractResource(res, Random.Range(0, 101) <= this.cutDownChance());
-    }
-    public void ActionOfSubstractResource(FountainOfResources res, bool b)
-    {
-        if (b)
+        bool success = Random.Range(0, 101) <= this.extractionChance(skillLevel);
+
+        if (success) 
         {
             var obtained = this.resourcesObtained();
             this.TakeItem(this.tool.itemExtracted(Random.Range(0, 21), res.resources(obtained)));
             res.substractResources(obtained);
         }
     }
+
     public void SubstractResources(FountainOfResources res)
     {
         res.verifyTool(this.tool.name);
         res.howToSubstract(this);
     }
-
-
-
-
 }
 
 
