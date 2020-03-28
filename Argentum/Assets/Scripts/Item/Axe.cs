@@ -10,5 +10,6 @@ public class Axe : Tool
         this.weight = weight;
     }
     public override Item copy() => new Axe(this.quantity, this.weight);
-    public override Item itemExtracted(int value, int amount) => new Resource("Madera", amount, 0f);
+
+    public override Item whatSubstract(FountainOfResources res, int value, int amount) => res.extractWithAxe(value, amount);
 }

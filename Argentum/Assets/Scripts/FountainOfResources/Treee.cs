@@ -9,11 +9,9 @@ public class Treee : FountainOfResources
         this.resourceAmount = resourcesAmount;
     }
     public override string name() => "Tree";
-    public override bool isValidTool(string toolName) => toolName == "Axe";
-    public override void howToSubstract(Player player)
+    public override Item extractWithAxe(int value, int amount) => new Resource("Madera", amount, 0f);
+    public override void HowToSubstract(Player player)
     {
         player.Cutdown(this);
     }
-
-
 }

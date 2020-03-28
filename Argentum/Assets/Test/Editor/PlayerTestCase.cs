@@ -975,7 +975,7 @@ public class PlayerTestCase
         spore.TakeItem(rod);
         spore.UseItem(rod.name);
 
-        spore.SubstractResources(shoal);
+        spore.ExtractResource(shoal);
 
         var totalResourcesExpected = new Range(492, 499).calculateRange();
 
@@ -993,13 +993,31 @@ public class PlayerTestCase
         spore.TakeItem(axe);
         spore.UseItem(axe.name);
 
-        spore.SubstractResources(tree);
+        spore.ExtractResource(tree);
 
         var totalResourcesExpected = new Range(492, 499).calculateRange();
 
         Assert.IsTrue(spore.inv.existsItem("Madera"));
         Assert.IsTrue(totalResourcesExpected.Contains(tree.resourceAmount));
     }
-    
+    [Test]
+    public void SubstractResourcesTestExtractRoots()
+    {
+        Bush bush = new Bush(500);
+        var scissors = new Scissors(1, 5f);
+        spore.clasf = new WorkingMan();
+        spore.skills.botany = 100;
+        spore.lvl = 50;
+        spore.TakeItem(scissors);
+        spore.UseItem(scissors.name);
+
+        spore.ExtractResource(bush);
+
+        var totalResourcesExpected = new Range(492, 499).calculateRange();
+
+        Assert.IsTrue(spore.inv.existsItem("Raiz"));
+        Assert.IsTrue(totalResourcesExpected.Contains(bush.resourceAmount));
+    }
+
 
 }

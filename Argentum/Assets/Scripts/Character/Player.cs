@@ -415,33 +415,39 @@ public class Player : Character
     }
     public int fishingChance() => this.extractionChance(this.skills.fishing);
     public int cutDownChance() => this.extractionChance(this.skills.cutDownTrees);
+    public int extractRootChance() => this.extractionChance(this.skills.botany);
+    public int miningChance() => this.extractionChance(this.skills.mining);
     public void CatchFish(FountainOfResources res)
     {
-        this.ActionOfSubstractResource(res, Random.Range(0, 101) <= this.fishingChance());
+        this.SubstractResources(res, this.fishingChance());
 
     }
     public void Cutdown(FountainOfResources res)
     {
-        this.ActionOfSubstractResource(res, Random.Range(0, 101) <= this.cutDownChance());
+        this.SubstractResources(res, this.cutDownChance());
     }
-    public void ActionOfSubstractResource(FountainOfResources res, bool b)
+    public void ExtractRoots(FountainOfResources res)
     {
-        if (b)
+        this.SubstractResources(res, this.extractRootChance());
+    }
+    public void Mine(FountainOfResources res)
+    {
+        this.SubstractResources(res, this.miningChance());
+    }
+    public void SubstractResources(FountainOfResources res, int chanceOfSuccess)
+    {
+        var obtained = this.resourcesObtained();
+        Item fromFountain = tool.whatSubstract(res, Random.Range(0, 21), res.resources(obtained));
+        if (Random.Range(0, 101) <= chanceOfSuccess)
         {
-            var obtained = this.resourcesObtained();
-            this.TakeItem(this.tool.itemExtracted(Random.Range(0, 21), res.resources(obtained)));
+            this.TakeItem(fromFountain);
             res.substractResources(obtained);
         }
     }
-    public void SubstractResources(FountainOfResources res)
+    public void ExtractResource(FountainOfResources res)
     {
-        res.verifyTool(this.tool.name);
-        res.howToSubstract(this);
+        res.HowToSubstract(this);
     }
-
-
-
-
 }
 
 

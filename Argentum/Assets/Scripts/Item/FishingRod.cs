@@ -9,7 +9,7 @@ public class FishingRod : Tool
         this.quantity = quantity;
         this.weight = weight;
     }
-
     public override Item copy() => new FishingRod(this.quantity, this.weight);
-    public override Item itemExtracted(int value, int amount) => new Consumable("Cornalito", 0, 0, 0, 5, 0, amount, 0f);
+
+    public override Item whatSubstract(FountainOfResources res, int value, int amount) => res.extractWithFishingRod(value, amount);
 }
