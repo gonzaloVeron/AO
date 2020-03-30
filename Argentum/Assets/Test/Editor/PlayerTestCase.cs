@@ -1018,20 +1018,8 @@ public class PlayerTestCase
         Assert.IsTrue(spore.inv.existsItem("Raiz"));
         Assert.IsTrue(totalResourcesExpected.Contains(bush.resourceAmount));
     }
-    /* Quiza este test no pertenezca aca */
-    [Test]
-    public void GenerateIngotTest()
-    {
-        var mineralesDeHierro = new Resource("Mineral de plata", 100, 0f);
-        spore.skills.mining = 100;
-        spore.TakeItem(mineralesDeHierro);
+    
 
-        spore.GenerateIngot((Resource)spore.inv.fetchItem("Mineral de plata"));
-
-        Assert.AreEqual(80, spore.inv.fetchItem("Mineral de plata").quantity);
-        Assert.IsTrue(spore.inv.existsItem("Lingote de plata"));
-        Assert.AreEqual(1, spore.inv.fetchItem("Lingote de plata").quantity);
-    }
-    /* Quiza este test no pertenezca aca */
+   
 
 }
