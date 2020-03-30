@@ -443,6 +443,7 @@ public class Player : Character
     {
         res.HowToSubstract(this);
     }
+
 }
 
 
@@ -457,26 +458,27 @@ public string getIp()
 }
 */
 /*
-    public void enviarMail()
-    {
-        string emailOrigen = "[Inserte mail origen]";
-        string emailDestino = "[Inserte mail destino]";
-        string message = "Test Test Test";
-        string contraseña = "[Inserte contraseña origen]";
+public void enviarMail()
+{
+    string emailOrigen = "[Inserte mail origen]";
+    string emailDestino = "[Inserte mail destino]";
+    string message = "Test Test Test";
+    string contraseña = "[Inserte contraseña origen]";
 
-        MailMessage oMailMessage = new MailMessage(emailOrigen, emailDestino, "Test", message);
+    MailMessage oMailMessage = new MailMessage(emailOrigen, emailDestino, "Test", message);
 
-        SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
-        //SmtpClient oSmtpClient = new SmtpClient("smtp.mail.yahoo.com");
-        oSmtpClient.EnableSsl = true;
-        oSmtpClient.UseDefaultCredentials = false;
-        //oSmtpClient.Host = "smtp.gmail.com";
-        oSmtpClient.Port = 587; //puerto de gmail
-        //oSmtpClient.Port = 465; //Puerto de yahoo
-        oSmtpClient.Credentials = new NetworkCredential(emailOrigen, contraseña);
+    SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
+    //SmtpClient oSmtpClient = new SmtpClient("smtp.mail.yahoo.com");
+    oSmtpClient.EnableSsl = true;
+    oSmtpClient.UseDefaultCredentials = false;
+    //oSmtpClient.Host = "smtp.gmail.com";
+    oSmtpClient.Port = 587; //puerto de gmail
+    //oSmtpClient.Port = 465; //Puerto de yahoo
+    oSmtpClient.Credentials = new NetworkCredential(emailOrigen, contraseña);
 
-        oSmtpClient.Send(oMailMessage);
+    oSmtpClient.Send(oMailMessage);
 
-        oSmtpClient.Dispose();
-    }*/
+    oSmtpClient.Dispose();
+}
+*/
 

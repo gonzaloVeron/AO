@@ -1018,6 +1018,8 @@ public class PlayerTestCase
         Assert.IsTrue(spore.inv.existsItem("Raiz"));
         Assert.IsTrue(totalResourcesExpected.Contains(bush.resourceAmount));
     }
+    
 
+   
 
 }
