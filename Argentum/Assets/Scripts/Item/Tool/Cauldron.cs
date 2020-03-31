@@ -14,7 +14,7 @@ public class Cauldron : Tool
     public override void Use(Player other)
     {
         //Aca deberia abrir la ventana de creacion de items de alquimia
-        GameObject.Find("Alchemy").GetComponent<Alchemy>().Activate();
+        GameObject.Find("AlchemyWindow").GetComponent<AlchemyWindow>().Activate();
     }
 
 }
