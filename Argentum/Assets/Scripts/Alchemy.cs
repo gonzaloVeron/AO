@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MongoDB.Driver.Builders;
+using MongoDB.Driver;
 
 public class Alchemy
 {
@@ -16,13 +18,12 @@ public class Alchemy
         this.potionService = new PotionService();
         this.recipeService = new RecipeService();
     }
-
     public void GeneratePotion(string potionName)
     {
         this.RemoveItemsFromRecipe(this.player, this.findItemsNeeded(potionName));
         this.player.TakeItem(potionService.fetchItem(potionName));
     }
-    public List<string> recipesAvailable(int alchemySkill) => recipeService.recipesAvailable(alchemySkill).ConvertAll(r => r.name);
+    public List<string> recipesAvailable(int alchemySkill) => recipeService.recipesAvailable(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, alchemySkill)).ConvertAll(r => r.name);
     public void RemoveItemsFromRecipe(Player player, List<Tuple<string, int>> itemsFromRecipe)
     {
         itemsFromRecipe.ForEach(i => player.inv.RemoveItemByQuantity(i.item1, i.item2));
