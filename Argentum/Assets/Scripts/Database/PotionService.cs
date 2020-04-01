@@ -18,14 +18,14 @@ public class PotionService
         mongodao.Save(i);
     }
 
-    public Potion fetchItem(string name) => mongodao.get(this.query(name));
+    public Potion fetchPotion(string name) => mongodao.get(this.query(name));
 
-    public void UpdateItem(Potion i)
+    public void UpdatePotion(Potion p)
     {
-        mongodao.Update(this.query(i.name), i);
+        mongodao.Update(this.query(p.name), p);
     }
 
-    public void DeleteItem(string name)
+    public void DeletePotion(string name)
     {
         mongodao.Delete(this.query(name));
     }
