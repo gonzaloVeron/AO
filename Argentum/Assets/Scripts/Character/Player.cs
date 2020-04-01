@@ -139,6 +139,10 @@ public class Player : Character
     {
         this.state.lifePoints = Mathf.Min(this.state.maxLifePoints, this.state.lifePoints + value);
     }
+    public void HealMana(int value)
+    {
+        this.state.manaPoints = Mathf.Min(this.state.maxManaPoints, this.state.manaPoints + value);
+    }
     public int damage() => Random.Range(this.physicalDamage(this.weapon.minWeapon(), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage(this.weapon.maxWeapon() , this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int damageWithBow() => Random.Range(this.physicalDamage((this.weapon.minWeapon() + this.minArrow()), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage((this.weapon.maxWeapon() + this.maxArrow()), this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int magicDamage(int minSpellDamage, int maxSpellDamage, int extraMagicDamage) => Mathf.RoundToInt((float)this.spellDamage(minSpellDamage, maxSpellDamage) * this.clasf.magicalDamageMod() + this.extraMagicDamage());

@@ -2,22 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Alchemy : MonoBehaviour
+public class Alchemy
 {
-    // Start is called before the first frame update
-    void Start()
+    public Player player;
+
+    public RecipeService recipeService;
+
+    public PotionService potionService;
+
+    public Alchemy(Player player)
     {
-        
+        this.player = player;
+        this.potionService = new PotionService();
+        this.recipeService = new RecipeService();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GeneratePotion(string potionName)
     {
-        
+        this.RemoveItemsFromRecipe(this.player, this.findItemsNeeded(potionName));
+        this.player.TakeItem(potionService.fetchItem(potionName));
     }
-
-    public void Activate()
+    public List<string> recipesAvailable(int alchemySkill) => recipeService.recipesAvailable(alchemySkill).ConvertAll(r => r.name);
+    public void RemoveItemsFromRecipe(Player player, List<Tuple<string, int>> itemsFromRecipe)
     {
-
+        itemsFromRecipe.ForEach(i => player.inv.RemoveItemByQuantity(i.item1, i.item2));
     }
+    public List<Tuple<string, int>> findItemsNeeded(string potionName) => this.recipeService.fetchRecipe(potionName).itemsNeeded;
 }
+

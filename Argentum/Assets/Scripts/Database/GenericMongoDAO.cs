@@ -37,4 +37,6 @@ public class GenericMongoDAO<T>
     }
 
     public long size() => this.mongoCollection.Count();
+
+    public MongoCollection<T> getMongoCollection() => this.mongoCollection;
 }

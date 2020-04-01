@@ -11,23 +11,20 @@ public class TestScript : MonoBehaviour
 
     public PlayerService playerService;
 
+    public PotionService potionService;
+
+    public RecipeService recipeService;
+
     // Start is called before the first frame update
     void Start()
     {
-        playerService = new PlayerService();
-
-        var attr = new Attributes(0, 0, 0, 0, 0, 0, 0);
-        var skills = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
-        //playerService.CreatePlayer("Spore", attr, skills, new Wizard());
-
-        //Player spore = playerService.fetchPlayer("Spore");
-
-        //spore.attributes.intelligence = 22;
-
-        //playerService.UpgradePlayer(spore);
-
-        //Debug.Log(spore.name);
-
+        //playerService = new PlayerService();
+        //potionService = new PotionService();
+        //recipeService = new RecipeService();
+        
+        //var attr = new Attributes(0, 0, 0, 0, 0, 0, 0);
+        //var skills = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        
+        
     }
 }

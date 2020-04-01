@@ -1,8 +1,6 @@
 # Argentum AO
 Cosas que faltan hacer:
 * Herreria
-* Generar lingotes
-* Alquimia
 * Carpinteria
 * Sastreria
 * Hacer algo con los atributos(Fuerza, constitucion, ...)

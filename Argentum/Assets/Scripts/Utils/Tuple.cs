@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using MongoDB.Bson;
 public class Tuple<T, Y>
 {
+    public ObjectId _id;
+
     public T item1;
 
     public Y item2;
