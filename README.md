@@ -1,6 +1,5 @@
 # Argentum AO
 Cosas que faltan hacer:
-* Herreria
 * Carpinteria
 * Sastreria
 * Hacer algo con los atributos(Fuerza, constitucion, ...)
