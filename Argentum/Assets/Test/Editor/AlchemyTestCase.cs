@@ -51,7 +51,7 @@ public class AlchemyTestCase
     {
         var expectedAmount = 145;
 
-        alchemy.RemoveItemsFromRecipe(spore, alchemy.potionRecipes.Find(i => i.name == "Pocion de regeneracion").itemsNeeded);
+        alchemy.RemoveItemsFromRecipe(spore, alchemy.recipeService.fetchRecipe("Pocion de regeneracion").itemsNeeded);
 
         Assert.AreEqual(expectedAmount, spore.inv.fetchItem("Raiz").quantity);
     }

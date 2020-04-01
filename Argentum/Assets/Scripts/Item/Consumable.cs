@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MongoDB.Bson.Serialization.Attributes;
 
+[BsonKnownTypes(typeof(Potion))]
 public class Consumable : Item
 {
     public int lifeRegen;
@@ -23,8 +25,6 @@ public class Consumable : Item
 
     public override void Use(Player other)
     {
-        other.state.lifePoints += this.lifeRegen;
-        other.state.manaPoints += Mathf.RoundToInt(other.state.maxManaPoints * manaRegen);
         other.state.energyPoints += this.energyRegen;
         other.state.hungryPoints += this.hungryRegen;
         other.state.thirstPoints += this.thirstRegen;
