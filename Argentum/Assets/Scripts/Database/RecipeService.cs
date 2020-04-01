@@ -20,7 +20,7 @@ public class RecipeService
 
     public Recipe fetchRecipe(string name) => mongodao.get(this.query(name));
 
-    public void UpdateItem(Recipe r)
+    public void UpdateRecipe(Recipe r)
     {
         mongodao.Update(this.query(r.name), r);
     }
@@ -30,10 +30,10 @@ public class RecipeService
         mongodao.Delete(this.query(name));
     }
 
-    public List<Recipe> recipesAvailable(int value)
+    public List<Recipe> recipesAvailable(IMongoQuery query)
     {
         List<Recipe> res = new List<Recipe>();
-        foreach(Recipe r in this.mongodao.getMongoCollection().Find(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, value)))
+        foreach(Recipe r in this.mongodao.getMongoCollection().Find(query))
         {
             res.Add(r);
         }

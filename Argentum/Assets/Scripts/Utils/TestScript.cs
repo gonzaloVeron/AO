@@ -15,16 +15,19 @@ public class TestScript : MonoBehaviour
 
     public RecipeService recipeService;
 
+    public ResourceService resourceService;
+
     // Start is called before the first frame update
     void Start()
     {
         //playerService = new PlayerService();
         //potionService = new PotionService();
         //recipeService = new RecipeService();
-        
+        //resourceService = new ResourceService();
+
         //var attr = new Attributes(0, 0, 0, 0, 0, 0, 0);
         //var skills = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-        
-        
+
+
     }
 }
