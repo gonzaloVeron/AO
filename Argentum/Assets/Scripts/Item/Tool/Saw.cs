@@ -14,6 +14,6 @@ public class Saw : Tool
     public override void Use(Player other)
     {
         //Aca deberia abrir la ventana de creacion de items de carpinteria
-        GameObject.Find("Carpentry").GetComponent<Carpentry>().Activate();
+        GameObject.Find("Carpentry").GetComponent<CarpentryWindow>().Activate();
     }
 }

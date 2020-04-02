@@ -7,7 +7,7 @@ public class Skills
     public int combatTactics;
     public int armedCombat;
     public int martialArts;
-    public int stabbing; //Apuñalar
+    public int stabbing;
     public int throwingWeapons;
     public int projectileWeapons;
     public int shieldDefese;
@@ -22,10 +22,10 @@ public class Skills
     public int survival;
     public int leadership;
     public int fishing; 
-    public int mining; //Este lo hace fede
+    public int mining;
     public int cutDownTrees;
     public int botany;
-    public int smithy; //Herreria
+    public int smithy;
     public int carpentry;
     public int alchemy;
     public int tailoring; //Sastreria

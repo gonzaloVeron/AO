@@ -23,7 +23,6 @@ public class Smithy
         this.RemoveItemsFromRecipe(this.player, this.findItemsNeeded(itemName));
         this.player.TakeItem(ieService.fetchEquipable(itemName));
     }
-
     public List<string> recipesAvailable(int smithySkill) => recipeService.recipesAvailable(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, smithySkill)).ConvertAll(r => r.name);
     public void RemoveItemsFromRecipe(Player player, List<Tuple<string, int>> itemsFromRecipe)
     {
