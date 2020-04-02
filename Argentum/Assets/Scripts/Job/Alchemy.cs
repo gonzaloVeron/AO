@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MongoDB.Driver.Builders;
-using MongoDB.Driver;
 
 public class Alchemy
 {
