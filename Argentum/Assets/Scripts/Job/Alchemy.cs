@@ -23,7 +23,7 @@ public class Alchemy
         this.RemoveItemsFromRecipe(this.player, this.findItemsNeeded(potionName));
         this.player.TakeItem(potionService.fetchPotion(potionName));
     }
-    public List<string> recipesAvailable(int alchemySkill) => recipeService.recipesAvailable(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, alchemySkill)).ConvertAll(r => r.name);
+    public List<string> recipesAvailable(int alchemySkill) => recipeService.recipesAvailable(Query.And(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, alchemySkill), Query<Recipe>.EQ(doc => doc.type, "Alchemy"))).ConvertAll(r => r.name);
     public void RemoveItemsFromRecipe(Player player, List<Tuple<string, int>> itemsFromRecipe)
     {
         itemsFromRecipe.ForEach(i => player.inv.RemoveItemByQuantity(i.item1, i.item2));

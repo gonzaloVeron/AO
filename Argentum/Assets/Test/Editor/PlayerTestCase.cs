@@ -668,6 +668,8 @@ public class PlayerTestCase
     [Test]
     public void UseItemTest()
     {
+        spore.state.maxLifePoints = 45;
+
         var weightExpected = 7.9f;
         var lifePointsExpected = 45;
         var redPotionAmountExpected = 3;
@@ -678,7 +680,7 @@ public class PlayerTestCase
         var magicalDef = 60;
 
         var magicalRing = new Magical("The unique ring", 60, 60, 1, 0f);
-        var potion = new Consumable("Red Potion", 30, 0, 0, 0, 0, 4, 0f);
+        var potion = new Potion("Red Potion", 30, 0, 4, 0f);
         var weap = new MeleeWeapon("Dragon killer", 23, 25, 0, 0, 1, 3.4f);
         var helm = new Helmet("Champ Helmet", 5, 10, 0, 0, 1, 0.3f);
         var armo = new Armor("Black dragon armor", 45, 50, 0, 0, 1, 4.1f);

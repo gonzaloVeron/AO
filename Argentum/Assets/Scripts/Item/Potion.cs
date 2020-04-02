@@ -12,5 +12,6 @@ public class Potion : Consumable
     {
         other.Heal(this.lifeRegen);
         other.HealMana(Mathf.RoundToInt(other.state.maxManaPoints * manaRegen));
+        this.DiscountOrRemove(other);
     }
 }

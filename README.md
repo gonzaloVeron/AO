@@ -1,6 +1,5 @@
 # Argentum AO
 Cosas que faltan hacer:
-* Carpinteria
 * Sastreria
 * Hacer algo con los atributos(Fuerza, constitucion, ...)
 * NPC vendedor que descuente usando la skill trade

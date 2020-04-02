@@ -23,7 +23,7 @@ public class Carpentry
         this.RemoveItemsFromRecipe(this.player, this.findItemsNeeded(itemName));
         this.player.TakeItem(ieService.fetchEquipable(itemName));
     }
-    public List<string> recipesAvailable(int carpentrySkill) => recipeService.recipesAvailable(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, carpentrySkill)).ConvertAll(r => r.name);
+    public List<string> recipesAvailable(int carpentrySkill) => recipeService.recipesAvailable(Query.And(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, carpentrySkill), Query<Recipe>.EQ(doc => doc.type, "Carpentry"))).ConvertAll(r => r.name);
     public void RemoveItemsFromRecipe(Player player, List<Tuple<string, int>> itemsFromRecipe)
     {
         itemsFromRecipe.ForEach(i => player.inv.RemoveItemByQuantity(i.item1, i.item2));

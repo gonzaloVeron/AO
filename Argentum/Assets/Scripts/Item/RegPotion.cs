@@ -10,5 +10,6 @@ public class RegPotion : Potion
     {
         other.Heal(Mathf.RoundToInt(other.state.maxLifePoints * 0.1f));
         other.HealMana(Mathf.RoundToInt(other.state.maxManaPoints * 0.1f));
+        this.DiscountOrRemove(other);
     }
 }

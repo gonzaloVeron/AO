@@ -49,7 +49,7 @@ public class SmithyTestCase
     {   //Para este entonces solo existe la "Armadura completa murex" como receta y pide 70 skill
         spore.skills.smithy = 50;
 
-        Assert.IsFalse(smithy.recipesAvailable(spore.skills.smithy).Contains("Armadura completa murex"));
+        Assert.IsTrue(smithy.recipesAvailable(spore.skills.smithy).Count == 0);
     }
 
 }
