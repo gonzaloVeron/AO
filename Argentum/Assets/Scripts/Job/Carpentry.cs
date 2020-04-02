@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MongoDB.Driver.Builders;
 
-public class Smithy
+public class Carpentry
 {
     public Player player;
 
@@ -11,7 +11,7 @@ public class Smithy
 
     public ItemEquipableService ieService;
 
-    public Smithy(Player player)
+    public Carpentry(Player player)
     {
         this.player = player;
         this.recipeService = new RecipeService();
@@ -23,8 +23,7 @@ public class Smithy
         this.RemoveItemsFromRecipe(this.player, this.findItemsNeeded(itemName));
         this.player.TakeItem(ieService.fetchEquipable(itemName));
     }
-
-    public List<string> recipesAvailable(int smithySkill) => recipeService.recipesAvailable(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, smithySkill)).ConvertAll(r => r.name);
+    public List<string> recipesAvailable(int carpentrySkill) => recipeService.recipesAvailable(Query.And(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, carpentrySkill), Query<Recipe>.EQ(doc => doc.type, "Carpentry"))).ConvertAll(r => r.name);
     public void RemoveItemsFromRecipe(Player player, List<Tuple<string, int>> itemsFromRecipe)
     {
         itemsFromRecipe.ForEach(i => player.inv.RemoveItemByQuantity(i.item1, i.item2));

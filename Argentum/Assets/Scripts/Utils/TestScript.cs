@@ -31,5 +31,7 @@ public class TestScript : MonoBehaviour
         //var attr = new Attributes(0, 0, 0, 0, 0, 0, 0);
         //var skills = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
+
+
     }
 }

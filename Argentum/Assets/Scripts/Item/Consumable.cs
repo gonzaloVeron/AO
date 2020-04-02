@@ -28,11 +28,7 @@ public class Consumable : Item
         other.state.energyPoints += this.energyRegen;
         other.state.hungryPoints += this.hungryRegen;
         other.state.thirstPoints += this.thirstRegen;
-        this.quantity -= 1;
-        if (this.isEmpty())
-        {
-            other.inv.RemoveItem(this);
-        }
+        this.DiscountOrRemove(other);
     }
 
     public override Item toDrop(int quantity, bool needRemove, Inventory inv)
@@ -49,5 +45,14 @@ public class Consumable : Item
         }
     }
     public override Item copy() => new Consumable(this.name, this.lifeRegen, this.manaRegen, this.energyRegen, this.hungryRegen, this.thirstRegen, this.quantity, this.weight);
+
+    public void DiscountOrRemove(Player player)
+    {
+        this.quantity -= 1;
+        if (this.isEmpty())
+        {
+            player.inv.RemoveItem(this);
+        }
+    }
 
 }
