@@ -2,14 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MongoDB.Driver.Builders;
-using MongoDB.Driver;
 
-public class Alchemy
+public class Alchemy : Job
 {
-    public Player player;
-
-    public RecipeService recipeService;
-
     public PotionService potionService;
 
     public Alchemy(Player player)
@@ -18,16 +13,11 @@ public class Alchemy
         this.potionService = new PotionService();
         this.recipeService = new RecipeService();
     }
-    public void GeneratePotion(string potionName)
+    public override void CraftItem(string itemName)
     {
-        this.RemoveItemsFromRecipe(this.player, this.findItemsNeeded(potionName));
-        this.player.TakeItem(potionService.fetchPotion(potionName));
+        base.CraftItem(itemName);
+        this.player.TakeItem(potionService.fetchPotion(itemName));
     }
-    public List<string> recipesAvailable(int alchemySkill) => recipeService.recipesAvailable(Query.And(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, alchemySkill), Query<Recipe>.EQ(doc => doc.type, "Alchemy"))).ConvertAll(r => r.name);
-    public void RemoveItemsFromRecipe(Player player, List<Tuple<string, int>> itemsFromRecipe)
-    {
-        itemsFromRecipe.ForEach(i => player.inv.RemoveItemByQuantity(i.item1, i.item2));
-    }
-    public List<Tuple<string, int>> findItemsNeeded(string potionName) => this.recipeService.fetchRecipe(potionName).itemsNeeded;
+    public override List<string> recipesAvailable(int alchemySkill) => recipeService.recipesAvailable(Query.And(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, alchemySkill), Query<Recipe>.EQ(doc => doc.type, "Alchemy"))).ConvertAll(r => r.name);
 }
 

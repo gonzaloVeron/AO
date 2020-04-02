@@ -34,7 +34,7 @@ public class AlchemyTestCase
     {
         var expectedPotionAmount = 1;
 
-        alchemy.GeneratePotion("Pocion de regeneracion");
+        alchemy.CraftItem("Pocion de regeneracion");
 
         Assert.IsTrue(spore.inv.existsItem("Pocion de regeneracion"));
         Assert.AreEqual(expectedPotionAmount, spore.inv.fetchItem("Pocion de regeneracion").quantity);
@@ -51,7 +51,7 @@ public class AlchemyTestCase
     {
         var expectedAmount = 145;
 
-        alchemy.RemoveItemsFromRecipe(spore, alchemy.recipeService.fetchRecipe("Pocion de regeneracion").itemsNeeded);
+        alchemy.RemoveItemsFromRecipe(spore, alchemy.findItemsNeeded("Pocion de regeneracion"));
 
         Assert.AreEqual(expectedAmount, spore.inv.fetchItem("Raiz").quantity);
     }

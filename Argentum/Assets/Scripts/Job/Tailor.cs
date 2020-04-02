@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using MongoDB.Driver.Builders;
 
-public class Smithy : Job
+public class Tailor : Job
 {
     public ItemEquipableService ieService;
 
-    public Smithy(Player player)
+    public Tailor(Player player)
     {
         this.player = player;
         this.recipeService = new RecipeService();
@@ -18,5 +18,5 @@ public class Smithy : Job
         base.CraftItem(itemName);
         this.player.TakeItem(this.ieService.fetchEquipable(itemName));
     }
-    public override List<string> recipesAvailable(int smithySkill) => recipeService.recipesAvailable(Query.And(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, smithySkill), Query<Recipe>.EQ(doc => doc.type, "Smithy"))).ConvertAll(r => r.name);
+    public override List<string> recipesAvailable(int tailoringSkill) => recipeService.recipesAvailable(Query.And(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, tailoringSkill), Query<Recipe>.EQ(doc => doc.type, "Tailor"))).ConvertAll(r => r.name);
 }
