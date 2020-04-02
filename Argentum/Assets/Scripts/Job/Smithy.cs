@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using MongoDB.Driver.Builders;
 
-public class Smithy
+public class Smithy : Job
 {
-    public Player player;
-
-    public RecipeService recipeService;
-
     public ItemEquipableService ieService;
 
     public Smithy(Player player)
@@ -17,17 +13,10 @@ public class Smithy
         this.recipeService = new RecipeService();
         this.ieService = new ItemEquipableService();
     }
-
-    public void CraftItem(string itemName)
+    public override void CraftItem(string itemName)
     {
-        this.RemoveItemsFromRecipe(this.player, this.findItemsNeeded(itemName));
+        base.CraftItem(itemName);
         this.player.TakeItem(this.ieService.fetchEquipable(itemName));
     }
-    public List<string> recipesAvailable(int smithySkill) => recipeService.recipesAvailable(Query.And(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, smithySkill), Query<Recipe>.EQ(doc => doc.type, "Smithy"))).ConvertAll(r => r.name);
-    public void RemoveItemsFromRecipe(Player player, List<Tuple<string, int>> itemsFromRecipe)
-    {
-        itemsFromRecipe.ForEach(i => player.inv.RemoveItemByQuantity(i.item1, i.item2));
-    }
-    public List<Tuple<string, int>> findItemsNeeded(string itemName) => this.recipeService.fetchRecipe(itemName).itemsNeeded;
-
+    public override List<string> recipesAvailable(int smithySkill) => recipeService.recipesAvailable(Query.And(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, smithySkill), Query<Recipe>.EQ(doc => doc.type, "Smithy"))).ConvertAll(r => r.name);
 }

@@ -34,9 +34,9 @@ public class ForgeTestCase
 
         spore.TakeItem(mineralesDePlata);
 
-        forge.GenerateIngot("Lingote de plata");
-        forge.GenerateIngot("Lingote de plata");
-        forge.GenerateIngot("Lingote de plata");
+        forge.CraftItem("Lingote de plata");
+        forge.CraftItem("Lingote de plata");
+        forge.CraftItem("Lingote de plata");
 
         Assert.AreEqual(40, spore.inv.fetchItem("Mineral de plata").quantity);
         Assert.IsTrue(spore.inv.existsItem("Lingote de plata"));

@@ -4,12 +4,8 @@ using UnityEngine;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver;
 
-public class Forge
+public class Forge : Job
 {
-    public Player player;
-
-    public RecipeService recipeService;
-
     public ResourceService resourceService;
 
     public Forge(Player player)
@@ -18,11 +14,10 @@ public class Forge
         this.recipeService = new RecipeService();
         this.resourceService = new ResourceService();
     }
-    public void GenerateIngot(string ingotName) 
+    public override void CraftItem(string itemName) 
     {
-        var itemsNeeded = recipeService.fetchRecipe(ingotName).itemsNeeded[0];
-        this.player.inv.RemoveItemByQuantity(itemsNeeded.item1 , itemsNeeded.item2);
-        this.player.TakeItem(resourceService.fetchResource(ingotName));
+        base.CraftItem(itemName);
+        this.player.TakeItem(resourceService.fetchResource(itemName));
     }
-    public List<string> recipesAvailable(int mininSkill) => recipeService.recipesAvailable(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, mininSkill)).ConvertAll(r => r.name);
+    public override List<string> recipesAvailable(int mininSkill) => recipeService.recipesAvailable(Query.And(Query<Recipe>.LTE(doc => doc.minimumSkillNecesary, mininSkill), Query<Recipe>.EQ(doc => doc.type, "Forge"))).ConvertAll(r => r.name);
 }
