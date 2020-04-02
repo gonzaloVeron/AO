@@ -1,6 +1,5 @@
 # Argentum AO
 Cosas que faltan hacer:
-* Sastreria
 * Hacer algo con los atributos(Fuerza, constitucion, ...)
 * NPC vendedor que descuente usando la skill trade
 * Mejorar el script PlayerTestCase
