@@ -152,7 +152,7 @@ public class Player : Character
     public int physicalDamage(int damage, int hitPoints, float modificator) => Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.maxWeapon() / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
     public int minArrow() => (this.arrow != null) ? this.arrow.damage.item1 : 0;
     public int maxArrow() => (this.arrow != null) ? this.arrow.damage.item2 : 0;
-    public void TakeItem(Item i)
+    public void TakeItem(Item i) //Mover la responsabilidad al inventario
     {
         switch (i)
         {
@@ -208,16 +208,6 @@ public class Player : Character
         this.lvl += 1;
         this.xpMax = this.xp * 2; //Reemplazar esta asignacion por otra que traiga el siguiente lvl de la base de datos
         this.xp = 0;
-    }
-    public void BuyItem(int value, Item i)
-    {
-        this.gold -= value;
-        this.TakeItem(i);
-    }
-    public void SellItem(int value, Item i)
-    {
-        this.inv.RemoveItemByQuantity(i.name, i.quantity);
-        this.gold += value;
     }
     public void ChangeFaction(Faction faction)
     {
