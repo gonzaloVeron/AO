@@ -172,6 +172,7 @@ public class PlayerTestCase
             spore.skills.projectileWeapons = 100;
             spore.weapon = bow;
             spore.arrow = arrow;
+            spore.inv.AddItem(arrow);
 
             other.clasf = new Druid();
             other.armor = null;

@@ -23,7 +23,7 @@ public class SmithyTestCase
         spore = new Player("Spore", attributesSpore, skillsSpore, new Wizard());
         smithy = new Smithy(spore);
 
-        var armor = new Armor("Armadura de placas completas", 20, 25, 0, 0, 1, 2f);
+        var armor = new Armor("Armadura de placas completa", 20, 25, 0, 0, 1, 2f);
         var iroIngot = new Resource("Lingote de hierro", 500, 0f);
         var silIngot = new Resource("Lingote de plata", 150, 0f);
 
