@@ -310,7 +310,7 @@ public class Player : Character
             this.arrow = null;
         }
     }
-    public void incrementHitPoints(int n)
+    public void incrementHitPoints(int n) //Usar polimorfismo!!
     {
         switch (this.clasf)
         {

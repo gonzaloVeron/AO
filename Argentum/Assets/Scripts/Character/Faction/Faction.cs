@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Faction
+using UnityEngine.UI;
+public abstract class Faction
 {
-    
+    public string color;
 }
