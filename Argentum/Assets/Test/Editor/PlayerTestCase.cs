@@ -603,7 +603,7 @@ public class PlayerTestCase
     [Test]
     public void ChangeFactionTest()
     {
-        var faction = new Faction();
+        var faction = new Chaos();
         
         spore.ChangeFaction(faction);
 
