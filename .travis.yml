@@ -7,6 +7,7 @@ before_install:
 install:
   - nuget restore Argentum.sln
   - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
+  - sudo -E sh ./install.sh
 script:
   - msbuild /p:Configuration=Release Argentum.sln
 #  - mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe ./MyProject.Tests/bin/Release/MyProject.Tests.dll
