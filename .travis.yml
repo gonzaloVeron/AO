@@ -2,6 +2,8 @@ language: csharp
 mono:
   - latest
 solution: Argentum.sln
+before_install: 
+  - cd Argentum
 install:
   - nuget restore Argentum.sln
   - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
