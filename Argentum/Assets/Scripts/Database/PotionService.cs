@@ -30,4 +30,9 @@ public class PotionService
         mongodao.Delete(this.query(name));
     }
     private IMongoQuery query(string st) => Query<Potion>.EQ(doc => doc.name, st);
+
+    public void DropCollection()
+    {
+        mongodao.DeleteAll();
+    }
 }

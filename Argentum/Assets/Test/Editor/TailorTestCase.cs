@@ -5,8 +5,6 @@ using NUnit.Framework;
 
 public class TailorTestCase
 {
-    private ListUtils utils;
-
     private Tailor tailor;
 
     private Player spore;
@@ -15,19 +13,39 @@ public class TailorTestCase
 
     private Attributes attributesSpore;
 
+    private RecipeService recipeService;
+
+    private ItemEquipableService iEquipableService;
+
     [SetUp]
     public void SetUp()
     {
-        utils = new ListUtils();
         attributesSpore = new Attributes(40, 38, 0, 0, 0, 0, 0);
         skillsSpore = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         spore = new Player("Spore", attributesSpore, skillsSpore, new Wizard());
         tailor = new Tailor(spore);
 
+        recipeService = new RecipeService();
+        iEquipableService = new ItemEquipableService();
+
+        Recipe r1 = new Recipe("Tunica de mago", 15, "Tailor");
+        r1.AddElement("Piel de lobo", 5);
+        recipeService.Save(r1);
+
+        Armor tuni = new Armor("Tunica de mago", 1, 5, 5, 0, 1, 0.1f);
+        iEquipableService.Save(tuni);
+
         var pieles = new Resource("Piel de lobo", 10, 0f);
 
         spore.TakeItem(pieles);
         spore.skills.tailoring = 100;
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        recipeService.DropCollection();
+        iEquipableService.DropCollection();
     }
 
     [Test]

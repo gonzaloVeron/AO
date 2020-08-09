@@ -9,7 +9,7 @@ public class MongoConnection
 
     private MongoClient client;
 
-    private MongoDatabase db;
+    private static MongoDatabase db;
 
     public static MongoConnection getInstance()
     {
@@ -23,8 +23,13 @@ public class MongoConnection
     public MongoConnection()
     {
         this.client = new MongoClient("mongodb://localhost:27017/AO");
-        this.db = this.client.GetServer().GetDatabase("AO");
+        db = this.client.GetServer().GetDatabase("AO");
     }
 
-    public MongoDatabase getDB() => this.db;
+    public MongoDatabase getDB() => db;
+
+    public static void CreateCollection(string collName)
+    {
+        db.CreateCollection(collName);
+    }
 }

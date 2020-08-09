@@ -31,7 +31,13 @@ public class TestScript : MonoBehaviour
 
         //var attr = new Attributes(0, 0, 0, 0, 0, 0, 0);
         //var skills = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-        
+
+
+        //Recipe r1 = new Recipe("Lingote de plata", 50, "Forge");
+        //r1.AddElement("Mineral de plata", 20);
+
+        //recipeService.Save(r1);
+
     }
 
     /* Script para crear un color a partir de un string que representa un numero hexadecimal

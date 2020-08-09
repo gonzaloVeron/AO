@@ -17,5 +17,5 @@ public abstract class Job
     {
         itemsFromRecipe.ForEach(i => player.inv.RemoveItemByQuantity(i.item1, i.item2));
     }
-    public List<Tuple<string, int>> findItemsNeeded(string potionName) => this.recipeService.fetchRecipe(potionName).itemsNeeded;
+    public List<Tuple<string, int>> findItemsNeeded(string itemName) => this.recipeService.fetchRecipe(itemName).itemsNeeded;
 }

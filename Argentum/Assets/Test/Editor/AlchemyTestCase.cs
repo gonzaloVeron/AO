@@ -14,6 +14,10 @@ public class AlchemyTestCase
 
     private Player spore;
 
+    private RecipeService recipeService;
+
+    private PotionService potionService;
+
     [SetUp]
     public void SetUp()
     {
@@ -21,47 +25,54 @@ public class AlchemyTestCase
         attributesSpore = new Attributes(40, 38, 0, 0, 0, 0, 0);
         skillsSpore = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         spore = new Player("Spore", attributesSpore, skillsSpore, new Warrior());
-
         alchemy = new Alchemy(spore);
 
+        recipeService = new RecipeService();
+        potionService = new PotionService();
+
+        Recipe r1 = new Recipe("Pocion roja", 5, "Alchemy");
+        r1.AddElement("Raiz", 15);
+
+        Recipe r2 = new Recipe("Pocion azul", 10, "Alchemy");
+        r2.AddElement("Raiz", 25);
+
+        recipeService.Save(r1);
+        recipeService.Save(r2);
+
+        Potion p1 = new Potion("Pocion roja", 30, 0, 1, 0f);
+        Potion p2 = new Potion("Pocion azul", 0, 4, 1, 0f);
+        potionService.Save(p1);
+        potionService.Save(p2);
+
         var raices = new Resource("Raiz", 150, 0f);
-        spore.skills.alchemy = 1;
+
+        spore.skills.alchemy = 100;
         spore.TakeItem(raices);
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        recipeService.DropCollection();
+        potionService.DropCollection();
     }
 
     [Test]
     public void GeneratePotionTest()
     {
         var expectedPotionAmount = 1;
+        var expectedRoots = 135;
 
-        alchemy.CraftItem("Pocion de regeneracion");
+        alchemy.CraftItem("Pocion roja");
 
-        Assert.IsTrue(spore.inv.existsItem("Pocion de regeneracion"));
-        Assert.AreEqual(expectedPotionAmount, spore.inv.fetchItem("Pocion de regeneracion").quantity);
+        Assert.IsTrue(spore.inv.existsItem("Pocion roja"));
+        Assert.AreEqual(expectedRoots, spore.inv.fetchItem("Raiz").quantity);
+        Assert.AreEqual(expectedPotionAmount, spore.inv.fetchItem("Pocion roja").quantity);
     }
     [Test]
     public void RecipesAvailableTest()
     {
-        var expectedElements = new List<string> { "Pocion de regeneracion" };
-
-        Assert.AreEqual(expectedElements, alchemy.recipesAvailable(spore.skills.alchemy));
-    }
-    [Test]
-    public void RemoveItemsFromRecipeTest()
-    {
-        var expectedAmount = 145;
-
-        alchemy.RemoveItemsFromRecipe(spore, alchemy.findItemsNeeded("Pocion de regeneracion"));
-
-        Assert.AreEqual(expectedAmount, spore.inv.fetchItem("Raiz").quantity);
-    }
-
-    [Test]
-    public void FindItemsNeededTest()
-    {
-        var expectedElements = new List<Tuple<string, int>> { new Tuple<string, int>("Raiz", 5) };
-
-        Assert.IsTrue(expectedElements.TrueForAll(t => alchemy.findItemsNeeded("Pocion de regeneracion").Exists(tu => tu.item1 == t.item1)));
+        Assert.AreEqual(2, alchemy.recipesAvailable(spore.skills.alchemy).Count);
     }
 
 }

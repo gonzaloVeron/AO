@@ -12,20 +12,39 @@ public class CarpentryTestCase
 
     private Attributes attributesSpore;
 
-    private ListUtils utils;
+    private RecipeService recipeService;
+
+    private ItemEquipableService iEquipableService;
 
     [SetUp]
     public void SetUp()
     {
-        utils = new ListUtils();
         attributesSpore = new Attributes(40, 38, 0, 0, 0, 0, 0);
         skillsSpore = new Skills(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         spore = new Player("Spore", attributesSpore, skillsSpore, new Warrior());
-
         carpentry = new Carpentry(spore);
 
+        recipeService = new RecipeService();
+        iEquipableService = new ItemEquipableService();
+
+        Recipe r1 = new Recipe("Arco compuesto", 30, "Carpentry");
+        r1.AddElement("Madera", 450);
+        recipeService.Save(r1);
+
+        RangedWeapon arco = new RangedWeapon("Arco compuesto", 15, 25, 1, 0.7f);
+        iEquipableService.Save(arco);
+
+        var troncos = new Resource("Madera", 2000, 0f);
+
         spore.skills.carpentry = 100;
-        spore.TakeItem(new Resource("Madera", 2000, 0f));
+        spore.TakeItem(troncos);
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        recipeService.DropCollection();
+        iEquipableService.DropCollection();
     }
 
     [Test]

@@ -3,6 +3,8 @@ os: osx
 mono:
   - latest
 solution: Argentum.sln
+services:
+  - mongodb
 before_install: 
   - cd Argentum
 install:

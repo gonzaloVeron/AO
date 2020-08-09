@@ -31,5 +31,10 @@ public class PlayerService
     }
 
     public Player fetchPlayer(string name) => mongodao.get(this.query(name));
-    private IMongoQuery query(string st) => Query<Player>.EQ(doc => doc.name, st);    
+    private IMongoQuery query(string st) => Query<Player>.EQ(doc => doc.name, st);
+
+    public void DropCollection()
+    {
+        mongodao.DeleteAll();
+    }
 }

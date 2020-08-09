@@ -26,4 +26,9 @@ public class ItemEquipableService
         mongodao.Delete(this.query(name));
     }
     private IMongoQuery query(string st) => Query<Equipable>.EQ(doc => doc.name, st);
+
+    public void DropCollection()
+    {
+        mongodao.DeleteAll();
+    }
 }

@@ -27,4 +27,9 @@ public class ResourceService
         mongodao.Delete(this.query(name));
     }
     private IMongoQuery query(string st) => Query<Resource>.EQ(doc => doc.name, st);
+
+    public void DropCollection()
+    {
+        mongodao.DeleteAll();
+    }
 }

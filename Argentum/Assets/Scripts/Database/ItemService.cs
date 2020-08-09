@@ -33,4 +33,9 @@ public class ItemService
     }
     private IMongoQuery query(string st) => Query<Item>.EQ(doc => doc.name, st);
 
+    public void DropCollection()
+    {
+        mongodao.DeleteAll();
+    }
+
 }

@@ -12,6 +12,10 @@ public class GenericMongoDAO<T>
     public GenericMongoDAO(string typeString)
     {
         this.mongoCollection = MongoConnection.getInstance().getDB().GetCollection<T>(typeString);
+        if(this.mongoCollection == null)
+        {
+            MongoConnection.CreateCollection(typeString);
+        }
     }
     
     public void DeleteAll()

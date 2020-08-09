@@ -41,4 +41,9 @@ public class RecipeService
     }
 
     private IMongoQuery query(string st) => Query<Recipe>.EQ(doc => doc.name, st);
+
+    public void DropCollection()
+    {
+        mongodao.DeleteAll();
+    }
 }
