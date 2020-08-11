@@ -11,6 +11,8 @@ echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 	-batchmode \
 	-nographics \
 	-silent-crashes \
+	-username "gonveron96@gmail.com" \
+	-password "Tiranosaurio0" \
 	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
 	-runTests -testPlatform editmode \
 	-logFile \
