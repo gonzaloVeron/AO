@@ -7,13 +7,13 @@
 
 ## Run the editor unit tests
 echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
-/Applications/Unity/Hub/Editor/2020.1.0f1/Unity.app/Contents/MacOS/Unity \
+/Applications/Unity/Unity.app/Contents/MacOS/Unity \
 	-batchmode \
 	-nographics \
 	-silent-crashes \
 	-logFile $(pwd)/unity.log \
 	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
-	-runTests \
+	-runTests -testPlatform editmode \
 	-testResults $(pwd)/test.xml \
 	-quit
 
