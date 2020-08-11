@@ -13,6 +13,7 @@ echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 	-silent-crashes \
 	-username "gonveron96@gmail.com" \
 	-password "Tiranosaurio0" \
+	-manualLicenseFile lic \
 	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
 	-runTests -testPlatform editmode \
 	-logFile \
