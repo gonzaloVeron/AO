@@ -6,7 +6,9 @@ solution: Argentum.sln
 services:
   - mongodb
 before_install: 
+  - ls
   - cd Argentum
+  - ls
 install:
   - nuget restore Argentum.sln
   - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
