@@ -11,6 +11,9 @@ echo "Create the license file"
 	-createManualActivationFile \
 	-logfile
 
+echo "-----------------------------------------------------------------------------------"
+cat Unity_v2020.1.0f1.alf
+echo "-----------------------------------------------------------------------------------"
 ## Run the editor unit tests
 echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
@@ -19,7 +22,7 @@ echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 	-silent-crashes \
 	-username "gonveron96@gmail.com" \
 	-password "Tiranosaurio0" \
-	-manualLicenseFile /Users/travis/build/gonzaloVeron/AO/Argentum/Unity_v2020.1.0f1.alf \
+	-manualLicenseFile Unity_v2020.1.0f1 \
 	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
 	-runTests -testPlatform editmode \
 	-logFile \
