@@ -5,15 +5,6 @@
 #  the project folder is "UnityProject". If this is not true then adjust the 
 #  -projectPath argument to point to the right location.
 
-echo "Create the license file"
-/Applications/Unity/Unity.app/Contents/MacOS/Unity \
-	-batchmode \
-	-createManualActivationFile \
-	-logfile
-
-echo "-----------------------------------------------------------------------------------"
-cat Unity_v2020.1.0f1.alf
-echo "-----------------------------------------------------------------------------------"
 ## Run the editor unit tests
 echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
@@ -22,7 +13,7 @@ echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 	-silent-crashes \
 	-username "gonveron96@gmail.com" \
 	-password "Tiranosaurio0" \
-	-manualLicenseFile Unity_v2020.1.0f1 \
+	-manualLicenseFile Unity_v2020.x.ulf \
 	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
 	-runTests -testPlatform editmode \
 	-logFile \
