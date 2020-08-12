@@ -10,12 +10,12 @@ if [ $? -ne 0 ]; then { echo "Download failed"; exit $?; } fi
 # In Unity 5 they split up build platform support into modules which are installed separately
 # By default, only Mac OSX support is included in the original editor package; Windows, Linux, iOS, Android, and others are separate
 # In this example we download Windows support. Refer to http://unity.grimdork.net/ to see what form the URLs should take
-echo 'Downloading Unity 2020.1.0 Windows Build Support pkg:'
-curl --retry 5 -o Unity_win.pkg https://beta.unity3d.com/download/2ab9c4179772/MacEditorTargetInstaller/UnitySetup-Windows-Mono-Support-for-Editor-2020.1.0f1.pkg?_ga=2.123236555.1779359896.1596674838-1256837220.1596674838
-if [ $? -ne 0 ]; then { echo "Download failed"; exit $?; } fi
+#echo 'Downloading Unity 2020.1.0 Windows Build Support pkg:'
+#curl --retry 5 -o Unity_win.pkg https://beta.unity3d.com/download/2ab9c4179772/MacEditorTargetInstaller/UnitySetup-Windows-Mono-Support-for-Editor-2020.1.0f1.pkg?_ga=2.123236555.1779359896.1596674838-1256837220.1596674838
+#if [ $? -ne 0 ]; then { echo "Download failed"; exit $?; } fi
 
 # Run installer(s)
 echo 'Installing Unity.pkg'
 sudo installer -dumplog -package Unity.pkg -target /
-echo 'Installing Unity_win.pkg'
-sudo installer -dumplog -package Unity_win.pkg -target /
+#echo 'Installing Unity_win.pkg'
+#sudo installer -dumplog -package Unity_win.pkg -target /
