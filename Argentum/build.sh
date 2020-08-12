@@ -11,6 +11,8 @@ echo "Create the license file"
 	-createManualActivationFile \
 	-logfile
 
+cat $(pwd)/Applications/Unity/Unity.app/Contents/MacOS/Unity/Unity_v2020.1.0f1
+
 ## Run the editor unit tests
 echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
