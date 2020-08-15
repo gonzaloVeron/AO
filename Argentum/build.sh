@@ -39,7 +39,25 @@ cp CACerts.pem ~/Library/Unity/Certificates/
 echo "activate license"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity -quit -batchmode -serial I3-GKE5-PKF4-XXXX-XXXX-XXXX -username "gonveron96@gmail.com" -password "Tiranosaurio0" -logfile
 
-cat ~/Library/Logs/Unity/Editor.log
+#cat ~/Library/Logs/Unity/Editor.log
+
+echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
+/Applications/Unity/Unity.app/Contents/MacOS/Unity \
+	-nographics \
+	-silent-crashes \
+	-username "gonveron96@gmail.com" \
+	-password "Tiranosaurio0" \
+	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
+	-runTests -testPlatform editmode \
+	-logFile \
+	-testResults $(pwd)/test.xml \
+	-quit
+
+rc0=$?
+echo "Unit test logs"
+cat $(pwd)/test.xml
+# exit if tests failed
+if [ $rc0 -ne 0 ]; then { echo "Failed unit tests"; exit $rc0; } fi
 
 echo "return license"
 
