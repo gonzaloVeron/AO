@@ -7,13 +7,8 @@ sudo: true
 node_js:
 - '0.1'
 
-before_install: 
+script:
   - cd Argentum
-
-install:
-  - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
-
-script: 
   - sudo -E sh ./build.sh
 
 branches:
