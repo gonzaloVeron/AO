@@ -43,7 +43,6 @@ echo "activate license"
 
 echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
-	-batchmode \
 	-nographics \
 	-silent-crashes \
 	-username "gonveron96@gmail.com" \
@@ -53,15 +52,16 @@ echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 	-logFile \
 	-quit
 
+rc0=$?
+
+echo "--------------valor-variable---------------"
+echo $rc0
+echo "-------------------------------------------"
+
 echo "-------------------------------------------"
 echo "aca esta el proyecto $(ls)"
 echo "-------------------------------------------"
 
-rc0=$?
-
-echo "--------------valor-variable---------------"
-cat rc0
-echo "-------------------------------------------"
 echo "Unit test logs"
 cat results.xml
 # exit if tests failed
