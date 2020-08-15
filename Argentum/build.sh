@@ -5,9 +5,16 @@
 #  the project folder is "UnityProject". If this is not true then adjust the 
 #  -projectPath argument to point to the right location.
 
+echo "Create Certificate Folder"
+mkdir ~/Library/Unity
+mkdir ~/Library/Unity/Certificates
+
+cp CACerts.pem ~/Library/Unity/Certificates/
+
 ## Run the editor unit tests
 echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
+	-batchmode \
 	-nographics \
 	-silent-crashes \
 	-username "gonveron96@gmail.com" \
