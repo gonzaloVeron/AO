@@ -15,6 +15,7 @@ cp CACerts.pem ~/Library/Unity/Certificates/
 echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
 	-batchmode \
+	-serial I3-GKE5-PKF4-XXXX-XXXX-XXXX \
 	-nographics \
 	-silent-crashes \
 	-username "gonveron96@gmail.com" \
