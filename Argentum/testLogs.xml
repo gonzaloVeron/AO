@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="69" result="Passed" total="69" passed="69" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2020-08-16 07:29:26Z" end-time="2020-08-16 07:29:27Z" duration="0,2470031">
+  <test-suite type="TestSuite" id="1150" name="Argentum" fullname="Argentum" runstate="Runnable" testcasecount="69" result="Passed" start-time="2020-08-16 07:29:26Z" end-time="2020-08-16 07:29:27Z" duration="0.247003" total="69" passed="69" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties />
+    <test-suite type="Assembly" id="1222" name="Assembly-CSharp-Editor.dll" fullname="C:/Users/gonzo/Desktop/AO/Argentum/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll" runstate="Runnable" testcasecount="69" result="Passed" start-time="2020-08-16 07:29:26Z" end-time="2020-08-16 07:29:27Z" duration="0.202947" total="69" passed="69" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="1192" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+      </properties>
+      <test-suite type="TestFixture" id="1151" name="LimitedListTestCase" fullname="LimitedListTestCase" classname="LimitedListTestCase" runstate="Runnable" testcasecount="15" result="Passed" start-time="2020-08-16 07:29:26Z" end-time="2020-08-16 07:29:27Z" duration="0.062948" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1152" name="AddTest" fullname="LimitedListTestCase.AddTest" methodname="AddTest" classname="LimitedListTestCase" runstate="Runnable" seed="1534413090" result="Passed" start-time="2020-08-16 07:29:26Z" end-time="2020-08-16 07:29:27Z" duration="0.022166" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1153" name="AddTestThrowIndexOutOfRangeException" fullname="LimitedListTestCase.AddTestThrowIndexOutOfRangeException" methodname="AddTestThrowIndexOutOfRangeException" classname="LimitedListTestCase" runstate="Runnable" seed="1115164944" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.003082" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1157" name="ContainsEmptyListTest" fullname="LimitedListTestCase.ContainsEmptyListTest" methodname="ContainsEmptyListTest" classname="LimitedListTestCase" runstate="Runnable" seed="1978903426" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000735" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1163" name="ContainsTest" fullname="LimitedListTestCase.ContainsTest" methodname="ContainsTest" classname="LimitedListTestCase" runstate="Runnable" seed="1596398180" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000881" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1161" name="ExistsEmptyListTest" fullname="LimitedListTestCase.ExistsEmptyListTest" methodname="ExistsEmptyListTest" classname="LimitedListTestCase" runstate="Runnable" seed="1002249646" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000861" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1166" name="ExistsTestFalse" fullname="LimitedListTestCase.ExistsTestFalse" methodname="ExistsTestFalse" classname="LimitedListTestCase" runstate="Runnable" seed="1586618083" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000559" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1165" name="ExistsTestTrue" fullname="LimitedListTestCase.ExistsTestTrue" methodname="ExistsTestTrue" classname="LimitedListTestCase" runstate="Runnable" seed="1808388345" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000444" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1156" name="FindEmptyListTest" fullname="LimitedListTestCase.FindEmptyListTest" methodname="FindEmptyListTest" classname="LimitedListTestCase" runstate="Runnable" seed="1805475454" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000768" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1155" name="FindTest" fullname="LimitedListTestCase.FindTest" methodname="FindTest" classname="LimitedListTestCase" runstate="Runnable" seed="1477764363" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000481" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1162" name="FindTestThrowArgumentNullException" fullname="LimitedListTestCase.FindTestThrowArgumentNullException" methodname="FindTestThrowArgumentNullException" classname="LimitedListTestCase" runstate="Runnable" seed="2041513396" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000416" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1160" name="isEmptyFalseTest" fullname="LimitedListTestCase.isEmptyFalseTest" methodname="isEmptyFalseTest" classname="LimitedListTestCase" runstate="Runnable" seed="614077855" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000259" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1159" name="isEmptyTrueTest" fullname="LimitedListTestCase.isEmptyTrueTest" methodname="isEmptyTrueTest" classname="LimitedListTestCase" runstate="Runnable" seed="884722623" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000231" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1154" name="RemoveTest" fullname="LimitedListTestCase.RemoveTest" methodname="RemoveTest" classname="LimitedListTestCase" runstate="Runnable" seed="242560062" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000825" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1158" name="SumEmptyListTest" fullname="LimitedListTestCase.SumEmptyListTest" methodname="SumEmptyListTest" classname="LimitedListTestCase" runstate="Runnable" seed="834149019" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000473" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1164" name="SumTest" fullname="LimitedListTestCase.SumTest" methodname="SumTest" classname="LimitedListTestCase" runstate="Runnable" seed="1826928968" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000558" asserts="0">
+          <properties />
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1167" name="PlayerTestCase" fullname="PlayerTestCase" classname="PlayerTestCase" runstate="Runnable" testcasecount="54" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.128583" total="54" passed="54" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1176" name="AttackWithAssasinDaggerTest" fullname="PlayerTestCase.AttackWithAssasinDaggerTest" methodname="AttackWithAssasinDaggerTest" classname="PlayerTestCase" runstate="Runnable" seed="1345670342" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.008668" asserts="0">
+          <properties />
+          <output><![CDATA[Probabilidad de acierto: 41
+Numero random: 11
+No falle !
+]]></output>
+        </test-case>
+        <test-case id="1178" name="AttackWithBanditWeaponTest" fullname="PlayerTestCase.AttackWithBanditWeaponTest" methodname="AttackWithBanditWeaponTest" classname="PlayerTestCase" runstate="Runnable" seed="1465496441" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.003183" asserts="0">
+          <properties />
+          <output><![CDATA[Probabilidad de acierto: 37
+Numero random: 30
+No falle !
+]]></output>
+        </test-case>
+        <test-case id="1173" name="AttackWithBowTest" fullname="PlayerTestCase.AttackWithBowTest" methodname="AttackWithBowTest" classname="PlayerTestCase" runstate="Runnable" seed="457037906" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.005260" asserts="0">
+          <properties />
+          <output><![CDATA[Probabilidad de acierto: 58
+Numero random: 15
+No falle !
+]]></output>
+        </test-case>
+        <test-case id="1174" name="AttackWithProbOfSuccess" fullname="PlayerTestCase.AttackWithProbOfSuccess" methodname="AttackWithProbOfSuccess" classname="PlayerTestCase" runstate="Runnable" seed="1079728718" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.004138" asserts="0">
+          <properties />
+          <output><![CDATA[Probabilidad de acierto: 80
+Numero random: 39
+No falle !
+]]></output>
+        </test-case>
+        <test-case id="1177" name="AttackWithWarriorDaggerTest" fullname="PlayerTestCase.AttackWithWarriorDaggerTest" methodname="AttackWithWarriorDaggerTest" classname="PlayerTestCase" runstate="Runnable" seed="1384609457" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.004194" asserts="0">
+          <properties />
+          <output><![CDATA[Probabilidad de acierto: 52
+Numero random: 35
+No falle !
+]]></output>
+        </test-case>
+        <test-case id="1172" name="BardAttackClericTest" fullname="PlayerTestCase.BardAttackClericTest" methodname="BardAttackClericTest" classname="PlayerTestCase" runstate="Runnable" seed="1273004665" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.003130" asserts="0">
+          <properties />
+          <output><![CDATA[Probabilidad de acierto: 10
+Numero random: 66
+Falle !
+]]></output>
+        </test-case>
+        <test-case id="1179" name="BeingAttacked" fullname="PlayerTestCase.BeingAttacked" methodname="BeingAttacked" classname="PlayerTestCase" runstate="Runnable" seed="1095278452" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000402" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1189" name="CastSpell_Healing" fullname="PlayerTestCase.CastSpell_Healing" methodname="CastSpell_Healing" classname="PlayerTestCase" runstate="Runnable" seed="2046535359" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.001475" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1186" name="CastSpellTest_DirectDamage" fullname="PlayerTestCase.CastSpellTest_DirectDamage" methodname="CastSpellTest_DirectDamage" classname="PlayerTestCase" runstate="Runnable" seed="1589481679" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000827" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1188" name="CastSpellTest_DirectDamageWithExtraDamage" fullname="PlayerTestCase.CastSpellTest_DirectDamageWithExtraDamage" methodname="CastSpellTest_DirectDamageWithExtraDamage" classname="PlayerTestCase" runstate="Runnable" seed="188595303" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.002120" asserts="0">
+          <properties />
+          <output><![CDATA[Daño magico extra de spore: 15
+Vida de la victima: 87
+]]></output>
+        </test-case>
+        <test-case id="1187" name="CastSpellTest_DirectDamageWithMagicResist" fullname="PlayerTestCase.CastSpellTest_DirectDamageWithMagicResist" methodname="CastSpellTest_DirectDamageWithMagicResist" classname="PlayerTestCase" runstate="Runnable" seed="1786116096" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000665" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1195" name="ChangeFactionTest" fullname="PlayerTestCase.ChangeFactionTest" methodname="ChangeFactionTest" classname="PlayerTestCase" runstate="Runnable" seed="1200352402" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000330" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1175" name="ClericAttackThiefTest" fullname="PlayerTestCase.ClericAttackThiefTest" methodname="ClericAttackThiefTest" classname="PlayerTestCase" runstate="Runnable" seed="2133974428" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.003066" asserts="0">
+          <properties />
+          <output><![CDATA[Probabilidad de acierto: 28
+Numero random: 66
+Falle !
+]]></output>
+        </test-case>
+        <test-case id="1180" name="DamageTest" fullname="PlayerTestCase.DamageTest" methodname="DamageTest" classname="PlayerTestCase" runstate="Runnable" seed="186191442" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000411" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1184" name="DropGoldTest" fullname="PlayerTestCase.DropGoldTest" methodname="DropGoldTest" classname="PlayerTestCase" runstate="Runnable" seed="955494636" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000450" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1197" name="DropItemTest" fullname="PlayerTestCase.DropItemTest" methodname="DropItemTest" classname="PlayerTestCase" runstate="Runnable" seed="1641311916" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.001007" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1200" name="ExamineLifePointsOfTestCase1" fullname="PlayerTestCase.ExamineLifePointsOfTestCase1" methodname="ExamineLifePointsOfTestCase1" classname="PlayerTestCase" runstate="Runnable" seed="1249068647" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000743" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1209" name="ExamineLifePointsOfTestCase10" fullname="PlayerTestCase.ExamineLifePointsOfTestCase10" methodname="ExamineLifePointsOfTestCase10" classname="PlayerTestCase" runstate="Runnable" seed="840262829" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000271" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1210" name="ExamineLifePointsOfTestCase11" fullname="PlayerTestCase.ExamineLifePointsOfTestCase11" methodname="ExamineLifePointsOfTestCase11" classname="PlayerTestCase" runstate="Runnable" seed="1492871365" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000290" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1211" name="ExamineLifePointsOfTestCase12" fullname="PlayerTestCase.ExamineLifePointsOfTestCase12" methodname="ExamineLifePointsOfTestCase12" classname="PlayerTestCase" runstate="Runnable" seed="1103841352" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000221" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1212" name="ExamineLifePointsOfTestCase13" fullname="PlayerTestCase.ExamineLifePointsOfTestCase13" methodname="ExamineLifePointsOfTestCase13" classname="PlayerTestCase" runstate="Runnable" seed="581628201" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000221" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1213" name="ExamineLifePointsOfTestCase14" fullname="PlayerTestCase.ExamineLifePointsOfTestCase14" methodname="ExamineLifePointsOfTestCase14" classname="PlayerTestCase" runstate="Runnable" seed="781447611" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000219" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1214" name="ExamineLifePointsOfTestCase15" fullname="PlayerTestCase.ExamineLifePointsOfTestCase15" methodname="ExamineLifePointsOfTestCase15" classname="PlayerTestCase" runstate="Runnable" seed="300985453" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000304" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1215" name="ExamineLifePointsOfTestCase16" fullname="PlayerTestCase.ExamineLifePointsOfTestCase16" methodname="ExamineLifePointsOfTestCase16" classname="PlayerTestCase" runstate="Runnable" seed="2042471004" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000220" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1216" name="ExamineLifePointsOfTestCase17" fullname="PlayerTestCase.ExamineLifePointsOfTestCase17" methodname="ExamineLifePointsOfTestCase17" classname="PlayerTestCase" runstate="Runnable" seed="2034656500" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000487" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1201" name="ExamineLifePointsOfTestCase2" fullname="PlayerTestCase.ExamineLifePointsOfTestCase2" methodname="ExamineLifePointsOfTestCase2" classname="PlayerTestCase" runstate="Runnable" seed="291467599" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000227" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1202" name="ExamineLifePointsOfTestCase3" fullname="PlayerTestCase.ExamineLifePointsOfTestCase3" methodname="ExamineLifePointsOfTestCase3" classname="PlayerTestCase" runstate="Runnable" seed="204037879" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000239" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1203" name="ExamineLifePointsOfTestCase4" fullname="PlayerTestCase.ExamineLifePointsOfTestCase4" methodname="ExamineLifePointsOfTestCase4" classname="PlayerTestCase" runstate="Runnable" seed="146460539" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000221" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1204" name="ExamineLifePointsOfTestCase5" fullname="PlayerTestCase.ExamineLifePointsOfTestCase5" methodname="ExamineLifePointsOfTestCase5" classname="PlayerTestCase" runstate="Runnable" seed="82627389" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000231" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1205" name="ExamineLifePointsOfTestCase6" fullname="PlayerTestCase.ExamineLifePointsOfTestCase6" methodname="ExamineLifePointsOfTestCase6" classname="PlayerTestCase" runstate="Runnable" seed="1805695746" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000218" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1206" name="ExamineLifePointsOfTestCase7" fullname="PlayerTestCase.ExamineLifePointsOfTestCase7" methodname="ExamineLifePointsOfTestCase7" classname="PlayerTestCase" runstate="Runnable" seed="2077806575" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000368" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1207" name="ExamineLifePointsOfTestCase8" fullname="PlayerTestCase.ExamineLifePointsOfTestCase8" methodname="ExamineLifePointsOfTestCase8" classname="PlayerTestCase" runstate="Runnable" seed="2076284973" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000238" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1208" name="ExamineLifePointsOfTestCase9" fullname="PlayerTestCase.ExamineLifePointsOfTestCase9" methodname="ExamineLifePointsOfTestCase9" classname="PlayerTestCase" runstate="Runnable" seed="1972482651" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000245" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1218" name="ExtractionChanceTest" fullname="PlayerTestCase.ExtractionChanceTest" methodname="ExtractionChanceTest" classname="PlayerTestCase" runstate="Runnable" seed="1223811589" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000649" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1191" name="GainExperienceLevelUpTest" fullname="PlayerTestCase.GainExperienceLevelUpTest" methodname="GainExperienceLevelUpTest" classname="PlayerTestCase" runstate="Runnable" seed="709691007" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000733" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1190" name="GainExperienceTest" fullname="PlayerTestCase.GainExperienceTest" methodname="GainExperienceTest" classname="PlayerTestCase" runstate="Runnable" seed="882748589" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000319" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1185" name="LearnSpellTest" fullname="PlayerTestCase.LearnSpellTest" methodname="LearnSpellTest" classname="PlayerTestCase" runstate="Runnable" seed="35057686" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000408" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1194" name="LevelUpWarriorTest" fullname="PlayerTestCase.LevelUpWarriorTest" methodname="LevelUpWarriorTest" classname="PlayerTestCase" runstate="Runnable" seed="1876206300" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000496" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1193" name="NeedLvlUpFalseTest" fullname="PlayerTestCase.NeedLvlUpFalseTest" methodname="NeedLvlUpFalseTest" classname="PlayerTestCase" runstate="Runnable" seed="737394347" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000253" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1192" name="NeedLvlUpTrueTest" fullname="PlayerTestCase.NeedLvlUpTrueTest" methodname="NeedLvlUpTrueTest" classname="PlayerTestCase" runstate="Runnable" seed="1978449463" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000213" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1217" name="ResourcesObtainedTest" fullname="PlayerTestCase.ResourcesObtainedTest" methodname="ResourcesObtainedTest" classname="PlayerTestCase" runstate="Runnable" seed="302091828" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000527" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1198" name="StealTest" fullname="PlayerTestCase.StealTest" methodname="StealTest" classname="PlayerTestCase" runstate="Runnable" seed="123220358" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.002509" asserts="0">
+          <properties />
+          <output><![CDATA[Numero random para robar: 97
+Chance de robar: 20
+]]></output>
+        </test-case>
+        <test-case id="1199" name="StealWithThiefTest" fullname="PlayerTestCase.StealWithThiefTest" methodname="StealWithThiefTest" classname="PlayerTestCase" runstate="Runnable" seed="735115454" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.008166" asserts="0">
+          <properties />
+          <output><![CDATA[Numero random para robar: 92
+Chance de robar: 60
+Cantidad de oro de Spore: 0
+Cantidad de oro de la victima: 500
+Items de la victima: [(Red potion, 30), (Dragon armor, 1), (Bottle of water, 30)]
+Items de Spore: []
+]]></output>
+        </test-case>
+        <test-case id="1219" name="SubstractResourcesTestCatchFish" fullname="PlayerTestCase.SubstractResourcesTestCatchFish" methodname="SubstractResourcesTestCatchFish" classname="PlayerTestCase" runstate="Runnable" seed="1898693534" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.001402" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1220" name="SubstractResourcesTestCutdown" fullname="PlayerTestCase.SubstractResourcesTestCutdown" methodname="SubstractResourcesTestCutdown" classname="PlayerTestCase" runstate="Runnable" seed="1263864196" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000565" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1221" name="SubstractResourcesTestExtractRoots" fullname="PlayerTestCase.SubstractResourcesTestExtractRoots" methodname="SubstractResourcesTestExtractRoots" classname="PlayerTestCase" runstate="Runnable" seed="769328403" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000492" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1182" name="TakeItemExistingItem" fullname="PlayerTestCase.TakeItemExistingItem" methodname="TakeItemExistingItem" classname="PlayerTestCase" runstate="Runnable" seed="104262559" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000570" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1181" name="TakeItemGold" fullname="PlayerTestCase.TakeItemGold" methodname="TakeItemGold" classname="PlayerTestCase" runstate="Runnable" seed="1028662717" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000322" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1183" name="TakeItemNewItem" fullname="PlayerTestCase.TakeItemNewItem" methodname="TakeItemNewItem" classname="PlayerTestCase" runstate="Runnable" seed="106145706" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000319" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1170" name="TameAnimalMaxTest" fullname="PlayerTestCase.TameAnimalMaxTest" methodname="TameAnimalMaxTest" classname="PlayerTestCase" runstate="Runnable" seed="1858543696" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000803" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1169" name="TameAnimalTest" fullname="PlayerTestCase.TameAnimalTest" methodname="TameAnimalTest" classname="PlayerTestCase" runstate="Runnable" seed="1347711679" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000549" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1171" name="TameCreatureTest" fullname="PlayerTestCase.TameCreatureTest" methodname="TameCreatureTest" classname="PlayerTestCase" runstate="Runnable" seed="441254845" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.000489" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1196" name="UseItemTest" fullname="PlayerTestCase.UseItemTest" methodname="UseItemTest" classname="PlayerTestCase" runstate="Runnable" seed="1939656720" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.004804" asserts="0">
+          <properties />
+        </test-case>
+        <test-case id="1168" name="WarriorAttackCreatureTest" fullname="PlayerTestCase.WarriorAttackCreatureTest" methodname="WarriorAttackCreatureTest" classname="PlayerTestCase" runstate="Runnable" seed="713903444" result="Passed" start-time="2020-08-16 07:29:27Z" end-time="2020-08-16 07:29:27Z" duration="0.010697" asserts="0">
+          <properties />
+          <output><![CDATA[Probabilidad de acierto: 63
+Numero random: 33
+No falle !
+Vida del mostro: 17
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
