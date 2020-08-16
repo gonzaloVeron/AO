@@ -42,6 +42,7 @@ echo "activate license"
 
 echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
+	-batchmode \
 	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
 	-runTests \
 	-testResults "$(pwd)/${UNITYCI_PROJECT_NAME}/testLogs.xml"\
@@ -53,8 +54,6 @@ echo "│Unity test logs│"
 echo "└───────────────┘"
 
 sudo -E sh ./verifyTest.sh
-
-cat testLogs.xml
 
 # exit if tests failed
 #if [ $rc0 -ne 0 ]; then { echo "Failed unit tests"; exit $rc0; } fi
