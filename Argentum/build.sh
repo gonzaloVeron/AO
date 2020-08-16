@@ -49,15 +49,19 @@ echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 	-testResults "$(pwd)/testLogs.xml"\
 	-logFile "$(pwd)/logs.txt"\
 
-echo "┌───────────────┐"
+echo "┌────────────────┐"
 echo "│Unity test logs│"
-echo "└───────────────┘"
+echo "└────────────────┘"
 
 echo "------------------------- MUESTRO DIRECTORIO -----------------------------"
 ls -las
 echo "------------------------- MUESTRO DIRECTORIO -----------------------------"
 
 sudo -E sh ./verifyTest.sh
+
+echo "------------------------- Logs de Unity -----------------------------"
+cat logs.txt
+echo "------------------------- Logs de Unity -----------------------------"
 
 # exit if tests failed
 #if [ $rc0 -ne 0 ]; then { echo "Failed unit tests"; exit $rc0; } fi
