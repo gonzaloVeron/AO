@@ -40,18 +40,20 @@ echo "activate license"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity -quit -batchmode -serial I3-GKE5-PKF4-XXXX-XXXX-XXXX -username "gonveron96@gmail.com" -password "Tiranosaurio0" -logfile
 
 
-#echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
-#/Applications/Unity/Unity.app/Contents/MacOS/Unity \
-#	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
-#	-runTests \
-#	-testResults "$(pwd)/${UNITYCI_PROJECT_NAME}/testLogs.xml"\
-#	-logFile "$(pwd)/${UNITYCI_PROJECT_NAME}/logs.txt"\
+echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
+/Applications/Unity/Unity.app/Contents/MacOS/Unity \
+	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
+	-runTests \
+	-testResults "$(pwd)/${UNITYCI_PROJECT_NAME}/testLogs.xml"\
+	-logFile "$(pwd)/${UNITYCI_PROJECT_NAME}/logs.txt"\
 
 echo "┌───────────────┐"
 echo "│Unity test logs│"
 echo "└───────────────┘"
 
-#cat testLogs.xml
+sudo -E sh ./verifyTest.sh
+
+cat testLogs.xml
 
 # exit if tests failed
 #if [ $rc0 -ne 0 ]; then { echo "Failed unit tests"; exit $rc0; } fi
