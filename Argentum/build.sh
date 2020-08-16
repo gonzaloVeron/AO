@@ -43,14 +43,18 @@ echo "activate license"
 echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
 	-batchmode \
-	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
+	-projectPath "$(pwd)" \
 	-runTests \
-	-testResults "$(pwd)/${UNITYCI_PROJECT_NAME}/testLogs.xml"\
-	-logFile "$(pwd)/${UNITYCI_PROJECT_NAME}/logs.txt"\
+	-testResults "$(pwd)/testLogs.xml"\
+	-logFile "$(pwd)/logs.txt"\
 
 echo "┌───────────────┐"
 echo "│Unity test logs│"
 echo "└───────────────┘"
+
+echo "------------------------- MUESTRO DIRECTORIO -----------------------------"
+ls -las
+echo "------------------------- MUESTRO DIRECTORIO -----------------------------"
 
 sudo -E sh ./verifyTest.sh
 
