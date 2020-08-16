@@ -40,42 +40,25 @@ echo "activate license"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity -quit -batchmode -serial I3-GKE5-PKF4-XXXX-XXXX-XXXX -username "gonveron96@gmail.com" -password "Tiranosaurio0" -logfile
 
 
-echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
-/Applications/Unity/Unity.app/Contents/MacOS/Unity \
-	-nographics \
-	-silent-crashes \
-	-username "gonveron96@gmail.com" \
-	-password "Tiranosaurio0" \
-	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
-	-runTests \
-	-logFile \
-	-quit
+#echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
+#/Applications/Unity/Unity.app/Contents/MacOS/Unity \
+#	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
+#	-runTests \
+#	-testResults "$(pwd)/${UNITYCI_PROJECT_NAME}/testLogs.xml"\
+#	-logFile "$(pwd)/${UNITYCI_PROJECT_NAME}/logs.txt"\
 
-rc0=$?
+echo "┌───────────────┐"
+echo "│Unity test logs│"
+echo "└───────────────┘"
 
-echo "--------------valor-variable---------------"
-echo $rc0
-echo "-------------------------------------------"
+#cat testLogs.xml
 
-echo "-------------------------------------------"
-cd ..
-echo "aca esta el proyecto $(ls)"
-echo "-------------------------------------------"
-echo "-------------------------------------------"
-
-echo "Unit test logs"
-cat results.xml
-
-echo "-------------Editor-Log-------------------"
-cat ~/Library/Logs/Unity/Editor.log
-echo "-------------------------------------------"
 # exit if tests failed
-if [ $rc0 -ne 0 ]; then { echo "Failed unit tests"; exit $rc0; } fi
+#if [ $rc0 -ne 0 ]; then { echo "Failed unit tests"; exit $rc0; } fi
 
 echo "return license"
 
 /Applications/Unity/Unity.app/Contents/MacOS/Unity -quit -batchmode -returnlicense -logfile
 
 echo === Done ===
-
 

@@ -56,13 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Test\Editor\PlayerTestCase.cs" />
-    <Compile Include="Assets\Test\Editor\AlchemyTestCase.cs" />
-    <Compile Include="Assets\Test\Editor\SmithyTestCase.cs" />
-    <Compile Include="Assets\Test\Editor\ForgeTestCase.cs" />
     <Compile Include="Assets\Test\Editor\LimitedListTestCase.cs" />
-    <Compile Include="Assets\Test\Editor\TailorTestCase.cs" />
-    <Compile Include="Assets\Test\Editor\TradeTestCase.cs" />
-    <Compile Include="Assets\Test\Editor\CarpentryTestCase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
