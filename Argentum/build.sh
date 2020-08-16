@@ -47,7 +47,6 @@ echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 	-runTests \
 	-testResults "$(pwd)/${UNITYCI_PROJECT_NAME}/testLogs.xml"\
 	-logFile "$(pwd)/${UNITYCI_PROJECT_NAME}/logs.txt"\
-	-quit
 
 echo "┌───────────────┐"
 echo "│Unity test logs│"
