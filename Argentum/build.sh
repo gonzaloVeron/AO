@@ -42,15 +42,17 @@ echo "activate license"
 
 echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
-	-nographics \
+	-batchmode \
+	-username "gonveron96@gmail.com" \
+	-password "Tiranosaurio0" \
 	-projectPath "$(pwd)" \
 	-runTests \
 	-testResults "$(pwd)/testLogs.xml"\
 #	-logFile "$(pwd)/logs.txt"
 
-echo "┌───────────────────┐"
-echo "│  Unity test logs  │"
-echo "└───────────────────┘"
+echo "┌                  ┐"
+echo "  Unity test logs   "
+echo "└                  ┘"
 
 echo "------------------------- MUESTRO DIRECTORIO -----------------------------"
 ls -las
