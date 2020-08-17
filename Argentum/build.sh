@@ -48,6 +48,8 @@ echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 	-batchmode \
 	-nographics \
 	-serial I3-GKE5-PKF4-XXXX-XXXX-XXXX \
+	-username "gonveron96@gmail.com" \
+	-password "Tiranosaurio0" \
 	-logFile "$(pwd)/logs.txt"
 
 echo "┌                  ┐"
