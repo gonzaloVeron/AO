@@ -44,6 +44,8 @@ echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
 	-batchmode \
 	-nographics \
+	-username "gonveron96@gmail.com" \
+	-password "Tiranosaurio0" \
 	-projectPath "$(pwd)" \
 	-runTests \
 	-testResults "$(pwd)/testLogs.xml"\
