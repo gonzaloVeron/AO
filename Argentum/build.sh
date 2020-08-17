@@ -42,6 +42,7 @@ echo "activate license"
 
 echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
+	-nographics \
 	-projectPath "$(pwd)" \
 	-runTests \
 	-testResults "$(pwd)/testLogs.xml"\
