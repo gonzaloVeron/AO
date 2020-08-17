@@ -37,7 +37,7 @@ mkdir ~/Library/Unity/Certificates
 cp CACerts.pem ~/Library/Unity/Certificates/
 
 echo "activate license"
-/Applications/Unity/Unity.app/Contents/MacOS/Unity -quit -batchmode -serial I3-GKE5-PKF4-XXXX-XXXX-XXXX -username "gonveron96@gmail.com" -password "Tiranosaurio0" -logfile -runEditorTests -testResults "$(pwd)/testLogs.xml" -projectPath "$(pwd)"
+/Applications/Unity/Unity.app/Contents/MacOS/Unity -quit -batchmode -serial I3-GKE5-PKF4-XXXX-XXXX-XXXX -username "gonveron96@gmail.com" -password "Tiranosaurio0" -logfile "$(pwd)/logs.txt" -runEditorTests -testResults "$(pwd)/testLogs.xml" -projectPath "$(pwd)"
 
 
 #echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
