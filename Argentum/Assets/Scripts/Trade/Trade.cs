@@ -57,13 +57,14 @@ public class Trade
     public void Terminate()
     {
         buyerOffer.ForEach(i => this.seller.TakeItem(i));
-        seller.gold = Mathf.Max(0, this.seller.gold - sellerGoldOffer);
-        seller.gold += buyerGoldOffer;
+        Consumable sellerGold = seller.dropGoldCoins(sellerGoldOffer);
 
         sellerOffer.ForEach(i => this.buyer.TakeItem(i));
-        buyer.gold = Mathf.Max(0, this.buyer.gold - buyerGoldOffer);
-        buyer.gold += sellerGoldOffer;
-        
+        Consumable buyerGold = buyer.dropGoldCoins(buyerGoldOffer);
+
+        seller.TakeItem(buyerGold);
+        buyer.TakeItem(sellerGold);
+
         sellerOffer.ForEach(i => this.seller.inv.RemoveItemByQuantity(i.name, i.quantity));
         buyerOffer.ForEach(i => this.buyer.inv.RemoveItemByQuantity(i.name, i.quantity));
 

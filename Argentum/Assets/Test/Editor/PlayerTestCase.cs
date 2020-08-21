@@ -358,10 +358,10 @@ public class PlayerTestCase
     public void TakeItemGold()
     {
         var goldExpected = 55;
-        var gold = new Consumable("Gold", 0, 0, 0, 0, 0, goldExpected, 0f);
+        var gold = new GoldCoin(goldExpected);
         spore.TakeItem(gold);
 
-        Assert.AreEqual(goldExpected, spore.gold);
+        Assert.AreEqual(goldExpected, spore.getGoldCoins());
     }
 
     [Test]
@@ -397,11 +397,11 @@ public class PlayerTestCase
     [Test]
     public void DropGoldTest()
     {
-        spore.gold = 66;
-        var nameExpected = "Gold";
+        spore.inv.goldCoins = 66;
+        var nameExpected = "Monedas de oro";
         var expectedAmount = 5;
 
-        var goldDropped = spore.dropGold(5);
+        var goldDropped = spore.dropGoldCoins(5);
 
         Assert.AreEqual(nameExpected, goldDropped.name);
         Assert.AreEqual(expectedAmount, goldDropped.quantity);
@@ -692,11 +692,11 @@ public class PlayerTestCase
     {
         var goldValuesExpected = new List<int>() { 0, 15 };
 
-        other.gold = 500;
+        other.inv.goldCoins = 500;
 
         spore.Steal(other);
 
-        Assert.IsTrue(goldValuesExpected.Contains(spore.gold));
+        Assert.IsTrue(goldValuesExpected.Contains(spore.getGoldCoins()));
     }
 
     [Test]
@@ -713,16 +713,16 @@ public class PlayerTestCase
         other.inv.AddItem(redPotion);
         other.inv.AddItem(dragonArmor);
         other.inv.AddItem(bottleOfWater);
-        other.gold = 500;
+        other.inv.goldCoins = 500;
 
         spore.Steal(other);
 
-        Debug.Log("Cantidad de oro de Spore: " + spore.gold);
-        Debug.Log("Cantidad de oro de la victima: " + other.gold);
+        Debug.Log("Cantidad de oro de Spore: " + spore.getGoldCoins());
+        Debug.Log("Cantidad de oro de la victima: " + other.getGoldCoins());
         Debug.Log("Items de la victima: " + utils.listToString(other.inv.inv.ConvertAll(i => "(" + i.name + ", " + i.quantity + ")")));
         Debug.Log("Items de Spore: " + utils.listToString(spore.inv.inv.ConvertAll(i => "(" + i.name + ", " + i.quantity + ")")));
 
-        Assert.IsTrue(goldValuesExpected.Contains(spore.gold) || itemsNamesExpected.Contains(spore.inv.inv[0].name));
+        Assert.IsTrue(goldValuesExpected.Contains(spore.getGoldCoins()) || itemsNamesExpected.Contains(spore.inv.inv[0].name));
     }
 
     [Test]

@@ -6,6 +6,12 @@ public class Inventory
 {
     public List<Item> inv;
 
+    public int copperCoins;
+
+    public int silverCoins;
+
+    public int goldCoins;
+
     public Inventory()
     {
         this.inv = new List<Item>();
@@ -64,17 +70,44 @@ public class Inventory
         return this.inv.Count;
     }
 
-    //Funcion creada por culpa de fidel
-    public void ApplyFun(System.Action<Item> algo, string name)
-    {
-        algo.Invoke(this.fetchItem(name));
-    }
-
     public Item getRandomItem()
     {
         var rand = Random.Range(0, this.inv.Count - 1);
         return this.inv[rand];
     }
 
+    public Consumable RemoveGoldCoins(int value)
+    {
+        this.ControlDropCoins(value, this.goldCoins, "monedas de oro");
+        this.goldCoins = Mathf.Max(0, this.goldCoins - value);
+        return new GoldCoin(value);
+    }
+
+    public Consumable removeSilverCoins(int value)
+    {
+        this.ControlDropCoins(value, this.silverCoins, "monedas de plata");
+        this.silverCoins = Mathf.Max(0, this.silverCoins - value);
+        return new SilverCoin(value);
+    }
+
+    public Consumable removeCopperCoins(int value)
+    {
+        this.ControlDropCoins(value, this.silverCoins, "monedas de cobre");
+        this.copperCoins = Mathf.Max(0, this.copperCoins - value);
+        return new CopperCoin(value);
+    }
+
+    private void ControlDropCoins(int value, int coins, string coinType)
+    {
+        if(coins < value)
+        {
+            throw new NotEnoughCoins($"No tienes suficientes {coinType} !");
+        }
+    }
+
+    public void TakeItem(Item i)
+    {
+        i.BeTaked(this);
+    }
 
 }

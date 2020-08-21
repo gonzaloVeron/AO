@@ -13,8 +13,8 @@ public class Player : Character
     public Classification clasf; //Representa la clase, ej: Paladin, Nigromante
     public Faction faction;
     /*** Player Identification ***/
+
     /*** Player State ***/
-    public int gold;
     public int xp; //Experience
     public int xpMax;
     public int lvl; //Level
@@ -22,6 +22,7 @@ public class Player : Character
     public Skills skills;
     public float weight;
     /*** Player State ***/
+
     /*** Player Equipment ***/
     public Armor armor;
     public Shield shield;
@@ -42,7 +43,6 @@ public class Player : Character
         this.attributes = attributes;
         this.state = new State(this.initialLife(), this.clasf.initialMana(), 40, 100, 100); //Siempre se crea con esos params
         this.skills = skills;
-        this.gold = 0;
         this.xp = 0;
         this.xpMax = 150;
         this.lvl = 1;
@@ -152,34 +152,22 @@ public class Player : Character
     public int physicalDamage(int damage, int hitPoints, float modificator) => Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.maxWeapon() / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
     public int minArrow() => (this.arrow != null) ? this.arrow.damage.item1 : 0;
     public int maxArrow() => (this.arrow != null) ? this.arrow.damage.item2 : 0;
-    public void TakeItem(Item i) //Mover la responsabilidad al inventario
+    public void TakeItem(Item i)
     {
-        switch (i)
-        {
-            case Consumable it when it.name == "Gold":
-                this.gold += it.quantity;
-                break;
-            case Item it when this.inv.existsItem(it.name):
-                this.inv.AddQuantity(it.name, it.quantity);
-                break;
-            default:
-                this.inv.AddItem(i);
-                break;
-        }
+        this.inv.TakeItem(i);
     }
-    public Consumable dropGold(int value)
-    {
-        this.ControlDropGold(value);
-        this.gold = Mathf.Max(0, this.gold - value);
-        return new Consumable("Gold", 0, 0, 0, 0, 0, value, 0);
-    }
-    private void ControlDropGold(int value)
-    {
-        if(this.gold < value)
-        {
-            throw new System.Exception("No tienes oro suficiente");
-        }
-    }
+    public Consumable dropGoldCoins(int value) => this.inv.RemoveGoldCoins(value);
+
+    public Consumable dropSilverCoins(int value) => this.inv.removeSilverCoins(value);
+
+    public Consumable dropCopperCoins(int value) => this.inv.removeCopperCoins(value);
+
+    public int getGoldCoins() => this.inv.goldCoins;
+
+    public int getSilverCoins() => this.inv.silverCoins;
+
+    public int getCopperCoins() => this.inv.copperCoins;
+
     public void LearnSpell(Spell s)
     {
         this.spells.Add(s);

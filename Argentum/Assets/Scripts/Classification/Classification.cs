@@ -53,9 +53,8 @@ public abstract class Classification
     public abstract float magicalDamageMod();
     public virtual void Steal(Player thief, Player victim)
     {
-        int goldStealed = Mathf.RoundToInt(victim.gold * 0.03f);
-        victim.gold = Mathf.Max(0, victim.gold - goldStealed);
-        thief.gold += goldStealed; 
+        int goldStealed = Mathf.RoundToInt(victim.getGoldCoins() * 0.03f);
+        thief.TakeItem(victim.dropGoldCoins(goldStealed)); //dropGoldCoins devuelve el oro robado a la victima 
     }
     public virtual float tameAnimalMod() => 0.35f;
     public virtual int resourcesObtained(int lvl) => 1;

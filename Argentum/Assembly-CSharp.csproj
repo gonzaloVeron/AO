@@ -80,7 +80,6 @@
     <Compile Include="Assets\Scripts\Utils\ListUtils.cs" />
     <Compile Include="Assets\Scripts\Spell\Invocation.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Item\RegPotion.cs" />
     <Compile Include="Assets\Scripts\Exception\InsufficientResourcesException.cs" />
     <Compile Include="Assets\Scripts\Job\JobWindow\AlchemyWindow.cs" />
     <Compile Include="Assets\Scripts\Classification\Warrior.cs" />
@@ -153,6 +152,11 @@
     <Compile Include="Assets\Scripts\Item\Tool\Cauldron.cs" />
     <Compile Include="Assets\Scripts\Trade\Trade.cs" />
     <Compile Include="Assets\Scripts\Utils\LimitedList.cs" />
+    <Compile Include="Assets\Scripts\Exception\NotEnoughCoins.cs" />
+    <Compile Include="Assets\Scripts\Item\Coin.cs" />
+    <Compile Include="Assets\Scripts\Item\GoldCoin.cs" />
+    <Compile Include="Assets\Scripts\Item\SilverCoin.cs" />
+    <Compile Include="Assets\Scripts\Item\CopperCoin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

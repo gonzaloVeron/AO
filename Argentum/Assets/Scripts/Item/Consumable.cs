@@ -55,4 +55,8 @@ public class Consumable : Item
         }
     }
 
+    public override void AddToInv(Inventory inv)
+    {
+        inv.AddItem(this);
+    }
 }

@@ -49,6 +49,11 @@ public class Equipable : Item
     {
         throw new NonCopyableItemException(this.name);
     }
+
+    public override void AddToInv(Inventory inv)
+    {
+        inv.AddItem(this);
+    }
 }
 
 

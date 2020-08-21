@@ -31,4 +31,9 @@ public class Resource : Item
     {
         //No tiene que hacer nada si se usa
     }
+
+    public override void AddToInv(Inventory inv)
+    {
+        inv.AddItem(this);
+    }
 }
