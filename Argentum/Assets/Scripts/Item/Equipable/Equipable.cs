@@ -23,14 +23,7 @@ public class Equipable : Item
     }
     public override void Use(Player other)
     {
-        if (other.isEquiped(this))
-        {
-            other.UnequipItem(this);
-        }
-        else
-        {
-            other.EquipItem(this);
-        }
+        throw new FunctionNotSupported("No se puede usar la funcion Use en la clase Equipable");
     }
     public override Item toDrop(int quantity, bool needRemove, Inventory inv) //necesita reformularse
     {

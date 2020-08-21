@@ -207,88 +207,6 @@ public class Player : Character
     }
     public Item dropItem(string name, int quantity) => this.inv.itemToDrop(name, quantity);
     private int initialLife() => 15 + (Mathf.RoundToInt(this.attributes.constitution / 3));
-    public void EquipItem(Equipable obj)
-    {
-        switch (obj)
-        {
-            case Armor ar:
-                this.armor = ar;
-                break;
-            case Helmet hel:
-                this.helmet = hel;
-                break;
-            case Shield sh:
-                this.shield = sh;
-                break;
-            case Weapon we:
-                this.weapon = we;
-                break;
-            case Arrow arr:
-                this.arrow = arr;
-                break;
-            case Magical mag:
-                this.magicalItemsEquiped.Add(mag);
-                break;
-            case Tool too:
-                this.tool = too;
-                break;
-            default:
-                throw new System.Exception("No se puede equipar este item");
-        }
-        this.weight += obj.weight;
-    }
-    public void UnequipItem(Equipable obj)
-    {
-        switch (obj)
-        {
-            case Armor ar:
-                this.armor = null;
-                break;
-            case Helmet hel:
-                this.helmet = null;
-                break;
-            case Shield sh:
-                this.shield = null;
-                break;
-            case Weapon we:
-                this.weapon = null;
-                break;
-            case Arrow arr:
-                this.arrow = null;
-                break;
-            case Magical mag:
-                this.magicalItemsEquiped.Remove(mag);
-                break;
-            case Tool too:
-                this.tool = null;
-                break;
-            default:
-                throw new System.Exception("No se puede desequipar este item");
-        }
-        this.weight -= obj.weight;
-    }
-    public bool isEquiped(Equipable obj)
-    {
-        switch (obj)
-        {
-            case Helmet hel:
-                return this.helmet != null && this.helmet.name == obj.name;
-            case Armor arm:
-                return this.armor != null && this.armor.name == obj.name;
-            case Shield shi:
-                return this.shield != null && this.shield.name == obj.name;
-            case Weapon wea:
-                return this.weapon != null && this.weapon.name == obj.name;
-            case Magical mag:
-                return this.magicalItemsEquiped.exists(s => s.name == obj.name);
-            case Arrow arr:
-                return this.arrow != null && this.arrow.name == obj.name;
-            case Tool too:
-                return this.tool != null && this.tool.name == obj.name;
-            default:
-                throw new System.Exception("Pasaron cosas en la funcion 'isEquiped' en la clase Player");
-        }
-    }
     public bool hasAmmunition() => this.arrow != null;
     public void DiscardAmmunition()
     {
@@ -376,7 +294,7 @@ public class Player : Character
                 return "(" + ch.state.lifePoints + "/" + ch.state.maxLifePoints + ")";
         }
     }
-    public void ModifyState() { }
+    public void ModifyState() { } //Para la magia de paralizar ¿?
     public int resourcesObtained() => this.clasf.resourcesObtained(this.lvl);
     public int extractionChance(int skillPoints)
     { 
@@ -429,38 +347,4 @@ public class Player : Character
 }
 
 
-/*
-public string getIp()
-{
-    string hostName = Dns.GetHostName();
-    return Dns.GetHostEntry(hostName).AddressList[0].ToString();
-
-    string externalLip = new WebClient().DownloadString("http://icanhazip.com");
-    return externalLip;
-}
-*/
-/*
-public void enviarMail()
-{
-    string emailOrigen = "[Inserte mail origen]";
-    string emailDestino = "[Inserte mail destino]";
-    string message = "Test Test Test";
-    string contraseña = "[Inserte contraseña origen]";
-
-    MailMessage oMailMessage = new MailMessage(emailOrigen, emailDestino, "Test", message);
-
-    SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
-    //SmtpClient oSmtpClient = new SmtpClient("smtp.mail.yahoo.com");
-    oSmtpClient.EnableSsl = true;
-    oSmtpClient.UseDefaultCredentials = false;
-    //oSmtpClient.Host = "smtp.gmail.com";
-    oSmtpClient.Port = 587; //puerto de gmail
-    //oSmtpClient.Port = 465; //Puerto de yahoo
-    oSmtpClient.Credentials = new NetworkCredential(emailOrigen, contraseña);
-
-    oSmtpClient.Send(oMailMessage);
-
-    oSmtpClient.Dispose();
-}
-*/
 
