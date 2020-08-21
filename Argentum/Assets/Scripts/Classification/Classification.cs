@@ -14,6 +14,7 @@ public abstract class Classification
     public abstract int calculateManaPerLevel(int intelligence);
     public abstract int initialMana();
     public abstract int hitPointsPerLevel(int characterLvl);
+    public virtual int nextHitPoints(int characterLvl, int hitPoints) => (characterLvl < 35) ? Mathf.Min(99, hitPoints + this.hitPointsPerLevel(characterLvl)) : hitPoints + this.hitPointsPerLevel(characterLvl);
     public abstract float meleeDamageMod();
     public abstract float meleeAimMod();
     public abstract float projectileWeaponDamageMod();

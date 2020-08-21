@@ -113,7 +113,7 @@ public class Player : Character
     {
         if (this.state.manaPoints < manaPointsNeeded)
         {
-            throw new System.Exception("Mana insuficiente para lanzar el hechizo");
+            throw new NotEnoughMana("Mana insuficiente para lanzar el hechizo");
         }
     }
     public override void BeingAttacked(int value)
@@ -192,7 +192,7 @@ public class Player : Character
         this.state.maxLifePoints += this.clasf.calculateLifePointsPerLevel(this.attributes.constitution);
         this.state.maxManaPoints += this.clasf.calculateManaPerLevel(this.attributes.intelligence);
         this.state.maxEnergyPoints += this.clasf.energyPerLevel();
-        this.incrementHitPoints(this.clasf.hitPointsPerLevel(this.lvl));
+        this.incrementHitPoints();
         this.lvl += 1;
         this.xpMax = this.xp * 2; //Reemplazar esta asignacion por otra que traiga el siguiente lvl de la base de datos
         this.xp = 0;
@@ -216,19 +216,10 @@ public class Player : Character
             this.arrow = null;
         }
     }
-    public void incrementHitPoints(int n) //Usar polimorfismo!!
+    public void incrementHitPoints() //Usar polimorfismo!!
     {
-        switch (this.clasf)
-        {
-            case Bandit cl:
-                this.hitPoints.item1 += n;
-                this.hitPoints.item2 += n;
-                break;
-            default:
-                this.hitPoints.item1 = (this.lvl < 35) ? Mathf.Min(99, this.hitPoints.item1 + n) : this.hitPoints.item1 + n;
-                this.hitPoints.item2 = (this.lvl < 35) ? Mathf.Min(99, this.hitPoints.item2 + n) : this.hitPoints.item2 + n;
-                break;
-        }
+        this.hitPoints.item1 = this.clasf.nextHitPoints(this.lvl, this.hitPoints.item1);
+        this.hitPoints.item2 = this.clasf.nextHitPoints(this.lvl, this.hitPoints.item2);
     }
     public void Steal(Player other)
     {

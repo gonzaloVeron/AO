@@ -89,8 +89,10 @@
     <Compile Include="Assets\Scripts\Job\Alchemy.cs" />
     <Compile Include="Assets\Scripts\Job\Smithy.cs" />
     <Compile Include="Assets\Scripts\Job\Job.cs" />
+    <Compile Include="Assets\Scripts\Item\GoldCoin.cs" />
     <Compile Include="Assets\Scripts\Job\JobWindow\SmithyWindow.cs" />
     <Compile Include="Assets\Scripts\Character\Player.cs" />
+    <Compile Include="Assets\Scripts\Exception\NotEnoughCoins.cs" />
     <Compile Include="Assets\Scripts\FountainOfResources\Shoal.cs" />
     <Compile Include="Assets\Scripts\Job\JobWindow\CarpentryWindow.cs" />
     <Compile Include="Assets\Scripts\Item\Equipable\Weapon\MeleeWeapon.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="Assets\Scripts\Item\Equipable\Magical.cs" />
     <Compile Include="Assets\Scripts\Item\Tool\Hammer.cs" />
     <Compile Include="Assets\Scripts\Utils\Tuple.cs" />
+    <Compile Include="Assets\Scripts\Item\SilverCoin.cs" />
     <Compile Include="Assets\Scripts\FountainOfResources\OreDeposit.cs" />
     <Compile Include="Assets\Scripts\Database\RecipeService.cs" />
     <Compile Include="Assets\Scripts\Spell\Spell.cs" />
@@ -119,11 +122,13 @@
     <Compile Include="Assets\Scripts\Character\Character.cs" />
     <Compile Include="Assets\Scripts\Character\Faction\ImperialArmy.cs" />
     <Compile Include="Assets\Scripts\Exception\NonCopyableItemException.cs" />
+    <Compile Include="Assets\Scripts\Item\CopperCoin.cs" />
     <Compile Include="Assets\Scripts\Classification\Druid.cs" />
     <Compile Include="Assets\Scripts\Exception\WithoutAmmunitionException.cs" />
     <Compile Include="Assets\Scripts\Item\Tool\Axe.cs" />
     <Compile Include="Assets\Scripts\Database\ItemEquipableService.cs" />
     <Compile Include="Assets\Scripts\Recipe\Recipe.cs" />
+    <Compile Include="Assets\Scripts\Exception\FunctionNotSupported.cs" />
     <Compile Include="Assets\Scripts\Item\Equipable\Weapon\Knuckles.cs" />
     <Compile Include="Assets\Scripts\Item\Tool\FishingRod.cs" />
     <Compile Include="Assets\Scripts\Item\Tool\Pickaxe.cs" />
@@ -147,17 +152,13 @@
     <Compile Include="Assets\Scripts\Exception\TheAnimalWasNotTamedException.cs" />
     <Compile Include="Assets\Scripts\Spell\ModState.cs" />
     <Compile Include="Assets\Scripts\Job\Forge.cs" />
+    <Compile Include="Assets\Scripts\Item\Coin.cs" />
     <Compile Include="Assets\Scripts\Item\Tool\Saw.cs" />
     <Compile Include="Assets\Scripts\Character\Skills.cs" />
     <Compile Include="Assets\Scripts\Item\Tool\Cauldron.cs" />
     <Compile Include="Assets\Scripts\Trade\Trade.cs" />
     <Compile Include="Assets\Scripts\Utils\LimitedList.cs" />
-    <Compile Include="Assets\Scripts\Exception\NotEnoughCoins.cs" />
-    <Compile Include="Assets\Scripts\Item\Coin.cs" />
-    <Compile Include="Assets\Scripts\Item\GoldCoin.cs" />
-    <Compile Include="Assets\Scripts\Item\SilverCoin.cs" />
-    <Compile Include="Assets\Scripts\Item\CopperCoin.cs" />
-    <Compile Include="Assets\Scripts\Exception\FunctionNotSupported.cs" />
+    <Compile Include="Assets\Scripts\Exception\NotEnoughMana.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

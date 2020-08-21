@@ -26,6 +26,7 @@ public class Bandit : Classification
     public override float defenseEvasionMod() => 0.7f;
     public override float defenseShieldMod() => 2f;
     public override int hitPointsPerLevel(int characterLvl) => characterLvl <= 36 ? 3 : 1;
+    public override int nextHitPoints(int characterLvl, int hitPoints) => hitPoints + this.hitPointsPerLevel(characterLvl);
     public override float meleeAimMod() => 0.85f;
     public override float meleeDamageMod() => 0.77f;
     public override float projectileWeaponAimMod() => 0.8f;
