@@ -12,5 +12,17 @@ public class Armor : Equipable
     public int minArmor() => this.armor.item1;
     public int maxArmor() => this.armor.item2;
     public override Item copy() => new Armor(this.name, this.armor.item1, this.armor.item2, this.magicalDefense, this.magicalDamage, this.quantity, this.weight);
-
+    public override void Use(Player other)
+    {
+        if(other.armor != this)
+        {
+            other.armor = this;
+            other.weight += this.weight;
+        }
+        else
+        {
+            other.armor = null;
+            other.weight -= this.weight;
+        }
+    }
 }

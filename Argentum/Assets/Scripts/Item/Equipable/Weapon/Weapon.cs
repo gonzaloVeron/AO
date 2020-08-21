@@ -17,5 +17,17 @@ public abstract class Weapon : Equipable
         self.clasf.Attack(self, other);
     }
     public abstract int requiredSkill(Skills sk);
-
+    public override void Use(Player other)
+    {
+        if (other.weapon != this)
+        {
+            other.weapon = this;
+            other.weight += this.weight;
+        }
+        else
+        {
+            other.weapon = null;
+            other.weight -= this.weight;
+        }
+    }
 }

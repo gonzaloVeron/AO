@@ -10,8 +10,19 @@ public class Shield : Equipable
     }
 
     public int minShield() => this.shield.item1;
-
     public int maxShield() => this.shield.item2;
-
     public override Item copy() => new Shield(this.name, this.shield.item1, this.shield.item2, this.magicalDefense, this.magicalDamage, this.quantity, this.weight);
+    public override void Use(Player other)
+    {
+        if (other.shield != this)
+        {
+            other.shield = this;
+            other.weight += this.weight;
+        }
+        else
+        {
+            other.shield = null;
+            other.weight -= this.weight;
+        }
+    }
 }

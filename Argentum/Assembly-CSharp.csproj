@@ -157,6 +157,7 @@
     <Compile Include="Assets\Scripts\Item\GoldCoin.cs" />
     <Compile Include="Assets\Scripts\Item\SilverCoin.cs" />
     <Compile Include="Assets\Scripts\Item\CopperCoin.cs" />
+    <Compile Include="Assets\Scripts\Exception\FunctionNotSupported.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

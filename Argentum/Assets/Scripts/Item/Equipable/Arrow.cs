@@ -11,4 +11,17 @@ public class Arrow : Equipable
         this.damage = new Tuple<int, int>(minDamage, maxDamage);
     }
     public override Item copy() => new Arrow(this.name, this.damage.item1, this.damage.item2, this.quantity, this.weight);
+    public override void Use(Player other)
+    {
+        if (other.arrow != this)
+        {
+            other.arrow = this;
+            other.weight += this.weight;
+        }
+        else
+        {
+            other.arrow = null;
+            other.weight -= this.weight;
+        }
+    }
 }
