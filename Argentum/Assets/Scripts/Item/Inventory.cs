@@ -76,23 +76,23 @@ public class Inventory
         return this.inv[rand];
     }
 
-    public Consumable RemoveGoldCoins(int value)
+    public GoldCoin removeGoldCoins(int value)
     {
         this.ControlDropCoins(value, this.goldCoins, "monedas de oro");
         this.goldCoins = Mathf.Max(0, this.goldCoins - value);
         return new GoldCoin(value);
     }
 
-    public Consumable removeSilverCoins(int value)
+    public SilverCoin removeSilverCoins(int value)
     {
         this.ControlDropCoins(value, this.silverCoins, "monedas de plata");
         this.silverCoins = Mathf.Max(0, this.silverCoins - value);
         return new SilverCoin(value);
     }
 
-    public Consumable removeCopperCoins(int value)
+    public CopperCoin removeCopperCoins(int value)
     {
-        this.ControlDropCoins(value, this.silverCoins, "monedas de cobre");
+        this.ControlDropCoins(value, this.copperCoins, "monedas de cobre");
         this.copperCoins = Mathf.Max(0, this.copperCoins - value);
         return new CopperCoin(value);
     }

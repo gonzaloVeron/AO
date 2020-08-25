@@ -30,7 +30,7 @@ public class Warrior : Classification
     public override float meleeDamageMod() => 1.1f;
     public override float projectileWeaponAimMod() => 1f;
     public override float projectileWeaponDamageMod() => 1f;
-    public override float withoutWeaponAimMod() => 1f;
+    public override float withoutWeaponAimMod() => 0.4f;
     public override float withoutWeaponDamageMod() => 0.9f;
     public override float magicalDamageMod() => 0f;
 }

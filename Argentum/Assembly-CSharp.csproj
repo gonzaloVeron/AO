@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Database\MongoConnection.cs" />
     <Compile Include="Assets\Scripts\Item\Equipable\Weapon\Weapon.cs" />
     <Compile Include="Assets\Scripts\Item\Tool\Tool.cs" />
+    <Compile Include="Assets\Scripts\Item\Equipable\NoShield.cs" />
     <Compile Include="Assets\Scripts\Item\Equipable\Weapon\RangedWeapon.cs" />
     <Compile Include="Assets\Scripts\Character\NPC\Creature.cs" />
     <Compile Include="Assets\Scripts\Character\Gender.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Assets\Scripts\Classification\Bandit.cs" />
     <Compile Include="Assets\Scripts\Classification\Thief.cs" />
     <Compile Include="Assets\Scripts\Classification\Assassin.cs" />
+    <Compile Include="Assets\Scripts\Exception\NotEnoughMana.cs" />
     <Compile Include="Assets\Scripts\Item\Equipable\Armor.cs" />
     <Compile Include="Assets\Scripts\Item\Equipable\Shield.cs" />
     <Compile Include="Assets\Scripts\Item\Resource.cs" />
@@ -83,12 +85,14 @@
     <Compile Include="Assets\Scripts\Exception\InsufficientResourcesException.cs" />
     <Compile Include="Assets\Scripts\Job\JobWindow\AlchemyWindow.cs" />
     <Compile Include="Assets\Scripts\Classification\Warrior.cs" />
+    <Compile Include="Assets\Scripts\Item\Equipable\NoArrow.cs" />
     <Compile Include="Assets\Scripts\Item\Equipable\Weapon\Dagger.cs" />
     <Compile Include="Assets\Scripts\Item\Tool\Scissors.cs" />
     <Compile Include="Assets\Scripts\Character\State.cs" />
     <Compile Include="Assets\Scripts\Job\Alchemy.cs" />
     <Compile Include="Assets\Scripts\Job\Smithy.cs" />
     <Compile Include="Assets\Scripts\Job\Job.cs" />
+    <Compile Include="Assets\Scripts\Item\Equipable\NoArmor.cs" />
     <Compile Include="Assets\Scripts\Item\GoldCoin.cs" />
     <Compile Include="Assets\Scripts\Job\JobWindow\SmithyWindow.cs" />
     <Compile Include="Assets\Scripts\Character\Player.cs" />
@@ -157,8 +161,9 @@
     <Compile Include="Assets\Scripts\Character\Skills.cs" />
     <Compile Include="Assets\Scripts\Item\Tool\Cauldron.cs" />
     <Compile Include="Assets\Scripts\Trade\Trade.cs" />
+    <Compile Include="Assets\Scripts\Item\Equipable\NoHelmet.cs" />
     <Compile Include="Assets\Scripts\Utils\LimitedList.cs" />
-    <Compile Include="Assets\Scripts\Exception\NotEnoughMana.cs" />
+    <Compile Include="Assets\Scripts\Item\Equipable\Weapon\NoWeapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

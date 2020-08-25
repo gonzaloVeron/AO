@@ -26,7 +26,7 @@ public abstract class Weapon : Equipable
         }
         else
         {
-            other.weapon = null;
+            other.weapon = NoWeapon.Instance;
             other.weight -= this.weight;
         }
     }

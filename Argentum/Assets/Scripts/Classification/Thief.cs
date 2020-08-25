@@ -34,22 +34,18 @@ public class Thief : Classification
     public override float withoutWeaponDamageMod() => 1.075f;
     public override float magicalDamageMod() => 0f;
     public override float stealChance(int skill) => this.calculateChance(skill, this.stealPercentage().ConvertAll(n => n * 3));
+    public override int stealMod() => 5;
     public override void Steal(Player thief, Player victim)
     {
         var randomNumber = Random.Range(0, 100);
         var chanceToStealItem = base.stealChance(thief.skills.steal);
-        Debug.Log("Numero random para robar item: " + randomNumber);
-        Debug.Log("Chance de robar item: " + chanceToStealItem);
+        //Debug.Log("Numero random para robar item: " + randomNumber);
+        //Debug.Log("Chance de robar item: " + chanceToStealItem);
         if (randomNumber < chanceToStealItem)
         {
-            var objectStealed = victim.inv.getRandomItem().copy();
-            objectStealed.quantity = (objectStealed.quantity == 1) ? 1 : Mathf.RoundToInt(objectStealed.quantity / 2);
-            victim.inv.RemoveItemByQuantity(objectStealed.name, objectStealed.quantity);
-            thief.TakeItem(objectStealed);
+            var randomItem = victim.inv.getRandomItem();
+            thief.TakeItem(victim.dropItem(randomItem.name, Mathf.Max(1, Mathf.RoundToInt(randomItem.quantity / 2))));
         }
-        else
-        {
-            base.Steal(thief, victim);
-        }
+        base.Steal(thief, victim);
     }
 }

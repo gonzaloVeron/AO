@@ -20,8 +20,14 @@ public class Arrow : Equipable
         }
         else
         {
-            other.arrow = null;
+            other.arrow = NoArrow.Instance;
             other.weight -= this.weight;
         }
     }
+
+    public int minDamage() => this.damage.item1;
+
+    public int maxDamage() => this.damage.item2;
+
+    public virtual bool isArrow() => true;
 }

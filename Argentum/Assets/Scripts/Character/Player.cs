@@ -40,16 +40,18 @@ public class Player : Character
     {
         this.name = name;
         this.clasf = clasf;
+        //this.faction = faction;
         this.attributes = attributes;
         this.state = new State(this.initialLife(), this.clasf.initialMana(), 40, 100, 100); //Siempre se crea con esos params
         this.skills = skills;
         this.xp = 0;
         this.xpMax = 150;
         this.lvl = 1;
-        this.armor = null;
-        this.shield = null;
-        this.weapon = null;
-        this.helmet = null;
+        this.armor = NoArmor.Instance;
+        this.shield = NoShield.Instance;
+        this.weapon = NoWeapon.Instance;
+        this.helmet = NoHelmet.Instance;
+        this.arrow = NoArrow.Instance;
         this.magicalItemsEquiped = new LimitedList<Magical>(3);
         this.inv = new Inventory();
         this.spells = new SpellsBook();
@@ -85,8 +87,8 @@ public class Player : Character
     public override int successProbability(Character other) => Mathf.Max(10, Mathf.Min(90, 50 + Mathf.RoundToInt(0.4f * (this.aim() - other.evasion()))));
     public float aim() => ((this.weapon.requiredSkill(this.skills) + this.attributes.agility * this.skillAmountModificator(this.weapon.requiredSkill(this.skills))) * this.aimModificator(this.weapon) + 2.5f * Mathf.Max(this.lvl - 12, 0));
     public override float evasion() => this.shielding() + (this.skills.combatTactics + ((float)this.skills.combatTactics / 33) * this.attributes.agility) * this.clasf.defenseEvasionMod() + 2.5f * Mathf.Max(this.lvl - 12, 0);
-    public float shielding() => (this.shield != null) ? this.skills.shieldDefese * 0.5f * this.clasf.defenseShieldMod() : 0f;
-    public bool hasAShield() => this.shield != null;
+    public float shielding() => (this.skills.shieldDefese * 0.5f * this.clasf.defenseShieldMod()) * this.shield.shieldingMod();
+    public bool hasAShield() => this.shield.isShield();
     public float aimModificator(Weapon w) => w.modForWeapon(this.clasf);
     public float damageModificator(Weapon w) => w.damageMod(this.clasf);
     public int skillAmountModificator(float skill)
@@ -123,12 +125,12 @@ public class Player : Character
     public override int physicalDefense() => Random.Range(this.minArmor() + this.minShield() + this.minHelmet(), this.maxArmor() + this.maxShield() + this.maxHelmet() + 1);
 
     //-----//
-    public int minArmor() => this.armor != null ? this.armor.minArmor() : 0;
-    public int maxArmor() => this.armor != null ? this.armor.maxArmor() : 0;
-    public int minHelmet() => this.helmet != null ? this.helmet.minHelmet() : 0;
-    public int maxHelmet() => this.helmet != null ? this.helmet.maxHelmet() : 0;
-    public int minShield() => this.shield != null ? this.shield.minShield() : 0;
-    public int maxShield() => this.shield != null ? this.shield.maxShield() : 0;
+    public int minArmor() => this.armor.minArmor();
+    public int maxArmor() => this.armor.maxArmor();
+    public int minHelmet() => this.helmet.minHelmet();
+    public int maxHelmet() => this.helmet.maxHelmet();
+    public int minShield() => this.shield.minShield();
+    public int maxShield() => this.shield.maxShield();
     //-----//
     
     public void BeAttackedWithMagic(int value) // BeingAttacked == BeAttackedWithMagic ¿?
@@ -146,21 +148,21 @@ public class Player : Character
     public int damage() => Random.Range(this.physicalDamage(this.weapon.minWeapon(), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage(this.weapon.maxWeapon() , this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int damageWithBow() => Random.Range(this.physicalDamage((this.weapon.minWeapon() + this.minArrow()), this.hitPoints.item1, this.damageModificator(this.weapon)), this.physicalDamage((this.weapon.maxWeapon() + this.maxArrow()), this.hitPoints.item2, this.damageModificator(this.weapon)) + 1);
     public int magicDamage(int minSpellDamage, int maxSpellDamage, int extraMagicDamage) => Mathf.RoundToInt((float)this.spellDamage(minSpellDamage, maxSpellDamage) * this.clasf.magicalDamageMod() + this.extraMagicDamage());
-    public int extraMagicDamage() => ((this.magicalItemsEquiped.size == 0) ? 0 : this.magicalItemsEquiped.sum(i => i.magicalDamage)) + ((this.weapon == null) ? 0 : this.weapon.magicalDamage);
+    public int extraMagicDamage() => ((this.magicalItemsEquiped.size == 0) ? 0 : this.magicalItemsEquiped.sum(i => i.magicalDamage)) + this.weapon.magicalDamage;
     public int magicDefense() => this.magicalItemsEquiped.sum(i => i.magicalDefense) + this.armor.magicalDefense + this.shield.magicalDefense + this.helmet.magicalDefense + Mathf.RoundToInt(this.skills.magicResist * 0.1f);
     public int spellDamage(int minDamage, int maxDamage) => Random.Range(Mathf.RoundToInt(minDamage + ((float)(minDamage * 3 * this.lvl) / 100)), Mathf.RoundToInt(maxDamage + ((float)(maxDamage * 3 * this.lvl) / 100)) + 1);
     public int physicalDamage(int damage, int hitPoints, float modificator) => Mathf.RoundToInt(((damage * 3) + (((float)this.weapon.maxWeapon() / 5) * (this.attributes.strength - 15)) + hitPoints) * modificator);
-    public int minArrow() => (this.arrow != null) ? this.arrow.damage.item1 : 0;
-    public int maxArrow() => (this.arrow != null) ? this.arrow.damage.item2 : 0;
+    public int minArrow() => this.arrow.minDamage();
+    public int maxArrow() => this.arrow.maxDamage();
     public void TakeItem(Item i)
     {
         this.inv.TakeItem(i);
     }
-    public Consumable dropGoldCoins(int value) => this.inv.RemoveGoldCoins(value);
+    public GoldCoin dropGoldCoins(int value) => this.inv.removeGoldCoins(value);
 
-    public Consumable dropSilverCoins(int value) => this.inv.removeSilverCoins(value);
+    public SilverCoin dropSilverCoins(int value) => this.inv.removeSilverCoins(value);
 
-    public Consumable dropCopperCoins(int value) => this.inv.removeCopperCoins(value);
+    public CopperCoin dropCopperCoins(int value) => this.inv.removeCopperCoins(value);
 
     public int getGoldCoins() => this.inv.goldCoins;
 
@@ -192,9 +194,9 @@ public class Player : Character
         this.state.maxLifePoints += this.clasf.calculateLifePointsPerLevel(this.attributes.constitution);
         this.state.maxManaPoints += this.clasf.calculateManaPerLevel(this.attributes.intelligence);
         this.state.maxEnergyPoints += this.clasf.energyPerLevel();
-        this.incrementHitPoints();
+        this.IncrementHitPoints();
         this.lvl += 1;
-        this.xpMax = this.xp * 2; //Reemplazar esta asignacion por otra que traiga el siguiente lvl de la base de datos
+        this.xpMax = this.xpMax * 2; //Reemplazar esta asignacion por otra que traiga el siguiente lvl de la base de datos
         this.xp = 0;
     }
     public void ChangeFaction(Faction faction)
@@ -203,20 +205,20 @@ public class Player : Character
     }
     public void UseItem(string itemName)
     {
-        this.inv.fetchItem(itemName).Use(this);;
+        this.inv.fetchItem(itemName).Use(this);
     }
     public Item dropItem(string name, int quantity) => this.inv.itemToDrop(name, quantity);
-    private int initialLife() => 15 + (Mathf.RoundToInt(this.attributes.constitution / 3));
-    public bool hasAmmunition() => this.arrow != null;
+    public int initialLife() => 15 + (Mathf.RoundToInt(this.attributes.constitution / 3));
+    public bool hasAmmunition() => this.arrow.isArrow();
     public void DiscardAmmunition()
     {
         this.inv.RemoveItemByQuantity(this.arrow.name, 1);
         if(this.arrow.quantity - 1 <= 0)
         {
-            this.arrow = null;
+            this.arrow = NoArrow.Instance;
         }
     }
-    public void incrementHitPoints() //Usar polimorfismo!!
+    public void IncrementHitPoints()
     {
         this.hitPoints.item1 = this.clasf.nextHitPoints(this.lvl, this.hitPoints.item1);
         this.hitPoints.item2 = this.clasf.nextHitPoints(this.lvl, this.hitPoints.item2);
@@ -225,9 +227,9 @@ public class Player : Character
     {
         var randomNumber = Random.Range(0, 100);
         var stealChance = this.clasf.stealChance(this.skills.steal);
-        Debug.Log("Numero random para robar: " + randomNumber);
-        Debug.Log("Chance de robar: " + stealChance);
-        if (randomNumber < stealChance)
+        //Debug.Log("Numero random para robar: " + randomNumber);
+        //Debug.Log("Chance de robar: " + stealChance);
+        if (randomNumber < stealChance) //Quiza sea necesario lanzar una exception para saber si no se pudo robar
         {
             this.clasf.Steal(this, other);
         }

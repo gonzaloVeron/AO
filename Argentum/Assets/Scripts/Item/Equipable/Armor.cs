@@ -21,7 +21,7 @@ public class Armor : Equipable
         }
         else
         {
-            other.armor = null;
+            other.armor = NoArmor.Instance;
             other.weight -= this.weight;
         }
     }

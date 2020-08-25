@@ -20,7 +20,7 @@ public class Helmet : Equipable
         }
         else
         {
-            other.helmet = null;
+            other.helmet = NoHelmet.Instance;
             other.weight -= this.weight;
         }
     }

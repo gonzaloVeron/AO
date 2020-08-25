@@ -21,8 +21,15 @@ public class Shield : Equipable
         }
         else
         {
-            other.shield = null;
+            other.shield = NoShield.Instance;
             other.weight -= this.weight;
         }
     }
+
+    public virtual bool isShield() => true;
+
+    //Al agregar la clase "NoShield" el calculo (this.shield != null) ? this.skills.shieldDefese * 0.5f * this.clasf.defenseShieldMod() : 0f; ya no tiene sentido de existir
+    //Esta funcion solo existe para evitar usar if, se trata de que si tiene escudo entonces
+    //se tiene que calcular el porcentaje de escudeo que es ajeno al escudo, 1 significa que tiene escudo y 0 no
+    public virtual int shieldingMod() => 1; 
 }
