@@ -28,6 +28,7 @@ public class Player : Character
     public Shield shield;
     public Weapon weapon;
     public Helmet helmet;
+
     public Inventory inv;
     public SpellsBook spells;
     public LimitedList<Magical> magicalItemsEquiped;
